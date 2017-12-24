@@ -1,0 +1,139 @@
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_CAR 100
+#define MAX_EVENT_NUM 20
+// NOTE CHANGE system("cls") to system("clear") for linux
+int iexit;
+char c_exit;
+int menu_choice;
+
+//==== Menu READ VAR ====//
+char server_ip[]="192.168.1.254";
+int current_port=5000;
+//======================//
+
+char read_file_name[]="sauce/Events_List.txt";   // File to read
+char write_file_nameE[]="cloudpoint3exit_qsortE.txt";
+
+struct Events{
+	char name[MAX_EVENT_NUM][MAX_CAR];
+	int num_event;// Number of Events in List
+};
+
+
+int main(void){
+	struct Events event;
+	iexit=0; // Forces Enter Menu
+	menu_choice=6;
+	char yes;
+	//==== Menu SET VAR ====//
+	char ip_address[15]; // 192.168.1.10
+	int port_num; // 
+	
+	char data[100];
+	//======================//
+	//==== MENU ====//
+
+	system("cls");
+	while(iexit!=1){
+		system("cls");
+		printf("\n -----------------------------------------------\n");
+		printf("  SetEvent Client 2017\n");
+		printf("  by Miguel Maranha & Vitaliy Rudenko (DEEC-UC)\n");
+		printf("  Current event server: %s\n",server_ip);
+		printf("  Current port: %d",current_port);
+		printf("\n -----------------------------------------------\n");
+		
+		
+		printf(" Menu:\n");
+		printf("  0: Exit\n");
+		printf("  1: Set event server\n");
+		printf("  2: Set port (49152-65535)\n");
+		printf("  3: Get list of events\n");
+		printf("  4: Make registration\n");
+		printf("  5: Show registration list [extra]\n");
+		
+		printf(" Choice: ");
+		scanf("%d",&menu_choice);
+		
+		switch(menu_choice){
+		    case 0:
+		    	system("cls");
+		    	printf(" Are you sure you want to exit?(y/n): ");
+		    	scanf("%s",&c_exit);
+		    	if(c_exit=='y'){ // Confirm_exit
+					printf(" Exit");
+					iexit=1;
+				}
+		    break;
+		
+		    case 1:
+		    	system("cls");
+		    	printf("==== Client_Server ====\n");
+		    	printf(" Set destination IP adress: ");
+		    	scanf("%s",server_ip);
+		    	
+		    	//editStud();
+		    break;
+		
+		    case 2:
+		    	system("cls");
+		    	printf("==== Set_Ports ====\n");
+		    	port_num =0;
+		    	while(port_num<49152 || port_num>65535){
+		    		printf(" Set Port(49152-65535): ");
+		    		scanf("%d",&port_num);
+		    		current_port=port_num;
+		    		
+				}
+		    	//delStud();
+		    break;
+		
+		    case 3:
+		    	system("cls");
+		    	printf("==== Get_Event_List ====\n");
+		    	event.num_event=0;
+		    	//==== READ .TXT FILE ====//
+			    FILE *ficheiro1;
+			    ficheiro1 = fopen(read_file_name,"rt"); // Inicializa ficheiro de leitura
+			    
+				while (fgets(event.name[event.num_event], MAX_CAR, ficheiro1) != NULL){ // Le ficheir linha a linha
+        			//printf("Event Num:%d | Name: %s", event.num_event,event.name);
+			        event.num_event++; // Incrementa o numero de enventos
+			    }
+			    event.num_event-=1;
+			    fclose(ficheiro1);// Close file
+			    //=======================//
+			    printf("\nThere are %d Events Up. Show Event List?(y/n):",event.num_event);
+			    scanf("%s",&yes);
+			    if(strcmp(&yes,"y")==0){ // Display events
+			    	int i;
+			    	for(i=1;i<event.num_event+1;i++){
+			    		printf("No%d, Event: %s",i,event.name[i]);
+					}
+				}
+				printf("\nReturn to Menu(y/n):");
+				scanf("%s",&yes); // DEBUG
+		    break;
+		
+		    case 4:
+		    	system("cls");
+		    	printf("==== Make_Registration ====\n");
+		    	
+		    break; 
+		    
+			case 5:
+				system("cls");
+				
+		    break; 
+		    menu_choice=6;
+		}
+		
+	}
+	//=============//
+	
+	exit(0);
+	return 0;
+}
