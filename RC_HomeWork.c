@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//REDES EXTRA
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
 #define MAX_CAR 100
 #define MAX_EVENT_NUM 20
 // NOTE CHANGE system("cls") to system("clear") for linux
@@ -29,24 +34,37 @@ int main(void){
 	menu_choice=6;
 	char yes;
 	//==== Menu SET VAR ====//
-	char ip_address[15]; // 192.168.1.10
-	int port_num; // 
-	
-	char data[100];
+	int port_num; // Port Number
+	int ev_reg_num;
 	//======================//
-	//==== MENU ====//
+	
+	event.num_event=0;
+	//==== READ .TXT FILE ====// Guarda todos Eventos para uma estrutura (fazer isto no server side?)
+	FILE *ficheiro1;
+	ficheiro1 = fopen(read_file_name,"rt"); // Inicializa ficheiro de leitura
+			    
+	while (fgets(event.name[event.num_event], MAX_CAR, ficheiro1) != NULL){ // Le ficheir linha a linha
+		//printf("Event Num:%d | Name: %s", event.num_event,event.name);
+		event.num_event++; // Incrementa o numero de enventos
+	}
+	event.num_event-=1; // Last is <null>
+	fclose(ficheiro1);// Close file
+	//=======================//
+	
 
-	system("cls");
+	system("clear");
 	while(iexit!=1){
-		system("cls");
+		system("clear"); //Clear Window
+		//==== Head Display ====//
 		printf("\n -----------------------------------------------\n");
 		printf("  SetEvent Client 2017\n");
 		printf("  by Miguel Maranha & Vitaliy Rudenko (DEEC-UC)\n");
 		printf("  Current event server: %s\n",server_ip);
 		printf("  Current port: %d",current_port);
 		printf("\n -----------------------------------------------\n");
+		//======================//
 		
-		
+		//===== Menu ====//
 		printf(" Menu:\n");
 		printf("  0: Exit\n");
 		printf("  1: Set event server\n");
@@ -54,23 +72,23 @@ int main(void){
 		printf("  3: Get list of events\n");
 		printf("  4: Make registration\n");
 		printf("  5: Show registration list [extra]\n");
-		
+		//===============//
 		printf(" Choice: ");
-		scanf("%d",&menu_choice);
+		scanf("%d",&menu_choice); // Read Input
 		
 		switch(menu_choice){
 		    case 0:
-		    	system("cls");
+		    	system("clear");
 		    	printf(" Are you sure you want to exit?(y/n): ");
 		    	scanf("%s",&c_exit);
 		    	if(c_exit=='y'){ // Confirm_exit
-					printf(" Exit");
-					iexit=1;
+					printf(" Terminating Program...\n");
+					iexit=1; // Exits Menu, and ends Program
 				}
 		    break;
 		
 		    case 1:
-		    	system("cls");
+		    	system("clear");
 		    	printf("==== Client_Server ====\n");
 		    	printf(" Set destination IP adress: ");
 		    	scanf("%s",server_ip);
@@ -79,7 +97,7 @@ int main(void){
 		    break;
 		
 		    case 2:
-		    	system("cls");
+		    	system("clear");
 		    	printf("==== Set_Ports ====\n");
 		    	port_num =0;
 		    	while(port_num<49152 || port_num>65535){
@@ -92,20 +110,8 @@ int main(void){
 		    break;
 		
 		    case 3:
-		    	system("cls");
+		    	system("clear");
 		    	printf("==== Get_Event_List ====\n");
-		    	event.num_event=0;
-		    	//==== READ .TXT FILE ====//
-			    FILE *ficheiro1;
-			    ficheiro1 = fopen(read_file_name,"rt"); // Inicializa ficheiro de leitura
-			    
-				while (fgets(event.name[event.num_event], MAX_CAR, ficheiro1) != NULL){ // Le ficheir linha a linha
-        			//printf("Event Num:%d | Name: %s", event.num_event,event.name);
-			        event.num_event++; // Incrementa o numero de enventos
-			    }
-			    event.num_event-=1;
-			    fclose(ficheiro1);// Close file
-			    //=======================//
 			    printf("\nThere are %d Events Up. Show Event List?(y/n):",event.num_event);
 			    scanf("%s",&yes);
 			    if(strcmp(&yes,"y")==0){ // Display events
@@ -119,16 +125,21 @@ int main(void){
 		    break;
 		
 		    case 4:
-		    	system("cls");
+		    	system("clear");
 		    	printf("==== Make_Registration ====\n");
+		    	ev_reg_num=0;
+		    	printf("Whats the Event Number you whould like to enter(0-%d)",event.num_event);
+		    	scanf("%d",&ev_reg_num); // Input event number
+		    	
+		    	
 		    	
 		    break; 
 		    
 			case 5:
-				system("cls");
+				system("clear");
 				
 		    break; 
-		    menu_choice=6;
+		    menu_choice=6; // Reset Menu Coice
 		}
 		
 	}
