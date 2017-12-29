@@ -1,0 +1,3089 @@
+From: <Guardado pelo Windows Internet Explorer 8>
+Subject: Linux Howtos: C/C++ -> Sockets Tutorial
+Date: Sat, 17 Oct 2009 11:33:47 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0002_01CA4F1D.B13A8A10"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.5579
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.linuxhowtos.org/C_C++/socket.htm
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML xml:lang=3D"en" =
+xmlns=3D"http://www.w3.org/1999/xhtml"><HEAD><TITLE>Linux Howtos: C/C++ =
+-> Sockets Tutorial</TITLE>
+<META content=3D"text/html; charset=3Dutf-8" http-equiv=3DContent-Type>
+<META content=3Den http-equiv=3Dcontent-language>
+<META name=3Dlanguage content=3D"english, en">
+<META name=3DGENERATOR content=3D"MSHTML 8.00.6001.18828">
+<META name=3Drobots content=3Dindex,follow>
+<META name=3Drevisit-after content=3D"7 days"><LINK title=3DRSS-Newsfeed =
+rel=3Dalternate=20
+type=3Dapplication/rss+xml =
+href=3D"http://www.linuxhowtos.org/news.rss"><LINK=20
+title=3DRDF-Newsfeed rel=3Dalternate type=3Dapplication/rdf+xml=20
+href=3D"http://www.linuxhowtos.org/news.rdf"><LINK title=3DAtom-Newsfeed =
+
+rel=3Dalternate type=3Dapplication/atom+xml=20
+href=3D"http://www.linuxhowtos.org/news.xml"><LINK title=3D"ICRA labels" =
+rel=3Dmeta=20
+type=3Dapplication/rdf+xml =
+href=3D"http://www.linuxhowtos.org/labels.rdf">
+<META=20
+content=3D'(pics-1.1 "http://www.icra.org/pics/vocabularyv03/" l gen =
+true for "http://linuxhowtos.org" r (n 0 s 0 v 0 l 0 oa 0 ob 0 oc 0 od 0 =
+oe 0 of 0 og 0 oh 0 c 0) gen true for "http://www.linuxhowtos.org" r (n =
+0 s 0 v 0 l 0 oa 0 ob 0 oc 0 od 0 oe 0 of 0 og 0 oh 0 c 0))'=20
+http-equiv=3Dpics-Label>
+<STYLE title=3DnormalStyle type=3Dtext/css>@import url( /css/blue.css );
+.invisible {
+	DISPLAY: none
+}
+.firefox {
+	POSITION: absolute; TOP: 8px; RIGHT: 45px
+}
+.firefox {
+	POSITION: absolute; BACKGROUND-COLOR: #eee; TOP: -20px; RIGHT: 25px
+}
+#logo {
+	TEXT-ALIGN: center; BACKGROUND-COLOR: #000; COLOR: #fff; MARGIN-LEFT: =
+153px; MARGIN-RIGHT: 121px
+}
+.infopopup DIV {
+	DISPLAY: none
+}
+.leftpopup DIV {
+	DISPLAY: none
+}
+#background {
+	DISPLAY: none
+}
+.shadl {
+	WIDTH: 0px; DISPLAY: none; HEIGHT: 0px
+}
+.shadr {
+	WIDTH: 0px; DISPLAY: none; HEIGHT: 0px
+}
+.shadb {
+	WIDTH: 0px; DISPLAY: none; HEIGHT: 0px
+}
+.shadt {
+	WIDTH: 0px; DISPLAY: none; HEIGHT: 0px
+}
+.shadimg {
+	WIDTH: 0px; DISPLAY: none; HEIGHT: 0px
+}
+.shadl IMG {
+	WIDTH: 1px; HEIGHT: 1px
+}
+.shadb {
+	WIDTH: 100%
+}
+.sep {
+	DISPLAY: none
+}
+#otherlhto {
+	FONT-SIZE: 0.8em
+}
+.tiny {
+	DISPLAY: none
+}
+</STYLE>
+
+<SCRIPT type=3Dtext/javascript=20
+src=3D"http://www.linuxhowtos.org/js/interactive.js"></SCRIPT>
+</HEAD>
+<BODY>
+<DIV><IMG id=3Dbackground alt=3D""=20
+src=3D"http://www.linuxhowtos.org/data/bluefade.jpg"></DIV>
+<DIV class=3Dinvisible><A title=3D"jump to the content"=20
+href=3D"http://www.linuxhowtos.org/C_C++/socket.htm#contentlink">jump to =
+the=20
+content</A></DIV>
+<DIV id=3Dmain>
+<DIV class=3Dinner>
+<TABLE summary=3D"header layout table">
+  <TBODY>
+  <TR>
+    <TD id=3Dlogo class=3Dbd rowSpan=3D2 colSpan=3D2><SPAN=20
+      id=3Dlogotext>www.LinuxHowtos.org</SPAN> howtos, tips&amp;tricks =
+and=20
+      tutorials for linux</TD>
+    <TD class=3Dshadt><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/shadow-tr.png"></TD></TR>
+  <TR>
+    <TD class=3Dshadr><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/blank.gif" width=3D18 =
+height=3D1></TD></TR>
+  <TR>
+    <TD class=3Dshadl><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/shadow-bl.png" =
+width=3D18></TD>
+    <TD class=3Dshadb><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/blank.gif" =
+height=3D18></TD>
+    <TD class=3Dshadimg><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/border-rb.png" width=3D18=20
+  height=3D18></TD></TR></TBODY></TABLE></DIV>
+<DIV class=3Dinner>
+<TABLE summary=3D"content layout table">
+  <TBODY>
+  <TR>
+    <TD id=3Dmc class=3Dbd rowSpan=3D2 colSpan=3D2>
+      <TABLE summary=3Dcontent>
+        <TBODY>
+        <TR>
+          <TD id=3Dleftcontent>
+            <DIV class=3Dtiny>from small one page howto to huge articles =
+all in=20
+            one place</DIV>
+            <FORM method=3Dpost action=3D/search/>
+            <DIV><INPUT value=3D322FC70D2A923C49 type=3Dhidden =
+name=3Dsessionid>=20
+            <INPUT value=3D-99 type=3Dhidden name=3Dcontent> <LABEL=20
+            for=3Dfulltextsearch>search for: <BR></LABEL><INPUT=20
+            onblur=3DsetTimeout(hidesuggest,750); id=3Dfulltextsearch=20
+            value=3Dfulltextsearch size=3D16 type=3Dtext name=3Dquery>=20
+            <DIV id=3Dsuggestions>&nbsp;</DIV><BR>search text =
+in:<BR><INPUT=20
+            id=3Dsearchtype1 CHECKED type=3Dcheckbox =
+name=3Dsearchtype1><LABEL=20
+            for=3Dsearchtype1>howtos</LABEL><BR><BR><INPUT =
+id=3Dsearchtype3 CHECKED=20
+            type=3Dcheckbox name=3Dsearchtype3><LABEL=20
+            for=3Dsearchtype3>manpages</LABEL></DIV></FORM>
+            <UL id=3Dmenu>
+              <LI><A href=3D"http://www.linuxhowtos.org/Home/">Home</A>
+              <UL id=3Dsmenu1t1>
+                <LI><A =
+href=3D"http://www.linuxhowtos.org/News%20Archive/">News=20
+                Archive</A></LI>
+                <LI><A=20
+                =
+href=3D"http://www.linuxhowtos.org/linksfromexternalsites/">links=20
+                from external sites</A></LI></UL></LI>
+              <LI><A =
+href=3D"http://www.linuxhowtos.org/Network/">Network</A>
+              <UL id=3Dsmenu1t4>
+                <LI><A =
+href=3D"http://www.linuxhowtos.org/LDAP/">LDAP</A></LI>
+                <LI><A=20
+                =
+href=3D"http://www.linuxhowtos.org/Infrared%20Devices/">Infrared=20
+                Devices</A></LI></UL></LI>
+              <LI><A =
+href=3D"http://www.linuxhowtos.org/Graphics/">Graphics</A>
+              <UL id=3Dsmenu1t7>
+                <LI><A =
+href=3D"http://www.linuxhowtos.org/Gimp/">Gimp</A>
+                <UL id=3Dsmenu2t8>
+                  <LI><A=20
+                  =
+href=3D"http://www.linuxhowtos.org/creating%20an%20analog%20gauge%20image=
+/">creating=20
+                  an analog gauge image</A></LI></UL></LI>
+                <LI><A=20
+              =
+href=3D"http://www.linuxhowtos.org/OpenGL/">OpenGL</A></LI></UL></LI>
+              <LI><A=20
+              =
+href=3D"http://www.linuxhowtos.org/Programming/">Programming</A>
+              <UL id=3Dsmenu1t11>
+                <LI><A =
+href=3D"http://www.linuxhowtos.org/C_C++/">C/C++</A></LI>
+                <LI><A =
+href=3D"http://www.linuxhowtos.org/CGI/">CGI</A></LI>
+                <LI><A=20
+                =
+href=3D"http://www.linuxhowtos.org/Secure%20programming/">Secure=20
+                programming</A></LI></UL></LI>
+              <LI><A href=3D"http://www.linuxhowtos.org/Misc/">Misc</A>
+              <UL id=3Dsmenu1t15>
+                <LI><A =
+href=3D"http://www.linuxhowtos.org/VI/">VI</A></LI></UL></LI>
+              <LI><A =
+href=3D"http://www.linuxhowtos.org/System/">System</A>
+              <UL id=3Dsmenu1t17>
+                <LI><A =
+href=3D"http://www.linuxhowtos.org/PCMCIA/">PCMCIA</A></LI>
+                <LI><A=20
+                =
+href=3D"http://www.linuxhowtos.org/Security/">Security</A></LI>
+                <LI><A=20
+                =
+href=3D"http://www.linuxhowtos.org/Tips%20and%20Tricks/">Tips and=20
+                Tricks</A></LI>
+                <LI><A=20
+                =
+href=3D"http://www.linuxhowtos.org/Browser%20plugins/">Browser=20
+                plugins</A></LI></UL></LI>
+              <LI><A =
+href=3D"http://www.linuxhowtos.org/Help%20out/">Help=20
+              out</A></LI>
+              <LI><A=20
+              =
+href=3D"http://www.linuxhowtos.org/Distributions%20specific/">Distributio=
+ns=20
+              specific</A>
+              <UL id=3Dsmenu1t23>
+                <LI><A =
+href=3D"http://www.linuxhowtos.org/Gentoo/">Gentoo</A></LI>
+                <LI><A=20
+              =
+href=3D"http://www.linuxhowtos.org/Fedora/">Fedora</A></LI></UL></LI>
+              <LI><A =
+href=3D"http://www.linuxhowtos.org/contact/">contact</A></LI>
+              <LI><A=20
+              =
+href=3D"http://www.linuxhowtos.org/interesting%20sites/">interesting=20
+              sites</A>
+              <UL id=3Dsmenu1t27>
+                <LI><A =
+href=3D"http://www.linuxhowtos.org/german%20sites/">german=20
+                sites</A></LI></UL></LI>
+              <LI><A=20
+              =
+href=3D"http://www.linuxhowtos.org/manpages/">manpages</A></LI>
+              <LI><A =
+href=3D"http://www.linuxhowtos.org/tools/">tools</A></LI>
+              <LI><A =
+href=3D"http://www.linuxhowtos.org/faq/">FAQ</A></LI>
+              <LI><A=20
+            =
+href=3D"http://www.linuxhowtos.org/Sitemap/">Sitemap</A></LI></UL><BR><BR=
+>
+            <DIV id=3Dotherlhto>Other .linuxhowtos.org sites: <A=20
+            =
+href=3D"http://toolsntoys.linuxhowtos.org/">toolsntoys.linuxhowtos.org</A=
+><BR><A=20
+            =
+href=3D"http://gentoo.linuxhowtos.org/">gentoo.linuxhowtos.org</A><BR><!-=
+-              <a =
+href=3D"http://forums.linuxhowtos.org">forums.linuxhowtos.org</a><br =
+/>--></DIV><BR>
+            <FORM method=3Dpost =
+action=3Dhttps://www.paypal.com/cgi-bin/webscr>
+            <DIV><INPUT value=3D_s-xclick type=3Dhidden name=3Dcmd> =
+<LABEL=20
+            for=3Dsubmitimg>Donate via paypal</LABEL><INPUT =
+id=3Dsubmitimg=20
+            alt=3D"Make payments with PayPal - it's fast, free and =
+secure!"=20
+            src=3D"https://www.paypal.com/en_US/i/btn/x-click-but21.gif" =
+
+            type=3Dimage name=3Dsubmit> <INPUT=20
+            value=3D"-----BEGIN =
+PKCS7-----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3D=3D-----END =
+PKCS7-----"=20
+            type=3Dhidden name=3Dencrypted> </DIV></FORM>
+            <FORM method=3Dpost action=3D/>
+            <DIV><INPUT value=3D5 type=3Dhidden =
+name=3Dpollid>Poll<BR>Which screen=20
+            resolution do you use?<BR><INPUT id=3Danswer1 value=3D1 =
+type=3Dradio=20
+            name=3Dpoll><LABEL for=3Danswer1>640 x 480</LABEL><BR><INPUT =
+id=3Danswer2=20
+            value=3D2 type=3Dradio name=3Dpoll><LABEL=20
+            for=3Danswer2>720x576</LABEL><BR><INPUT id=3Danswer3 =
+value=3D3 type=3Dradio=20
+            name=3Dpoll><LABEL for=3Danswer3>800 x 600</LABEL><BR><INPUT =
+id=3Danswer4=20
+            value=3D4 type=3Dradio name=3Dpoll><LABEL for=3Danswer4>1024 =
+x=20
+            786</LABEL><BR><INPUT id=3Danswer5 value=3D5 type=3Dradio =
+name=3Dpoll><LABEL=20
+            for=3Danswer5>1280 x 768</LABEL><BR><INPUT id=3Danswer6 =
+value=3D6=20
+            type=3Dradio name=3Dpoll><LABEL for=3Danswer6>1280 x =
+960</LABEL><BR><INPUT=20
+            id=3Danswer7 value=3D7 type=3Dradio name=3Dpoll><LABEL =
+for=3Danswer7>1280 x=20
+            1024</LABEL><BR><INPUT id=3Danswer8 value=3D8 type=3Dradio=20
+            name=3Dpoll><LABEL for=3Danswer8>1600 x =
+900</LABEL><BR><INPUT id=3Danswer9=20
+            value=3D9 type=3Dradio name=3Dpoll><LABEL for=3Danswer9>1600 =
+x=20
+            1200</LABEL><BR><INPUT id=3Danswer10 value=3D10 type=3Dradio =
+
+            name=3Dpoll><LABEL for=3Danswer10>other</LABEL><BR><INPUT =
+value=3Dvote type=3Dsubmit></DIV></FORM><A=20
+            href=3D"http://www.linuxhowtos.org/pollresults/">poll=20
+            results</A><BR><BR>
+            <FORM method=3Dget action=3D?>
+            <DIV><LABEL for=3Dstyleswitcher>Pick a site =
+design</LABEL><SELECT=20
+            id=3Dstyleswitcher onchange=3Dsubmit(); =
+name=3Dstyleswitcher> <OPTION=20
+              selected value=3Dnormal>Normal layout</OPTION> <OPTION =
+value=3Dold>old=20
+              design</OPTION> <OPTION value=3Dline>alternative layout=20
+            #1</OPTION></SELECT>=20
+            <INPUT value=3Dpick type=3Dsubmit></DIV></FORM><BR><BR>Last=20
+            additions:<BR>
+            <DIV>
+            <DIV class=3Dleftpopup><A tabIndex=3D0=20
+            =
+href=3D"http://www.linuxhowtos.org/Tips%20and%20Tricks/iotop.htm">using=20
+            iotop to find disk usage hogs</A>
+            <DIV>
+            <P>using iotop to find disk usage =
+hogs</P><SPAN>words:</SPAN>=20
+            <P>887</P><SPAN>views:</SPAN>=20
+            <P>2336</P><SPAN>userrating:</SPAN>=20
+            <P>no votes yet</P></DIV></DIV></DIV>
+            <HR>
+            May 25th. 2007:=20
+            <DIV class=3Dleftpopup>
+            <DIV><SPAN>Words</SPAN>=20
+            <P>486</P><SPAN>Views</SPAN>=20
+            <P>14317</P></DIV><A tabIndex=3D1=20
+            =
+href=3D"http://www.linuxhowtos.org/News%20Archive/adblocker.htm">why=20
+            adblockers are bad</A></DIV><BR>
+            <HR>
+
+            <DIV>
+            <DIV class=3Dleftpopup><A tabIndex=3D2=20
+            =
+href=3D"http://www.linuxhowtos.org/Security/coredumpvuln.htm">Workaround =
+
+            and fixes for the current Core Dump Handling vulnerability =
+affected=20
+            kernels</A>
+            <DIV>
+            <P>Workaround and fixes for the current Core Dump Handling=20
+            vulnerability affected kernels</P><SPAN>words:</SPAN>=20
+            <P>161</P><SPAN>views:</SPAN>=20
+            <P>9314</P><SPAN>userrating:</SPAN>=20
+            <P>no votes yet</P></DIV></DIV></DIV>
+            <HR>
+            April, 26th. 2006:=20
+            <DIV class=3Dleftpopup>
+            <DIV><SPAN>Words</SPAN>=20
+            <P>38</P><SPAN>Views</SPAN>=20
+            <P>7331</P></DIV><A tabIndex=3D3=20
+            =
+href=3D"http://www.linuxhowtos.org/News%20Archive/toolsntoys.htm">New=20
+            subdomain: toolsntoys.linuxhowtos.org</A></DIV><BR>
+            <HR>
+          </TD>
+          <TD id=3Dcontent class=3Dcontent><!--messages-->
+            <DIV class=3Dpdf><A title=3DDruckversion tabIndex=3D4=20
+            =
+href=3D"http://www.linuxhowtos.org/C_C++/socket.htm?print=3D208"><IMG=20
+            alt=3DDruckversion=20
+            src=3D"http://www.linuxhowtos.org/data/printer.gif"></A> . =
+<A=20
+            title=3D"pdf version"=20
+            href=3D"http://www.linuxhowtos.org/C_C++/socket.pdf"><IMG=20
+            alt=3D"pdf icon" =
+src=3D"http://www.linuxhowtos.org/data/pdf.png"></A>=20
+            </DIV>You are here: <A=20
+            =
+href=3D"http://www.linuxhowtos.org/Programming/">Programming</A>-&gt;<A=20
+            =
+href=3D"http://www.linuxhowtos.org/C_C++/">C/C++</A><BR><BR><A=20
+            id=3Dcontentlink><!-- google_ad_section_start -->
+            <H1>Sockets Tutorial</H1>This is a simple tutorial on using =
+sockets=20
+            for interprocess communication.=20
+            <P>
+            <P><BR></P>
+            <H2>The client server model</H2>Most interprocess =
+communication uses=20
+            the <I>client server model</I>. These terms refer to the two =
+
+            processes which will be communicating with each other. One =
+of the=20
+            two processes, the <I>client</I>, connects to the other =
+process, the=20
+            <I>server</I>, typically to make a request for information. =
+A good=20
+            analogy is a person who makes a phone call to another =
+person.
+            <P>Notice that the client needs to know of the existence of =
+and the=20
+            address of the server, but the server does not need to know =
+the=20
+            address of (or even the existence of) the client prior to =
+the=20
+            connection being established.</P>
+            <P>Notice also that once a connection is established, both =
+sides can=20
+            send and receive information.</P>
+            <P>The system calls for establishing a connection are =
+somewhat=20
+            different for the client and the server, but both involve =
+the basic=20
+            construct of a <I>socket</I>.<BR>A socket is one end of an=20
+            interprocess communication channel. The two processes =
+<BR>each=20
+            establish their own socket.</P>
+            <P>The steps involved in establishing a socket on the =
+<I>client</I>=20
+            side are as follows:<BR>
+            <OL>
+              <LI>Create a socket with the <A=20
+              =
+href=3D"http://www.linuxhowtos.org/manpages/2/socket.htm">socket()</A>=20
+              system call<BR></LI>
+              <LI>Connect the socket to the address of the server using =
+the <A=20
+              =
+href=3D"http://www.linuxhowtos.org/manpages/2/connect.htm">connect()</A> =
+
+              system call<BR></LI>
+              <LI>Send and receive data. There are a number of ways to =
+do this,=20
+              but the simplest is to use the <A=20
+              =
+href=3D"http://www.linuxhowtos.org/manpages/2/read.htm">read()</A>=20
+              and <A=20
+              =
+href=3D"http://www.linuxhowtos.org/manpages/2/write.htm">write()</A>=20
+              system calls.</LI></OL>
+            <P></P>
+            <P>The steps involved in establishing a socket on the =
+<I>server</I>=20
+            side are as follows:<BR>
+            <OL>
+              <LI>Create a socket with the <A=20
+              =
+href=3D"http://www.linuxhowtos.org/manpages/2/socket.htm">socket()</A>=20
+              system call<BR></LI>
+              <LI>Bind the socket to an address using the <A=20
+              =
+href=3D"http://www.linuxhowtos.org/manpages/2/bind.htm">bind()</A>=20
+              system call. For a server socket on the Internet, an =
+address=20
+              consists of a port number on the host machine.<BR></LI>
+              <LI>Listen for connections with the <A=20
+              =
+href=3D"http://www.linuxhowtos.org/manpages/2/listen.htm">listen()</A>=20
+              system call<BR></LI>
+              <LI>Accept a connection with the <A=20
+              =
+href=3D"http://www.linuxhowtos.org/manpages/2/accept.htm">accept()</A>=20
+              system call. This call typically blocks until a client =
+connects=20
+              with the server.<BR></LI>
+              <LI>Send and receive data</LI></OL>
+            <P></P>
+            <P>
+            <P><BR></P>
+            <H3>Socket Types</H3>
+            <P>When a socket is created, the program has to specify the=20
+            <I>address domain</I> and the <I>socket type</I>. Two =
+processes can=20
+            communicate with each other only if their sockets are of the =
+same=20
+            type and in the same domain.</P>
+            <P>There are two widely used address domains, the <I>unix=20
+            domain</I>, in which two processes which share a common file =
+system=20
+            communicate, and the <I>Internet domain</I>, in which two =
+processes=20
+            running on any two hosts on the Internet communicate. Each =
+of these=20
+            has its own address format.</P>
+            <P>The address of a socket in the Unix domain is a character =
+string=20
+            which is basically an entry in the file system.</P>
+            <P>The address of a socket in the Internet domain consists =
+of the=20
+            Internet address of the host machine (every computer on the =
+Internet=20
+            has a unique 32 bit address, often referred to as its IP=20
+            address).<BR>In addition, each socket needs a port number on =
+that=20
+            host.<BR>Port numbers are 16 bit unsigned integers. <BR>The =
+lower=20
+            numbers are reserved in Unix for standard services. For =
+example, the=20
+            port number for the FTP server is 21. It is important that =
+standard=20
+            services be at the same port on all computers so that =
+clients will=20
+            know their addresses. <BR>However, port numbers above 2000 =
+are=20
+            generally available.</P>
+            <P>There are two widely used socket types, <I>stream =
+sockets</I>,=20
+            and <I>datagram sockets</I>. Stream sockets treat =
+communications as=20
+            a continuous stream of characters, while datagram sockets =
+have to=20
+            read entire messages at once. Each uses its own =
+communciations=20
+            protocol.</P>
+            <P>Stream sockets use TCP (Transmission Control Protocol), =
+which is=20
+            a reliable, stream oriented protocol, and datagram sockets =
+use UDP=20
+            (Unix Datagram Protocol), which is unreliable and message=20
+            oriented.</P>
+            <P>The examples in this tutorial will use sockets in the =
+Internet=20
+            domain using the TCP protocol.</P>
+            <P>
+            <P><BR></P>
+            <H3>Sample code</H3>
+            <P>C code for a very simple client and server are provided =
+for you.=20
+            These communicate using stream sockets in the Internet =
+domain. The=20
+            code is described in detail below. However, before you read =
+the=20
+            descriptions and look at the code, you should compile and =
+run the=20
+            two programs to see what they do.</P>
+            <P><A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/server.c">server.c</A><BR><A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/client.c">client.c</A></P>
+            <P>Download these into files called <CODE>server.c</CODE> =
+and=20
+            <CODE>client.c</CODE> and compile them separately into two=20
+            executables called <CODE>server</CODE> and =
+<CODE>client</CODE>.</P>
+            <P>They probably won't require any special compiling flags, =
+but on=20
+            some solaris systems you may need to link to the socket =
+library by=20
+            appending <CODE>-lsocket</CODE> to your compile command.</P>
+            <P>Ideally, you should run the client and the server on =
+separate=20
+            hosts on the Internet. Start the server first. Suppose the =
+server is=20
+            running on a machine called <CODE>cheerios</CODE>. When you =
+run the=20
+            server, you need to pass the port number in as an argument. =
+You can=20
+            choose any number between 2000 and 65535. If this port is =
+already in=20
+            use on that machine, the server will tell you this and exit. =
+If this=20
+            happens, just choose another port and try again. If the port =
+is=20
+            available, the server will block until it receives a =
+connection from=20
+            the client. Don't be alarmed if the server doesn't do =
+anything;</P>
+            <P>It's not supposed to do anything until a connection is=20
+            made.<BR></P>
+            <P>
+            <P><BR>Here is a typical command line:</P><PRE>server =
+51717</PRE>
+            <P>To run the client you need to pass in two arguments, the =
+name of=20
+            the host on which the server is running and the port number =
+on which=20
+            the server is listening for connections.</P>
+            <P>Here is the command line to connect to the server =
+described=20
+            above:</P><PRE>client cheerios 51717</PRE><BR>The client =
+will prompt you to=20
+            enter a message. <BR>If everything works correctly, the =
+server will=20
+            display your message on stdout, send an acknowledgement =
+message to=20
+            the client and terminate. <BR>The client will print the=20
+            acknowledgement message from the server and then terminate.
+            <P>You can simulate this on a single machine by running the =
+server=20
+            in one window and the client in another. In this case, you =
+can use=20
+            the keyword <CODE>localhost</CODE> as the first argument to =
+the=20
+            client.</P>
+            <P>The server code uses a number of ugly programming =
+constructs, and=20
+            so we will go through it line by line.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><BR><CODE>#include &lt;stdio.h&gt;</CODE><BR></P>
+            <P>
+            <P><BR>This header file contains declarations used in most =
+input and=20
+            output and is typically included in all C programs.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><BR><CODE>#include &lt;sys/types.h&gt;</CODE><BR></P>
+            <P>
+            <P><BR>This header file contains definitions of a number of =
+data=20
+            types used in system calls. These types are used in the next =
+two=20
+            include files.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><BR><CODE>#include &lt;sys/socket.h&gt;</CODE><BR></P>
+            <P>
+            <P><BR>The header file socket.h includes a number of =
+definitions of=20
+            structures needed for sockets.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><BR><CODE>#include &lt;netinet/in.h&gt;</CODE><BR></P>
+            <P>
+            <P><BR>The header file in.h contains constants and =
+structures needed=20
+            for internet domain addresses.<BR></P>
+            <P>
+            <P></P>
+            <HR>
+
+            <P></P>
+            <P>void error(char *msg)</P><PRE>{<BR>  perror(msg);<BR>  =
+exit(1);<BR>}</PRE><BR>This function=20
+            is called when a system call fails. It displays a message =
+about the=20
+            error on <CODE>stderr</CODE> and then aborts the program. =
+The <A=20
+            href=3D"http://www.linuxhowtos.org/data/6/perror.txt">perror =
+man=20
+            page</A> gives more information.
+            <HR>
+
+            <P>
+            <P><PRE>int main(int argc, char *argv[])<BR>{<BR>  int =
+sockfd, newsockfd, portno, clilen, n;</PRE><BR><CODE>sockfd</CODE>=20
+            and <CODE>newsockfd</CODE> are file descriptors, i.e. array=20
+            subscripts into the <A=20
+            href=3D"http://www.linuxhowtos.org/data/6/fd.txt">file =
+descriptor=20
+            table </A>. These two variables store the values returned by =
+the=20
+            socket system call and the accept system call.
+            <P><CODE>portno</CODE> stores the port number on which the =
+server=20
+            accepts connections.</P>
+            <P><CODE>clilen</CODE> stores the size of the address of the =
+client.=20
+            This is needed for the accept system call.</P>
+            <P><CODE>n</CODE> is the return value for the =
+<CODE>read()</CODE>=20
+            and <CODE>write()</CODE> calls; i.e. it contains the number =
+of=20
+            characters read or written.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><PRE>char buffer[256];</PRE><BR>The server reads =
+characters from the=20
+            socket connection into this buffer.
+            <HR>
+
+            <P>
+            <P><PRE>struct sockaddr_in serv_addr, cli_addr;</PRE><BR>A=20
+            <CODE>sockaddr_in</CODE> is a structure containing an =
+internet=20
+            address. This structure is defined in =
+<CODE>netinet/in.h</CODE>.<BR>
+            <P>
+            <P><BR>Here is the definition:<BR></P>
+            <P>
+            <P><PRE>struct sockaddr_in<BR>{<BR>  short   sin_family; /* =
+must be AF_INET */<BR>  u_short sin_port;<BR>  struct  in_addr =
+sin_addr;<BR>  char    sin_zero[8]; /* Not used, must be zero =
+*/<BR>};</PRE><BR>An=20
+            <CODE>in_addr</CODE> structure, defined in the same header =
+file,=20
+            contains only one field, a unsigned long called =
+<CODE>s_addr</CODE>.
+            <P>The variable <CODE>serv_addr</CODE> will contain the =
+address of=20
+            the server, and <CODE>cli_addr</CODE> will contain the =
+address of=20
+            the client which connects to the server.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><PRE> if (argc &lt; 2)<BR> {<BR>   fprintf(stderr,"ERROR, =
+no port provided<BR>");<BR>   exit(1);<BR> }</PRE><BR>The=20
+            user needs to pass in the port number on which the server =
+will=20
+            accept connections as an argument. This code displays an =
+error=20
+            message if the user fails to do this.
+            <HR>
+
+            <P>
+            <P><PRE>sockfd =3D socket(AF_INET, SOCK_STREAM, 0);<BR>if =
+(sockfd &lt; 0)<BR>  error("ERROR opening socket");</PRE><BR>The=20
+            <CODE>socket()</CODE> system call creates a new socket. It =
+takes=20
+            three arguments. The first is the address domain of the =
+socket.
+            <P>Recall that there are two possible address domains, the =
+unix=20
+            domain for two processes which share a common file system, =
+and the=20
+            Internet domain for any two hosts on the Internet. The =
+symbol=20
+            constant <CODE>AF_UNIX</CODE> is used for the former, and=20
+            <CODE>AF_INET</CODE> for the latter (there are actually many =
+other=20
+            options which can be used here for specialized =
+purposes).</P>
+            <P>The second argument is the type of socket. Recall that =
+there are=20
+            two choices here, a stream socket in which characters are =
+read in a=20
+            continuous stream as if from a file or pipe, and a datagram =
+socket,=20
+            in which messages are read in chunks. The two symbolic =
+constants are=20
+            <CODE>SOCK_STREAM</CODE> and <CODE>SOCK_DGRAM</CODE>.</P>
+            <P>The third argument is the protocol. If this argument is =
+zero (and=20
+            it always should be except for unusual circumstances), the =
+operating=20
+            system will choose the most appropriate protocol. It will =
+choose TCP=20
+            for stream sockets and UDP for datagram sockets.</P>
+            <P>The socket system call returns an entry into the file =
+descriptor=20
+            table (i.e. a small integer). This value is used for all =
+subsequent=20
+            references to this socket. If the socket call fails, it =
+returns=20
+            -1.<BR></P>
+            <P>
+            <P><BR>In this case the program displays and error message =
+and=20
+            exits. However, this system call is unlikely to fail.</P>
+            <P>This is a simplified description of the socket call; =
+there are=20
+            numerous other choices for domains and types, but these are =
+the most=20
+            common. The <A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/socket.txt">socket() man=20
+            page</A> has more information.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><PRE>bzero((char *) &amp;serv_addr, =
+sizeof(serv_addr));</PRE><BR>The=20
+            function <CODE>bzero()</CODE> sets all values in a buffer to =
+zero.=20
+            It takes two arguments, the first is a pointer to the buffer =
+and the=20
+            second is the size of the buffer. Thus, this line =
+initializes=20
+            <CODE>serv_addr</CODE> to zeros. ----<PRE>portno =3D =
+atoi(argv[1]);</PRE><BR>The port number on which the=20
+            server will listen for connections is passed in as an =
+argument, and=20
+            this statement uses the <CODE>atoi()</CODE> function to =
+convert this=20
+            from a string of digits to an integer.
+            <HR>
+
+            <P>
+            <P><PRE>serv_addr.sin_family =3D AF_INET;</PRE><BR>The =
+variable=20
+            <CODE>serv_addr</CODE> is a structure of type <CODE>struct=20
+            sockaddr_in</CODE>. This structure has four fields. The =
+first field=20
+            is <CODE>short sin_family</CODE>, which contains a code for =
+the=20
+            address family. It should always be set to the symbolic =
+constant=20
+            <CODE>AF_INET</CODE>.
+            <HR>
+
+            <P>
+            <P><PRE>serv_addr.sin_port =3D htons(portno);</PRE><BR>The =
+second field=20
+            of <CODE>serv_addr</CODE> is <CODE>unsigned short =
+sin_port</CODE>,=20
+            which contain the port number. However, instead of simply =
+copying=20
+            the port number to this field, it is necessary to convert =
+this to <A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/byteorder.html">network byte=20
+            order</A> using the function <CODE>htons()</CODE> which =
+converts a=20
+            port number in host byte order to a port number in network =
+byte=20
+            order.
+            <HR>
+
+            <P>
+            <P><PRE>serv_addr.sin_addr.s_addr =3D =
+INADDR_ANY;</PRE><BR>The third=20
+            field of <CODE>sockaddr_in</CODE> is a structure of type=20
+            <CODE>struct in_addr</CODE> which contains only a single =
+field=20
+            <CODE>unsigned long s_addr</CODE>. This field contains the =
+IP=20
+            address of the host. For server code, this will always be =
+the IP=20
+            address of the machine on which the server is running, and =
+there is=20
+            a symbolic constant <CODE>INADDR_ANY</CODE> which gets this =
+address.
+            <HR>
+
+            <P>
+            <P><PRE>if (bind(sockfd, (struct sockaddr *) &amp;serv_addr, =
+                  sizeof(serv_addr)) &lt; 0)<BR>  error("ERROR on =
+binding");</PRE><BR>The=20
+            <CODE>bind()</CODE> system call binds a socket to an =
+address, in=20
+            this case the address of the current host and port number on =
+which=20
+            the server will run. It takes three arguments, the socket =
+file=20
+            descriptor, the address to which is bound, and the size of =
+the=20
+            address to which it is bound. The second argument is a =
+pointer to a=20
+            structure of type <CODE>sockaddr</CODE>, but what is passed =
+in is a=20
+            structure of type <CODE>sockaddr_in</CODE>, and so this must =
+be cast=20
+            to the correct type. This can fail for a number of reasons, =
+the most=20
+            obvious being that this socket is already in use on this =
+machine.=20
+            The <A =
+href=3D"http://www.linuxhowtos.org/data/6/bind.txt">bind()=20
+            manual</A> has more information.
+            <HR>
+
+            <P>
+            <P><PRE>listen(sockfd,5);</PRE><BR>The <CODE>listen</CODE> =
+system call=20
+            allows the process to listen on the socket for connections. =
+The=20
+            first argument is the socket file descriptor, and the second =
+is the=20
+            size of the backlog queue, i.e., the number of connections =
+that can=20
+            be waiting while the process is handling a particular =
+connection.=20
+            This should be set to 5, the maximum size permitted by most =
+systems.=20
+            If the first argument is a valid socket, this call cannot =
+fail, and=20
+            so the code doesn't check for errors. The <A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/listen.txt">listen() man=20
+            page</A> has more information.
+            <HR>
+
+            <P>
+            <P><PRE>clilen =3D sizeof(cli_addr);<BR>newsockfd =3D =
+accept(sockfd, (struct sockaddr *) &amp;cli_addr, &amp;clilen);<BR>if =
+(newsockfd &lt; 0)<BR>  error("ERROR on accept");</PRE><BR>The=20
+            <CODE>accept()</CODE> system call causes the process to =
+block until=20
+            a client connects to the server. Thus, it wakes up the =
+process when=20
+            a connection from a client has been successfully =
+established. It=20
+            returns a new file descriptor, and all communication on this =
+
+            connection should be done using the new file descriptor. The =
+second=20
+            argument is a reference pointer to the address of the client =
+on the=20
+            other end of the connection, and the third argument is the =
+size of=20
+            this structure. The <A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/accept.txt">accept() man=20
+            page</A> has more information.
+            <HR>
+
+            <P>
+            <P><PRE>bzero(buffer,256);<BR>n =3D =
+read(newsockfd,buffer,255);<BR>if (n &lt; 0) error("ERROR reading from =
+socket");<BR>printf("Here is the message: %s<BR>",buffer);</PRE><BR>Note =
+
+            that we would only get to this point after a client has =
+successfully=20
+            connected to our server. This code initializes the buffer =
+using the=20
+            <CODE>bzero()</CODE> function, and then reads from the =
+socket. Note=20
+            that the read call uses the new file descriptor, the one =
+returned by=20
+            <CODE>accept()</CODE>, not the original file descriptor =
+returned by=20
+            <CODE>socket()</CODE>. Note also that the =
+<CODE>read()</CODE> will=20
+            block until there is something for it to read in the socket, =
+i.e.=20
+            after the client has executed a <CODE>write()</CODE>.
+            <P>It will read either the total number of characters in the =
+socket=20
+            or 255, whichever is less, and return the number of =
+characters read.=20
+            The <A =
+href=3D"http://www.linuxhowtos.org/data/6/read.txt">read() man=20
+            page</A> has more information.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><PRE>n =3D write(newsockfd,"I got your =
+message",18);<BR>if (n &lt; 0) error("ERROR writing to =
+socket");</PRE><BR>Once=20
+            a connection has been established, both ends can both read =
+and write=20
+            to the connection. Naturally, everything written by the =
+client will=20
+            be read by the server, and everything written by the server =
+will be=20
+            read by the client. This code simply writes a short message =
+to the=20
+            client. The last argument of write is the size of the =
+message. The=20
+            <A =
+href=3D"http://www.linuxhowtos.org/data/6/write.txt">write() man=20
+            page</A> has more information.
+            <HR>
+
+            <P>
+            <P><PRE>  return 0;<BR>}</PRE><BR>This terminates main and =
+thus the=20
+            program. Since main was declared to be of type int as =
+specified by=20
+            the ascii standard, some compilers complain if it does not =
+return=20
+            anything.
+            <P>
+            <P><BR></P>
+            <H3>Client code </H3><BR>As before, we will go through the =
+program=20
+            <CODE>client.c</CODE> line by line. <PRE>#include =
+&lt;stdio.h&gt;<BR>#include &lt;sys/types.h&gt;<BR>#include =
+&lt;sys/socket.h&gt;<BR>#include &lt;netinet/in.h&gt;<BR>#include =
+&lt;netdb.h&gt;</PRE><BR>The=20
+            header files are the same as for the server with one =
+addition. The=20
+            file <CODE>netdb.h</CODE> defines the structure=20
+            <CODE>hostent</CODE>, which will be used below.
+            <HR>
+
+            <P>
+            <P><PRE>void error(char *msg)<BR>{<BR>  perror(msg);<BR>  =
+exit(0);<BR>}<BR>int main(int argc, char *argv[])<BR>{<BR>  int sockfd, =
+portno, n;<BR>  struct sockaddr_in serv_addr;<BR>  struct hostent =
+*server;</PRE><BR>The=20
+            <CODE>error()</CODE> function is identical to that in the =
+server, as=20
+            are the variables <CODE>sockfd, portno</CODE>, and =
+<CODE>n</CODE>.=20
+            The variable <CODE>serv_addr</CODE> will contain the address =
+of the=20
+            server to which we want to connect. It is of type <A=20
+            href=3D"http://www.linuxhowtos.org/data/6/sockaddr">struct=20
+            sockaddr_in</A>.
+            <P>The variable <CODE>server</CODE> is a pointer to a =
+structure of=20
+            type <CODE>hostent</CODE>. This structure is defined in the =
+header=20
+            file <CODE>netdb.h</CODE> as follows:</P><PRE>struct  =
+hostent<BR>{<BR>  char    *h_name;        /* official name of host =
+*/<BR>  char    **h_aliases;    /* alias list */<BR>  int     =
+h_addrtype;     /* host address type */<BR>  int     h_length;       /* =
+length of address */<BR>  char    **h_addr_list;  /* list of addresses =
+from name server */<BR>  #define h_addr  h_addr_list[0]  /* address, for =
+backward compatiblity */<BR>};</PRE><BR>It=20
+            defines a host computer on the Internet. The members of this =
+
+            structure are: <PRE>h_name       Official name of the =
+host.<BR>h_aliases    A zero  terminated  array  of  alternate<BR>       =
+      names for the host.<BR>h_addrtype   The  type  of  address  being  =
+returned;<BR>             currently always AF_INET.<BR>h_length     The =
+length, in bytes, of the address.<BR>h_addr_list  A pointer to a list of =
+network addresses<BR>             for the named host.  Host addresses =
+are<BR>             returned in network byte order.</PRE><BR>Note=20
+            that <CODE>h_addr</CODE> is an alias for the first address =
+in the=20
+            array of network addresses.
+            <HR>
+
+            <P>
+            <P><PRE>char buffer[256];<BR>if (argc &lt; 3)<BR>{<BR>  =
+fprintf(stderr,"usage %s hostname port<BR>", argv[0]);<BR>  =
+exit(0);<BR>}<BR>portno =3D atoi(argv[2]);<BR>sockfd =3D socket(AF_INET, =
+SOCK_STREAM, 0);<BR>if (sockfd &lt; 0)<BR>  error("ERROR opening =
+socket");</PRE><BR>All=20
+            of this code is the same as that in the server.
+            <HR>
+
+            <P>
+            <P><PRE>server =3D gethostbyname(argv[1]);<BR>if (server =
+=3D=3D NULL)<BR>{<BR>  fprintf(stderr,"ERROR, no such host<BR>");<BR>  =
+exit(0);<BR>}</PRE><BR>The=20
+            variable <CODE>argv</CODE>[1] contains the name of a host on =
+the=20
+            Internet, e.g. <CODE>cs.rpi.edu</CODE>. The function:<PRE> =
+struct hostent *gethostbyname(char *name)</PRE><BR>Takes such=20
+            a name as an argument and returns a pointer to a=20
+            <CODE>hostent</CODE> containing information about that host.
+            <P>The field <CODE>char *h_addr</CODE> contains the IP=20
+            address.<BR></P>
+            <P>
+            <P><BR>If this structure is NULL, the system could not =
+locate a host=20
+            with this name. </P>
+            <P>In the old days, this function worked by searching a =
+system file=20
+            called <CODE>/etc/hosts</CODE> but with the explosive growth =
+of the=20
+            Internet, it became impossible for system administrators to =
+keep=20
+            this file current. Thus, the mechanism by which this =
+function works=20
+            is complex, often involves querying large databases all =
+around the=20
+            country. The <A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/gethostbyname.txt">gethostbynam=
+e()=20
+            man page</A> has more information.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><PRE>bzero((char *) &amp;serv_addr, =
+sizeof(serv_addr));<BR>serv_addr.sin_family =3D AF_INET;<BR>bcopy((char =
+*)server-&gt;h_addr,<BR>      (char =
+*)&amp;serv_addr.sin_addr.s_addr,<BR>      =
+server-&gt;h_length);<BR>serv_addr.sin_port =3D =
+htons(portno);</PRE><BR>This=20
+            code sets the fields in <CODE>serv_addr</CODE>. Much of it =
+is the=20
+            same as in the server. However, because the field=20
+            <CODE>server-&gt;h_addr</CODE> is a character string, we use =
+the=20
+            function:<PRE>void bcopy(char *s1, char *s2, int =
+length)</PRE><BR>which=20
+            copies <CODE>length</CODE> bytes from <CODE>s1</CODE> to=20
+            <CODE>s2</CODE>. ----<PRE>if =
+(connect(sockfd,&amp;serv_addr,sizeof(serv_addr)) &lt; 0)<BR>  =
+error("ERROR connecting");</PRE><BR>The=20
+            <CODE>connect</CODE> function is called by the client to =
+establish a=20
+            connection to the server. It takes three arguments, the =
+socket file=20
+            descriptor, the address of the host to which it wants to =
+connect=20
+            (including the port number), and the size of this address. =
+This=20
+            function returns 0 on success and -1 if it fails. The <A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/connect.txt">connect() man=20
+            page</A> has more information.
+            <P>Notice that the client needs to know the port number of =
+the=20
+            server, but it does not need to know its own port number. =
+This is=20
+            typically assigned by the system when <CODE>connect</CODE> =
+is=20
+            called.</P>
+            <HR>
+
+            <P></P>
+            <P>
+            <P><PRE>  printf("Please enter the message: ");<BR>  =
+bzero(buffer,256);<BR>  fgets(buffer,255,stdin);<BR>  n =3D =
+write(sockfd,buffer,strlen(buffer));<BR>  if (n &lt; 0)<BR>    =
+error("ERROR writing to socket");<BR>  bzero(buffer,256);<BR>  n =3D =
+read(sockfd,buffer,255);<BR>  if (n &lt; 0)<BR>    error("ERROR reading =
+from socket");<BR>  printf("%s<BR>",buffer);<BR>  return =
+0;<BR>}</PRE><BR>The=20
+            remaining code should be fairly clear. It prompts the user =
+to enter=20
+            a message, uses <CODE>fgets</CODE> to read the message from =
+stdin,=20
+            writes the message to the socket, reads the reply from the =
+socket,=20
+            and displays this reply on the screen.
+            <P>
+            <P><BR></P>
+            <H2>Enhancements to the server code </H2>
+            <P>The sample server code above has the limitation that it =
+only=20
+            handles one connection, and then dies. A "real world" server =
+should=20
+            run indefinitely and should have the capability of handling =
+a number=20
+            of simultaneous connections, each in its own process. This =
+is=20
+            typically done by forking off a new process to handle each =
+new=20
+            connection.</P>
+            <P>The following code has a dummy function called =
+<CODE>dostuff(int=20
+            sockfd)</CODE>.<BR></P>
+            <P>
+            <P><BR>This function will handle the connection after it has =
+been=20
+            established and provide whatever services the client =
+requests. As we=20
+            saw above, once a connection is established, both ends can =
+use=20
+            <CODE>read</CODE> and <CODE>write</CODE> to send information =
+to the=20
+            other end, and the details of the information passed back =
+and forth=20
+            do not concern us here.<BR></P>
+            <P>
+            <P><BR>To write a "real world" server, you would make =
+essentially no=20
+            changes to the main() function, and all of the code which =
+provided=20
+            the service would be in <CODE>dostuff()</CODE>.</P>
+            <P>To allow the server to handle multiple simultaneous =
+connections,=20
+            we make the following changes to the code:<BR>
+            <OL>
+              <LI>Put the accept statement and the following code in an =
+infinite=20
+              loop.<BR></LI>
+              <LI>After a connection is established, call=20
+              <CODE>fork()</CODE>#### to create a new process.<BR></LI>
+              <LI>The child process will close <CODE>sockfd</CODE>#### =
+and call=20
+              <CODE>#dostuff</CODE>#####, passing the new socket file =
+descriptor=20
+              as an argument. When the two processes have completed =
+their=20
+              conversation, as indicated by <CODE>dostuff()</CODE>####=20
+              returning, this process simply exits.<BR></LI>
+              <LI>The parent process closes <CODE>newsockfd</CODE>####. =
+Because=20
+              all of this code is in an infinite loop, it will return to =
+the=20
+              accept statement to wait for the next =
+connection.</LI></OL>
+            <P></P>
+            <P>Here is the code.</P><PRE> while (1)<BR> {<BR>   =
+newsockfd =3D accept(sockfd,<BR>               (struct sockaddr *) =
+&amp;cli_addr, &amp;clilen);<BR>   if (newsockfd &lt; 0)<BR>     =
+error("ERROR on accept");<BR>   pid =3D fork();<BR>   if (pid &lt; =
+0)<BR>     error("ERROR on fork");<BR>   if (pid =3D=3D 0)<BR>   {<BR>   =
+  close(sockfd);<BR>     dostuff(newsockfd);<BR>     exit(0);<BR>   =
+}<BR>   else<BR>     close(newsockfd);<BR> } /* end of while =
+*/</PRE><BR><A=20
+            href=3D"http://www.linuxhowtos.org/data/6/server2.c">Click =
+here</A>=20
+            for a complete server program which includes this change. =
+This will=20
+            run with the program client.c.
+            <P>
+            <P><BR></P>
+            <H3>The zombie problem </H3>
+            <P>The above code has a problem; if the parent runs for a =
+long time=20
+            and accepts many connections, each of these connections will =
+create=20
+            a zombie when the connection is terminated. A zombie is a =
+process=20
+            which has terminated but but cannot be permitted to fully =
+die=20
+            because at some point in the future, the parent of the =
+process might=20
+            execute a <CODE>wait</CODE> and would want information about =
+the=20
+            death of the child. Zombies clog up the process table in the =
+kernel,=20
+            and so they should be prevented. Unfortunately, the code =
+which=20
+            prevents zombies is not consistent across different =
+architectures.=20
+            When a child dies, it sends a SIGCHLD signal to its parent. =
+On=20
+            systems such as AIX, the following code in =
+<CODE>main()</CODE> is=20
+            all that is =
+needed.</P><PRE>signal(SIGCHLD,SIG_IGN);</PRE><BR>This says to ignore =
+the=20
+            SIGCHLD signal. However, on systems running SunOS, you have =
+to use=20
+            the following code:<PRE>void *SigCatcher(int n)<BR>{<BR>  =
+wait3(NULL,WNOHANG,NULL);<BR>}<BR>...<BR>int main()<BR>{<BR>  ...<BR>  =
+signal(SIGCHLD,SigCatcher);<BR>  ...</PRE><BR>The=20
+            function <CODE>SigCatcher()</CODE> will be called whenever =
+the=20
+            parent receives a SIGCHLD signal (i.e. whenever a child =
+dies). This=20
+            will in turn call <CODE>wait3</CODE> which will receive the =
+signal.=20
+            The WNOHANG flag is set, which causes this to be a =
+non-blocking wait=20
+            (one of my favorite <A=20
+            =
+href=3D"http://rampages.onramp.net/~greid/oxymoron.htm">oxymorons</A>).
+            <P>
+            <P><BR></P>
+            <H3>Alternative types of sockets </H3>
+            <P>This example showed a stream socket in the Internet =
+domain. This=20
+            is the most common type of connection. A second type of =
+connection=20
+            is a datagram socket. You might want to use a datagram =
+socket in=20
+            cases where there is only one message being sent from the =
+client to=20
+            the server, and only one message being sent back. There are =
+several=20
+            differences between a datagram socket and a stream =
+socket.<BR>
+            <OL>
+              <LI>Datagrams are unreliable, which means that if a packet =
+of=20
+              information gets lost somewhere in the Internet, the =
+sender is not=20
+              told (and of course the receiver does not know about the =
+existence=20
+              of the message). In contrast, with a stream socket, the =
+underlying=20
+              TCP protocol will detect that a message was lost because =
+it was=20
+              not acknowledged, and it will be retransmitted without the =
+process=20
+              at either end knowing about this.<BR></LI>
+              <LI>Message boundaries are preserved in datagram sockets. =
+If the=20
+              sender sends a datagram of 100 bytes, the receiver must =
+read all=20
+              100 bytes at once. This can be contrasted with a stream =
+socket,=20
+              where if the sender wrote a 100 byte message, the receiver =
+could=20
+              read it in two chunks of 50 bytes or 100 chunks of one=20
+              byte.<BR></LI>
+              <LI>The communication is done using special system calls=20
+              <CODE>sendto()</CODE>#### and =
+<CODE>receivefrom()</CODE>####=20
+              rather than the more generic <CODE>read()</CODE>#### and=20
+              <CODE>write()</CODE>####.<BR></LI>
+              <LI>There is a lot less overhead associated with a =
+datagram socket=20
+              because connections do not need to be established and =
+broken down,=20
+              and packets do not need to be acknowledged. This is why =
+datagram=20
+              sockets are often used when the service to be provided is =
+short,=20
+              such as a time-of-day service.</LI></OL>
+            <P></P>
+            <P><A =
+href=3D"http://www.linuxhowtos.org/data/6/server_udp.c">Click=20
+            here</A> for the server code using a datagram socket. </P>
+            <P><A =
+href=3D"http://www.linuxhowtos.org/data/6/client_udp.c">Click=20
+            here</A> for the client code using a datagram socket. </P>
+            <P>These two programs can be compiled and run in exactly the =
+same=20
+            way as the server and client using a stream socket.</P>
+            <P>Most of the server code is similar to the stream socket =
+code.=20
+            Here are the differences.</P><PRE>sock=3Dsocket(AF_INET, =
+SOCK_DGRAM, 0);</PRE><BR>Note that when=20
+            the socket is created, the second argument is the symbolic =
+constant=20
+            SOCK_DGRAM instead of SOCK_STREAM. The protocol will be UDP, =
+not=20
+            TCP. ----<PRE>fromlen =3D sizeof(struct =
+sockaddr_in);<BR>while (1)<BR>{<BR>  n =3D =
+recvfrom(sock,buf,1024,0,(struct sockaddr *)&amp;from,&amp;fromlen);<BR> =
+ if (n &lt; 0) error("recvfrom");</PRE><BR>Servers=20
+            using datagram sockets do not use the <CODE>listen()</CODE> =
+or the=20
+            <CODE>accept()</CODE> system calls. After a socket has been =
+bound to=20
+            an address, the program calls <CODE>recvfrom()</CODE> to =
+read a=20
+            message. This call will block until a message is received. =
+The=20
+            <CODE>recvfrom()</CODE> system call takes six arguments. The =
+first=20
+            three are the same as those for the <CODE>read()</CODE> =
+call, the=20
+            socket file descriptor, the buffer into which the message =
+will be=20
+            read, and the maximum number of bytes. The fourth argument =
+is an=20
+            integer argument for flags. This is ordinarily set to zero. =
+The=20
+            fifth argument is a pointer to a <A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/sockaddr">sockaddr_in=20
+            structure</A>. When the call returns, the values of this =
+structure=20
+            will have been filled in for the other end of the connection =
+(the=20
+            client). The size of this structure will be in the last =
+argument, a=20
+            pointer to an integer. This call returns the number of bytes =
+in the=20
+            message. (or -1 on an error condition). The <A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/recvfrom.txt">recfrom() man=20
+            page</A> has more information.
+            <HR>
+
+            <P>
+            <P><PRE>  n =3D sendto(sock,"Got your message<BR>",17,<BR>   =
+          0,(struct sockaddr *) &amp;from,fromlen);<BR>  if (n  &lt; =
+0)<BR>    error("sendto");<BR>  }<BR>}</PRE><BR>To=20
+            send a datagram, the function <CODE>sendto()</CODE> is used. =
+This=20
+            also takes six arguments. The first three are the same as =
+for a=20
+            <CODE>write()</CODE> call, the socket file descriptor, the =
+buffer=20
+            from which the message will be written, and the number of =
+bytes to=20
+            write. The fourth argument is an int argument called flags, =
+which is=20
+            normally zero. The fifth argument is a pointer to a=20
+            <CODE>sockadd_in</CODE> structure. This will contain the =
+address to=20
+            which the message will be sent. Notice that in this case, =
+since the=20
+            server is replying to a message, the values of this =
+structure were=20
+            provided by the recvfrom call. The last argument is the size =
+of this=20
+            structure. Note that this is not a pointer to an int, but an =
+int=20
+            value itself. The <A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/sendto.txt">sendto() man=20
+            page</A> has more information.
+            <P>The client code for a datagram socket client is the same =
+as that=20
+            for a stream socket with the following differences.<BR>
+            <UL>
+              <LI>the socket system call has SOCK_DGRAM instead of =
+SOCK_STREAM=20
+              as its second argument.<BR></LI>
+              <LI>there is no <CODE>connect()</CODE>**** system =
+call<BR></LI>
+              <LI>instead of <CODE>read</CODE>**** and =
+<CODE>write</CODE>****,=20
+              the client uses <CODE>recvfrom</CODE>**** and <CODE>sendto =
+
+              </CODE>**** which are described in detail above. =
+</LI></UL>
+            <P></P>
+            <P>
+            <P><BR></P>
+            <H3>Sockets in the Unix Domain </H3>
+            <P>Here is the code for a client and server which =
+communicate using=20
+            a stream socket in the Unix domain.</P>
+            <P><A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/U_server.c">U_server.c</A><BR><=
+/P>
+            <P>
+            <P><BR><A=20
+            =
+href=3D"http://www.linuxhowtos.org/data/6/U_client.c">U_client</A></P>
+            <P>The only difference between a socket in the Unix domain =
+and a=20
+            socket in the Internet domain is the form of the address. =
+Here is=20
+            the address structure for a Unix Domain address, defined in =
+<A=20
+            href=3D"http://www.linuxhowtos.org/data/6/un.h">the header=20
+            file</A>.</P><PRE>struct	sockaddr_un<BR>{<BR> short	=
+sun_family;	/* AF_UNIX */<BR> char	sun_path[108];	/* path name (gag) =
+*/<BR>};</PRE><BR>The=20
+            field <CODE>sun_path</CODE> has the form of a path name in =
+the Unix=20
+            file system. This means that both client and server have to =
+be=20
+            running the same file system. Once a socket has been =
+created, it=20
+            remain until it is explicitly deleted, and its name will =
+appear with=20
+            the <CODE>ls</CODE> command, always with a size of zero. =
+Sockets in=20
+            the Unix domain are virtually identical to named pipes =
+(FIFOs).
+            <P>
+            <P><BR></P>
+            <H3>Designing servers </H3>
+            <P>There are a number of different ways to design servers. =
+These=20
+            models are discussed in detail in a book by Douglas E. Comer =
+and=20
+            David L. Stevens entiteld <I>Internetworking with TCP/IP =
+Volume=20
+            III:Client Server Programming and Applications</I> published =
+by <A=20
+            href=3D"http://www.prenhall.com/">Prentice Hall</A> in 1996. =
+These are=20
+            summarized here.</P>
+            <P><I>Concurrent, connection oriented servers</I><BR></P>
+            <P>
+            <P><BR>The typical server in the Internet domain creates a =
+stream=20
+            socket and forks off a process to handle each new connection =
+that it=20
+            receives. This model is appropriate for services which will =
+do a=20
+            good deal of reading and writing over an extended period of =
+time,=20
+            such as a telnet server or an ftp server. This model has =
+relatively=20
+            high overhead, because forking off a new process is a time =
+consuming=20
+            operation, and because a stream socket which uses the TCP =
+protocol=20
+            has high kernel overhead, not only in establishing the =
+connection=20
+            but also in transmitting information. However, once the =
+connection=20
+            has been established, data transmission is reliable in both=20
+            directions.</P>
+            <P><I>Iterative, connectionless servers</I><BR></P>
+            <P>
+            <P><BR>Servers which provide only a single message to the =
+client=20
+            often do not involve forking, and often use a datagram =
+socket rather=20
+            than a stream socket. Examples include a finger daemon or a=20
+            timeofday server or an echo server (a server which merely =
+echoes a=20
+            message sent by the client). These servers handle each =
+message as it=20
+            receives them in the same process. There is much less =
+overhead with=20
+            this type of server, but the communication is unreliable. A =
+request=20
+            or a reply may get lost in the Internet, and there is no =
+built-in=20
+            mechanism to detect and handle this.</P>
+            <P><I>Single Process concurrent servers</I><BR></P>
+            <P>
+            <P><BR>A server which needs the capability of handling =
+several=20
+            clients simultaneous, but where each connection is I/O =
+dominated=20
+            (i.e. the server spends most of its time blocked waiting for =
+a=20
+            message from the client) is a candidate for a single =
+process,=20
+            concurrent server. In this model, one process maintains a =
+number of=20
+            open connections, and listens at each for a message. =
+Whenever it=20
+            gets a message from a client, it replies quickly and then =
+listens=20
+            for the next one. This type of service can be done <BR></P>
+            <P>
+            <P><BR>with the <CODE>select</CODE> system call.</P>
+            <P>
+            <P></P>
+            <HR>
+            <STRONG>rate this article:</STRONG><BR>current rating: =
+average=20
+            rating: 2.2 (21 votes) (1=3Dvery good 6=3Dterrible)<BR>Your =
+rating:<BR>
+            <FORM method=3Dget action=3D/C_C++/socket.htm>
+            <DIV><INPUT value=3D1 type=3Dradio name=3Duserrate>Very good =
+(1) <INPUT=20
+            value=3D2 type=3Dradio name=3Duserrate>Good (2) <INPUT =
+value=3D3 type=3Dradio=20
+            name=3Duserrate>ok (3) <INPUT value=3D4 type=3Dradio =
+name=3Duserrate>average=20
+            (4) <INPUT value=3D5 type=3Dradio name=3Duserrate>bad (5) =
+<INPUT value=3D6=20
+            type=3Dradio name=3Duserrate>terrible (6) <INPUT =
+value=3D"submit your rating" type=3Dsubmit></DIV></FORM><BR>
+            <SCRIPT type=3Dtext/javascript=20
+            =
+src=3D"http://www.sharethistag.com/js/linux,howtos,socket,tcp,udp,c"=20
+            ?showad=3D"3"></SCRIPT>
+            <A href=3D"http://www.linuxhowtos.org/C_C++/">back</A> <!-- =
+google_ad_section_end --><BR>Please read "<A=20
+            =
+href=3D"http://www.linuxhowtos.org/News%20Archive/adblocker.htm">Why=20
+            adblockers are bad</A>". <A style=3D"DISPLAY: none"=20
+            =
+href=3D"http://www.servicekatastrophe-deutschland.de/freenetde/">=C3=84rg=
+er=20
+            mit Freenet.de</A> <BR><BR><BR><BR></TD>
+          <TD id=3Drightcontent><!--            <div id=3D"wikilogin" =
+title=3D"Edits you make while logged in will be assigned to that name. =
+That means you get full credit for your contributions in the page =
+history (when not logged in, the edits are just assigned to =
+Anonymous."><form action=3D"/" method=3D"post"><div>to the <a =
+href=3D"http://forum.linuxhowtos.org/">forum</a>.<br /><label =
+for=3D"sitelogin">username</label>:<input type=3D"text" =
+name=3D"sitelogin" id=3D"sitelogin" size=3D"6" value=3D"username" /><br =
+/><label for=3D"sitepasswd">password</label>:<input type=3D"password" =
+name=3D"sitepasswd" id=3D"sitepasswd" size=3D"6" /><br /><input =
+type=3D"submit" value=3D"log in" /></div></form></div>-->
+            <SCRIPT type=3Dtext/javascript>google_ad_client =3D =
+"pub-4309123515655559";  google_alternate_color =3D "CCCCCC"; =
+google_ad_width =3D 120;  google_ad_height =3D 600; google_ad_format =3D =
+"120x600_as"; google_ad_channel =3D"9997585796"; google_color_border =3D =
+"000000";  google_color_text =3D "000000"; google_color_bg =3D "CCCCCC"; =
+google_color_link =3D "0000FF"; google_color_url =3D "008000";  =
+</SCRIPT>
+
+            <SCRIPT type=3Dtext/javascript=20
+            =
+src=3D"http://pagead2.googlesyndication.com/pagead/show_ads.js"></SCRIPT>=
+
+<!--              <script type=3D"text/javascript" =
+src=3D"http://zbox.zanox.com/scripts/adbox_content.js"> </script>=0A=
+              <script type=3D"text/javascript">=0A=
+              CallAdBoxTracking(291727, 1404111531, 0, 120, 468, =
+'B0E0E6', 'FFFFFF', '000000', '336699', '333333', '0', '', true);=0A=
+              </script>-->
+            <DIV class=3Dotherads>other Ads</DIV>
+            <DIV class=3Dadbox><A=20
+            =
+href=3D"http://www.nachoben.com/">Stellenangebote</A><BR>Stellenangebote<=
+BR>f=C3=BCr=20
+            Fach- und<BR>F=C3=BChrungskr=C3=A4fte<BR><SPAN =
+class=3Dblink><A=20
+            =
+href=3D"http://www.nachoben.com/">http://www.nachoben.com/</A></SPAN><BR>=
+</DIV>
+            <DIV class=3Dotherads>Other free services</DIV>
+            <DIV class=3Dadbox><A=20
+            href=3D"http://tourl.org/">toURL.org</A><BR>Shorten =
+long<BR>URLs to=20
+            short<BR>links like<BR>http://tourl.org/2<BR><SPAN =
+class=3Dblink><A=20
+            href=3D"http://tourl.org/">tourl.org</A></SPAN><BR></DIV>
+            <DIV class=3Dsep>.</DIV>
+            <DIV class=3Dadbox><A=20
+            =
+href=3D"http://www.feedcollector.org/">FeedCollector</A><BR>Combine=20
+            various newsfeeds to one customized webpage<BR><SPAN =
+class=3Dblink><A=20
+            =
+href=3D"http://www.feedcollector.org/">http://www.feedcollector.org/</A><=
+/SPAN><BR></DIV>
+            <DIV class=3Dsep>.</DIV>
+            <DIV class=3Dadbox><A =
+href=3D"http://www.reversednslookup.org/">Reverse=20
+            DNS lookup</A><BR>Find out which hostname(s)<BR>resolve to=20
+            a<BR>given IP or other hostnames for the server<BR><SPAN=20
+            class=3Dblink><A=20
+            =
+href=3D"http://www.reversednslookup.org/">http://www.reversednslookup.org=
+/</A></SPAN><BR></DIV></TD></TR></TBODY></TABLE></TD>
+    <TD class=3Dshadt><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/shadow-tr.png"></TD></TR>
+  <TR>
+    <TD class=3Dshadr><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/blank.gif" width=3D18 =
+height=3D1></TD></TR>
+  <TR>
+    <TD class=3Dshadl><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/shadow-bl.png"></TD>
+    <TD class=3Dshadb><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/blank.gif" =
+height=3D18></TD>
+    <TD class=3Dshadimg><IMG alt=3D""=20
+      src=3D"http://www.linuxhowtos.org/data/border-rb.png" width=3D18=20
+  height=3D18></TD></TR></TBODY></TABLE></DIV>
+<DIV id=3Dbottomline><A title=3D"rdf newsfeed"=20
+href=3D"http://www.linuxhowtos.org/news.rdf"><IMG alt=3D"rdf newsfeed"=20
+src=3D"http://www.linuxhowtos.org/data/rdf.png"></A> | <A title=3D"rss =
+newsfeed"=20
+href=3D"http://www.linuxhowtos.org/news.rss"><IMG alt=3D"rss newsfeed"=20
+src=3D"http://www.linuxhowtos.org/data/rss.png"></A> | <A title=3D"Atom =
+newsfeed"=20
+href=3D"http://www.linuxhowtos.org/news.xml"><IMG alt=3D"Atom newsfeed"=20
+src=3D"http://www.linuxhowtos.org/data/atom.png"></A><BR>- Powered by <A =
+
+href=3D"http://www.leopardcms.com/"><IMG alt=3DLeopardCMS=20
+src=3D"http://www.linuxhowtos.org/data/leopardcms.png"></A> - Running on =
+<A=20
+href=3D"http://www.gentoo.org/"><IMG alt=3DGentoo=20
+src=3D"http://www.linuxhowtos.org/data/gentoo.png"></A> -<BR>Copyright =
+2004=20
+S&amp;P Softwaredesign<BR><A=20
+href=3D"http://validator.w3.org/check?uri=3Dreferer"><IMG alt=3D"Valid =
+XHTML1.1"=20
+src=3D"http://www.linuxhowtos.org/data/xhtml.png"></A> : <A=20
+href=3D"http://jigsaw.w3.org/css-validator/check/referer"><IMG =
+alt=3D"Valid CSS"=20
+src=3D"http://www.linuxhowtos.org/data/css.png"></A> : <A=20
+href=3D"http://www.linuxhowtos.org/buttonmaker/index.php"><IMG =
+alt=3Dbuttonmaker=20
+src=3D"http://www.linuxhowtos.org/data/buttonmaker.png"></A><BR>- <A=20
+href=3D"http://www.w3.org/WAI/WCAG1AAA-Conformance">Level Triple-A =
+Conformance to=20
+Web Content Accessibility Guidelines 1.0</A> -<BR>- <A=20
+href=3D"http://www.linuxhowtos.org/category17/">Copyright and legal =
+notices</A>=20
+-<BR>Time to create this page: 12.3 ms<BR><IMG alt=3D"system status =
+display"=20
+src=3D"http://www.linuxhowtos.org/status/output.jpg"> </DIV></DIV>
+<SCRIPT type=3Dtext/javascript>=0A=
+    document.getElementById("fulltextsearch").onkeypress=3Dchk;=0A=
+    </SCRIPT>
+</BODY></HTML>
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/bluefade.jpg
+
+/9j/4AAQSkZJRgABAQEASABIAAD/4QAWRXhpZgAATU0AKgAAAAgAAAAAAAD//gAXQ3JlYXRlZCB3
+aXRoIFRoZSBHSU1Q/9sAQwAFAwQEBAMFBAQEBQUFBgcMCAcHBwcPCwsJDBEPEhIRDxERExYcFxMU
+GhURERghGBodHR8fHxMXIiQiHiQcHh8e/9sAQwEFBQUHBgcOCAgOHhQRFB4eHh4eHh4eHh4eHh4e
+Hh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4e/8AAEQgBAAAFAwEiAAIRAQMRAf/E
+ABYAAQEBAAAAAAAAAAAAAAAAAAADBv/EABcQAQEBAQAAAAAAAAAAAAAAAAASEWH/xAAWAQEBAQAA
+AAAAAAAAAAAAAAABAgX/xAAVEQEBAAAAAAAAAAAAAAAAAAAAEf/aAAwDAQACEQMRAD8A388FJGwy
+lJFZAVMFMEqVkVkTTFMFcApSRWRJUkVkSVMFZBVKSKSAq4KYJMVkVngmlSRWQVUUwUkTVKyKYClW
+RWRNKkimAMf/2Q==
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/shadow-tr.png
+
+iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QAkwCqAMFXacwvAAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1QkFDRkjhVb+RgAAAB10RVh0Q29tbWVudABDcmVhdGVk
+IHdpdGggVGhlIEdJTVDvZCVuAAAA0ElEQVQ4y42T2w4DIQhEB9eu/f/vVeyLWDqLWhLCXsJhBBQA
+BV/rwfMpAkDPAK4/EjoAoWRfUE4gdhBwFsgA8h+ADkAJ+FD02kDURaF3cI/uA0DdccRBfoARSDfu
+zQpMUFmoUADNxeaazcAHiCFpRCFAOLWyUNIA1AETxNb91N4LiCmqi2TrUfKKGFSHywaSWFEJ1KTg
+SL6Y/TdVD1B1IAlUaABUA900pUoQS7qG+ymKV3RTbyJIG5BEPtfC7loL9sSr2EGmohwsnI7v7QSw
+hA81UKEFnmb9NgAAAABJRU5ErkJggg==
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/blank.gif
+
+R0lGODlhEAAQAIAAAP///wAAACH5BAEAAAAALAAAAAAQABAAAAIOhI+py+0Po5y02ouzPgUAOw==
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/shadow-bl.png
+
+iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QAkwCqAMFXacwvAAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1QkFDRgZWkEWtQAAAB10RVh0Q29tbWVudABDcmVhdGVk
+IHdpdGggVGhlIEdJTVDvZCVuAAAAt0lEQVQ4y5WSwRLDIAhEd8U2l/7/19akF0yRAmOZ2cGJ8FwN
+BPAC0AE8VE/VkWjWdJUAkI5vXE6n0wDwBtA0L32iJ7REEnyjysYlapOmqBXNHnK7n46YNJcuNJ8T
+1IMTueFieccM1DYgPyAxxZkLD/N/9AYhAERvko3HEHONqJm7M+YdIQEic+IdVVE5mbAhfzixsCt6
+bBZOfE6vV4EySOiu64KmyUJocjYeRLUR7FV14fxwMy/rDwl3bI3ruTndAAAAAElFTkSuQmCC
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/border-rb.png
+
+iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QAkwCqAMFXacwvAAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH1QkFDRQxw0HxQwAAAB10RVh0Q29tbWVudABDcmVhdGVk
+IHdpdGggVGhlIEdJTVDvZCVuAAAAv0lEQVQ4y5WSUQ4DIQhEZxtvuvc/QEWgP2IoBd2akI0Kb2eQ
+C8ANYMzoAAjAu4jucmjWMAB5OYgdrssQGsIvjSCD+DgBFQDalMoJcDyArdWC1+H2I1GmVbTZRA6q
+aGM3VWUgSezRxl6pSMJf/4V9KZIA4qLpVizOmkaQJM/PhapUkSYw2cyTb/TqUU9AUoBl92o98R0L
+TpOtNpDxQg5fzRSR97qBagFZzR7+4EHRD8SscQJCAajy0MJg4VRQ5OIDbW4WBU+481AAAAAASUVO
+RK5CYII=
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/printer.gif
+
+R0lGODlhEAAQALMAAAAAAIAAAACAAICAAAAAgIAAgACAgMDAwICAgP8AAAD/AP//AAAA//8A/wD/
+/////yH5BAkIAA0ALAAAAAAQABAAQARBsMlJawMn6437BE8ohsAHnGh6HiUFjmIrvfDTsdh2IHzm
+zSqVBRiUfWwpmwWkQp6IRRauGPTlNoustXXVSY3DYQQAOw==
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/pdf.png
+
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0
+U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAANCSURBVHjadMOxCQAgDADB77KjjYO4g5OY
+2ewD8oK9B4eKmbgWzklFUPAeGMLu0Pi4AogJzvoLVM7Dw8AUHs7wi5kZpJmBkYHBE0gJCDAwuANp
+dphSZiQDAAKICcW4P38YmPX0GFj8/RkuAg15xMBwFyT8noHhK4jmZGRkmMfNzSACpGEAIIAgBvz/
+z8/w6xc/w8+f/Azv3/Ozy8ryPzI15V/JwHCVAeKSn0IMDLzr2Nn5YxkY+L4DvQ0DAAHECAoDhl27
+Hv6XluZn+PaNgeH7dwYQzQh0zbdHj1m5crK5njo4/vzm4/dd9MtXxmfHjnyz2rnd9SPUcIAAYgAZ
+8G/37i9/gYx/SPgPCF+58v8fI9P/nwqK/28/fPr/3Ld//w81d/4HhokXzAUAAQT2AuP793+YIE5F
+wcxbtzJ8cnJkYGBhZuCtr2Vg+v2Tgfn3r99AN/+DGQAQQCxg8sMHrFH0/8ABhu8BgQyMqqoMop4e
+DG+9/Bi+8fMzfGZg+MwKlP8NxAABBPFCV9cHkLNhAOyNR4/+/1JW/v/k9p3/b4D8n97e/3+Iiv2/
+6eD8ZyoDw5I8BgZ7kH6AAILEwqdPDKBwhWGw+zZvYfghJcXAvXs3A1dYGMNHoOB3GRkGtQN7mbIY
+GKK5GBgKgKq4AAII7IU/P38xMCK7/c4dBsZ5cxlYPn5i+HHpEsO7iGiGz7oGDN9//GLgqS7/t3zz
++u0zGBhWgJQCBBDEgF+/ICH68hUD89SpDEwzZjB8VlFmeLdtOwOTlAzD/2/fGf6//8jwjZmF4Y6W
+7r+2zeunAZXvBmkFCCCwF34BU9bfs+cY/qakMLx7/ZrhG9Dpr8srGZiBmn8DA/jr+w8Mn798Zfj0
+8TPDHyDNA84mDH9AegECCOyC358+M3Dl5jL8ACYgdqBrXoeEMvyxtmX48/Y9w7fvPxi+fP3O8P7z
+V4Yvf/4Ddf1HyQIAAQQ24PvvPyxf84sZWI8eZnhnA9Ro78jA9O0nMFH+ZPgKxB+B+NN3YKRxcDL8
+Y2Fl+c+ACDKAAAIb8PfQwbffGJn+/GZmYvi/cQPD31UrGb4Bc+fPv/+A+A/Dv99/GdhBSZ6FleH7
+o/ughPQbZgBAgAEA4hNwogAn7wEAAAAASUVORK5CYII=
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/rdf.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAIAAAD8q9/YAAADMElEQVRIieVXW0gUURj+zuzZ2ZuX
+SO0iaA/1UIFP5UNBQbGUYJkIXR4iKmKFJeulkAoKKijDioqEpXsShUFWJFFsD2WRWYmhZYUpSWWY
+K7vuzrhzPT0MybjrbmKLFn1PM9855//+7/yHM/8Qj8eD/wkUgM/nm+w0Jgjl5eU0heHc3soURks5
+/DVVMCr8iziOgS/QVVAbAKgSLDx0FUwHtQOAGgXhYLFClUBtIByAT+2vAcw+8GgSHIwLJsPPriDQ
+DXs6+noBYNoMiAPgeFhtCARAgKnZUCUMhZGejcF+KABBaw8AzI6La2xnWBAv33t45/HzYSYUEZra
+Os7U3YlK8jBpIOaAxA+NnYlRSWCY2tg8N9tSq53faHU45KL9g75N2SW72dzl8qFCG+Wwt3nozQPm
+P+nw1glnylyfWwkPG08S7aXbWzknL7d6p8cwbDAZLmfF+jXlZcWnrteP6jMmwviYeJVhcCPeWu6x
+5mvYdE4pPth160Sk8xXsLj0tW1yyXS7cCFdWiDlCGmX2jIBCGUuUpyk6IWJUMjODgniu/v7igvm/
+X/wHSKIy4tIiisrdP2JZ6onICveiNj8N0LXBtifORevVyIDS2UytVg0MmkJUCQrAJ1P111R9/dG/
+r+ZSDP8jGMpMc5qnGQ/xtYofGgszqsrohkEtxL0z+r2L2NJzV1Vwj6rBO6WuNkvn4/7QkGvWXD4r
+TwMItdGsfE4dgB4GwokMu72VW0tWzpo5vfvbdzOfMyUzFBHN0+JNGuT4jvSoKgkML1gtFpR9ql6X
+v3C53b0j+LExQwgqsizd2J8mIXPXhYAoEEXWdSV97WFJFeTGi+x9bAHNuNrgP73L+/LdB2EoajAZ
+Lue20qKm9o5ES1LybUuiYjLMU/Q0SceW5fV1Zz5tEVrrlWA/V1dhF/ScKYAVaNjDRaw5WgBHFwua
+QyAcCffxlmTCqqbdffJ886oVZ2/eBeCvqQoLYlN7h+9Ww/icjPGQJ1EhHo/H6LRulE7rDTOiAzyY
+BqggFEwHIQAlDIDCCAAK9uuqJxRtvUEAF94q+BcajxGd1obbfZOYzYQhla2luQ34a0H+t7+ln+w/
+kLHhGhYqAAAAAElFTkSuQmCC
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/rss.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAIAAAD8q9/YAAADqklEQVRIieVXbWhbVRh+zs3JzVc/
+YvNhF0yHzMEm9NcY4mADR9BB6yxlrmOMOocmElb7S8IcTFChVueKFjvCFDeLulZd29E61FboUFa7
+WavtKGhtceg62yTm69725n4cf1wnTZvMUsOq7Pl1zvNenvM+57z33PcSv9+POwkUQDgcXus0bhMC
+gQAtoJwvGCqgWsHR39YM/YRvEq8j9is0BdQEAIoEAw9NAdNAzQCgLIBwMBihSKAmEA7Az+PfAtjw
+wsAaOFgVFhn++gyi0zAXY3YGANzlEGPgeBhNiEZBgDInFAnzKRQ7kYxABghGrwHAhmxRfS9Tgni6
+9/OewUsAtmzeGKitusft/D36R/unA19eGc1HLhHRodfOyplEWhgam2jt7FmQMvkNUxPb7GNPtqtv
+HzBaLJldx5Lheufu59imnZmXtpooh+eH57//jPW3WIKdQmut7ZdRwsPEk5wb6QuG7vN6jjf6dcNH
+Du47+XHv4MgPLntpfbVP95aTXCKyOqbEZm2oeyxQW/XGh11LolzWbKSXDb+P+lNy1YtT506kJ6/A
+bNOKnOL2w5mtB2BzJJgloVJmLonKlLGcThdJEyIuSPo4JYjuMvtGryeSSDaf6bwFWRAkBfFU14Vt
+lfcvD2VdWkRWuAtNhh3+dEbmvmmvKAI0NTl20fpgnZKOyZPD1GhUwaDKRJEgA3zeJfvbmn+bixxt
+e1efHj15es/O7Q11NR6Xo7WjZ+Dyd/nIJSL64O9jXAmjYy6eKC2y/oNhUAPxNS7cmCKmYk91Azdw
+HLxVmhozTA5GEvO29Zt4h1cFCDVRRwWnxKClgFROw75g6NDuR9avu3v6+g0A1+eib3Z0A7jXU/5a
+49O6t5ykbkDPfnUlrcNlL02kxeV8dklveVSsrP3pxH7lixaj79m49wFNiMuZjHT2WFF3k92ozIuC
+Jmc0TS5+/GXpmY5U5R7GkK+23+vr3+vbYbOYAYSe2LvOUUYNhopyNyF/vfY5SV8w9O8/byU261M1
+u4bGJ5aHFp0wT3FtSHr1Ie/sdOlXI8JolxyPcJ0NZkFz2QEj0HeESxtdahSvbBNUi0A4kprlDXlX
+VVT1/MVLB6sffuuj85ev/th0+FC5466ZSKzlg0/0B3KSt8YKizwliEPjE+FzfcsViN/v1zutszXu
+mRQjGsCDqYACQsE0EAJQwgDIjACgYDevekIxNhMH8M5VGf+HxiOr09rXPbuG2dw2FLK1XNwG/GdB
+7rS/pT8BtBnHSFQNjfUAAAAASUVORK5CYII=
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/atom.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAIAAAD8q9/YAAAEA0lEQVRIieVXbUxbVRh+zu3tNwUi
+sOgywIAxGwPtdDOKwNxSYw26ERKYzjljIG1CZH5EJWqGZuLXAhpdsqVhsBAiY5jASMbmhMWwaVaJ
+ElwZEOUjEBJm13b9ui239/ZefzTc1sKPijg0e34+57zv+zznvPfkvcRkMuFOAg3AYrGst4zbBLPZ
+TK9JIkNN3Zrk+VcxcPwzRG4YAAaa4JqHwINWAgDPQqaAwEMUQKsAgF8EoSCTg2dBK0EoAFOjvwDI
+ff/S+jhYFZYM/9gG5wxUOtgXAGDD3Qi4QCkgV8LpBAHuSgfPIuiDLh1eBziAYGQOAHJj0rUfeRvA
+i/VHsXSiEgw1dTqN+r2q/QW59177faahtYMJLka2tfR+e/ri9wCef2pX1V5jXL/E5oksJc54/IzV
+Nn6sq3eRDf3VMK0UtxjEl9vDJw/I1eqQsd5rOZi+5y1x8+7QhzuUNIV3h4K/XhQHvlDXdDHHyrWz
+I0QBpYLEKsvLyZ67cZMiJC8ne2x6ViosGague3r+D8fhE23m8tKqPcavzpyN8MbC7Wf6BwEYHtm2
+4rUs/2QSZJK1mtp9e83lpV+e7omQVHR9+Jw49DUONnOlR6a7P/dP/gyVVkhKDxS/EtpxANo0j6j2
+hGlRlezkaFFcQVaxfutV29hV21ixfuuKuh/N39LVP8jx/DcDlx9/MLpneGKyZFvBEw89MHR9YsXA
+VcPLBJp7LhQW5ElM9NEiHE9d+ERWYvKHOOqn9qwkQAh7bZc1j+3j/S5ucoiWy8MQEeYIz4IDFPHZ
+i/T5rzWdIIQ0vW62dJ9fXj5Vp3V4vABuuj0pSRqJ7/pusO6lSgANrR0Vhp3LA6WOla4xESaCuFox
+rzQtI4ZXF29ME6Vu4zO11KVGKDTstE02OejwBLXZmxVpmWGA0Eo6LYviXRB8gE+Kvi9zo48JOj0+
+AIEgm7vpnqn5hTjdHiaQnpJsv+XOSE3x+AMSv+B02W+5BVF0uL1xJiPqV9fSEcTVijH88LOBgvKp
+xsqs7btVhkPu364kM24uFGI765NYpLzZ4gwwhAsJAqeraGB5JnSlVZw4JUUX6/Pvz94kHXORPn+5
+YattvPLJnZbuvgpDiXV0PHbp41OdCRr4W0jWaqrLjLG1lgwraMxZ2aO7Mu0zKT8MMyM9nNtBddWq
+GCEjFZADfe9QfnlG2IlPC5mwmiEU8dkVsmjqIn3+ocbjY9OzAPJyst/YX952rj+ufHPP+cPVL/Q2
+fXBtcuajlo5/4iTBJvcxAevouKW7TwokJpPJYrF0lm1Y8IlEABQQwwAPQkMUQAhAExEAJxIANMTQ
+UiQN24IbQMt17v8yeEQnrefO2tdXzW3D2oyWcTPGfxnkTvtb+hOZCMkXNe/gqQAAAABJRU5ErkJg
+gg==
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/leopardcms.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAIAAAD8q9/YAAADoElEQVRIiWNMS0tjGEmAhYGBYebM
+mQPtDDqB9PR0Fioa55JVTkXTqA72TOtkYGBgGmhnkAAgLqYQoHt49uzZwsLC4uLiK1euhIjMnz9f
+VFRUWFh46tSpEBFGRkZGRkZubu7u7m4aOQsP4ObkqEqM2NDTsKqjxt/eEmLj+u56VhaW9d31cNu9
+rc2Wt1btmdaJ5h70JF1WVnbgwIEfP34EBQWFh4czMDDk5eUdO3bs379/NjY22dnZEGX///+/ffu2
+iYlJaWkpTb2HCfIjAn78+h1b1/n3379oDyeI4NPXb8Nc7J68eqOpKAcRyQjxKe6feevRUzTt6B6W
+kZF58OCBv7//06dQpXZ2dhcuXLhx40ZOTg6yyh8/frCxseF3nI2Bdm5YACc724aDx+Zt2ulmYZwe
+5M3AwDBz3dZdJ87umda58/gZWwOdmeu2bj16ioGBYc+0zp+/fm07enrq6k17pnWu33/Uy9p02urN
+GSE+B89egphpoaMZUd327cdPBgaG2Ru2QwRPX7sZ7mq/Zt9huIev3HlQHBNy8sqNLYdPvnr/Ae4k
+9CS9Y8eOHTt2GBoabt++nYGB4evXryoqKllZWRoaGu3t7XBljIyMZmZmFRUV+D2cFxEoLMDHxckR
+7mrPwMCQHuRdPnlO+eQ5EG8zMDCsP3C0aMLMRD93BgaGOG+XL9++s7Ox+dqaw73hXVCb6Ode2Ddj
+w8FjeCw6fe0WFyfHmeu34SJV0+ZPWbWJk529LTsRWSV6DEtLS0+fPv3x48cmJiYvX7708fEpKytL
+S0tLSUl59erVvn37tm7dysDA8P//f/xehQAmRsbqafNPXb1JjPpwV/u8nmkszMxTy3MhIqeu3sRU
+dvLqjYxgn9nrt0GSNCSSr99/9PzN2+v3H8GV/f////Kd+99//vSwMsHnYXFx8Q0bNoiJiUG4ly5d
++vHjh4qKip2dXUlJyZkzZ4jxJ7ycqJuxMDfcX0JYiIGBwSWrfOa6rZ25KQwMDDPXbYUoCHaysTHQ
+gXC3HzszqSRr18lzaKYt2rq7vyjj0LnLEO6kFRvyIgKWNlf8+vNn8bY9cO/F1nVhuuHjl68LNu9G
+FmdMS0tDbnisXLmyoKDgx48fkyZNio2N3bhxY15e3osXLxwcHPT09H78+DF58mRGRkasMUZqPbxn
+Wic9q+490zqxNDzCw8MhhTME+Pv7+/v7o6khMj0PTjCQDY8BaZlRs2lJ6yYHVQDjSOstAQDUxYQa
+0DS7UwAAAABJRU5ErkJggg==
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/gentoo.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAIAAAD8q9/YAAAEVElEQVRIid2WX0xTVxzHv+fcc1va
+KlIQX2TIJMbJ5jJkFITNjQirRgckiryQyINGzTJmMhczGJmDSKpLHFtkQDQOF8KCIgKSsRqkLLMq
+jYBsDjADSoxOnBSY0JaW+2cPzboG4boHiJufnIf7+97vOed3z99L3on/pKLmkFan04fSkRH6aAxj
+Y9M6rfjZByY8j5DbPaPRa/W8GhSYnKKjj6QxB50YF1PTuGedG4yGwgVvk0asClGpZQKRAFqNrA+l
+wXqotHJjg7Dgnf0XoMHLCEApOBliS+tQXV2n2zUarme6Jaz+wsyzTm/hoQAACYAE7u6dP4aH6q98
+f4XjPQD4IL7+ouzzWS2925KOGA2F25KOdNsGfaLRUBhYfMpPbb/6387pmZp0F+SdTX+z6NMPq13O
+aZ95ThGA2VYcmK4/NNuKk99e96Q4y1l0Iic2fjWA2PjVRSdyAFC73SXKBJAoEJfw6ktrMyKiVkPm
+OV7SqhGkIr55Lik4l390l9lWfLho51empsB2/cWnVJW3CjPCLEPgwzdft76+cU19W35ySsy3lW0+
+25yiMrkHUilHlT2VpS178oyMcXvyjJWlLQBo1ekm86WBUQcDpASDducOQ9qWOMZDzUCIzFSSSs1Z
+rW5BEJNTYgBsSn2louY9hT42GKIbam8oGK792Je2PZbxLH7jmquWXgVRmS7bYGZ2orLn/l1HT6fd
+VJb7S9fw/bsOAJRTD7e311RUXrjV9ZgQotaJKibzTOYI4dUSgBej5dDl/2xmo6EwfVNxYBi4XAHk
+7E1pOt/x54RzviQmxp1LlmoABIdoxx1TCqIy1acs6VkJS4M1yrbG2hvrY6P8c8CuNbtP13208oVg
+SgAIVGaSCJ4iSCtErJBFSaq/eP33ex3++mZbceBtMWuPAVgWokvPSqg+ZZkvgxC9zuWc1uqC3C5v
+SKhOQVRm8rG76XxHzt4Uv+KZ9vIqNuMVeBXzTHt9YkZ24s+d9szsxIovWgDQ8tpDIct1MpFECAAV
+JAgyCENkJJ30uOouWEcedBw/dpgxzmrpBWC19DL2lCs6Mzux6++D7UneSIkxN3V5pr3mS11Jb61T
+EJ9KQ+2NDYZofzg08ND47gbGuK0Zcb/deQBgZWTY+tioj98/+/Jrq1ZGhgGgK8J1SzQcJ1MOEEXi
+FSBLUGswNDxeV3N15MF1U8lhAPlHd5UUnDMaCn2nl7+PJ5c0AMaz3AOp82W5e//mzo6BrDRTz82h
+3fs3K4g+Zh2KgUiiVFXe6g/LPm/eviP+YnvBloy4suPNAPYd3Hrm5GVBEM+cvLzv4FYAxOMVCCTC
+QRLZjJfMeEWNjjpdUumXjYKnv6Qk/18O9mKwGH9abGwMPOUpJ0lEZlQiPG73jduu93vc3cdMcwzq
+/x3mdIJSWaWmVJTtjslb3fZ79j63e/DY8efwawEQs9mh0WicLu/41IS9/6Y4c8/tfRgeHvbDdxPP
+OrdF4S9/gRdGjP2w4QAAAABJRU5ErkJggg==
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/xhtml.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAIAAAD8q9/YAAADZElEQVRIieWXT2gbRxTGP4mQjkpb
+VqdqA6EM5DKCFmRMi5a0IWuXGDmHVmrTWD6EsrCmsUkPW/BBOkqh7s0gBwxW0xY2dVKq5hIVirvQ
+HrTQg3SqNgfTOQS82z+xhjTEE/eQHtaRpWCC5EDS4h97ePOYt+99w8zs24hpmjhIHAKwvLz8rMt4
+SszMzBzqDiJauV2bZQlFSiSN6m+2seMfKWcyTFUV3xc86DQrBiCTySTn3Mhnmx63bZsxBmD8/Pyz
+0TEYa5cWAER7XTXHA0AIOA8cLwidCabcKGVXZvVUUrWtSUJQKpUA+L5P4iqlNFT7f2FXsKIqjba/
+M5CoN9oAXC+Y1hkAHohytZFiCQCu666srCQSiUqlYtv2gJnmz52ZSI+G9kR6dP7cGTxc9ZDQXru0
+0PuEnqlTJ8M5U6dOdkN6Y/cjOKPRhucDcLwABHWXA3BaPDNCAcxVnZ2lkJIxpmlaOCSEDJhpcfV6
+Vj9+7OiRY0ePZPXji6vX95w2fn4+PBpdA8CENhqNRqPR6PjrqX2I7GX3DE+m6JW6J6R0WzytUdfz
+eSAabd/Kp1tc1B2OLSmkJJCapg2us4u8v/3ZV9cKH04BKF/+Wt7fHjy2eXP9rdSr0Ujkl19vvqK+
+PGzqXnYF53VWqbf0uZrn+1s3rHhuacz6lgtBgBRVHvxoAYiMldv2bDabkRLDS8b6rQ25/c/f9+6t
+39roOgfZmdd++Ck8AqXPr7w/fmLoxD30XVo5jbWaXEoAyOmMe/xRUZ2tVtsnRNmHWgCn33zj983O
+c4cPa68lu85w6z7+hvdvb/7REcFm5y9xZz+Je+gTrDMFcdCEAiCvUZCYrlEvEELInRkk5nMupeiG
+uK4rhMAAxF964YO3Tyyufrfw5dWP3jv94vOxoQq9eHn10y+uDhWyJ32CVVUFSEajAEYYJXGSTTPd
+svViTQgZCEniiq6xatUORbquOz097fv+3u/u5+Oz79rfO507dzf+vP3N2s8Xzr7z5NX3XuYDEjFN
+s7fTGvukNptLZdMUwNySY+jJBvfninWFKnFCjMlkIZ92HKdcLlNKbdsuFouFQiGM/e83Hn2dVoiV
+S40wNbQNPUmpEn57l2pNAIV8GoCu67FYzLKsSqViGMbTLfuJMU3zwYHBNM3IQftb+he2GU6kVvKs
+oAAAAABJRU5ErkJggg==
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/css.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAIAAAD8q9/YAAADdElEQVRIieWXT2gcVRzHv2sWfCul
+eZOaMFNUeIce3l5kVnvYuTmNIJsGZbf+YRe1dOoE0oiHFYpkPblBiy1CWVsDWanoFGrNUjBZBd0R
+D+4cUrJFcBc8ODdnxSY7xtY8tEk8TMyf2gY7hBbJ5zS/DzO8953f4zdMxDRN7CSiAMbHx+/1Nu4S
+Q0ND0bUioo01K8e4TIVA3Cj/ZBmrPjGWSnFFoZ7nu+3ObMkARDwed13XyKZnW65lWZxzAP3Dx+9N
+jv/G12dOALhvo6rYLQCEwHXbdqsdSJnT6WJ64piuxhUrP0AIisUiAM/ziKQwxoK0/xfWO0wVWm96
+q4VAtd7Uuey02jmdA3Db/li5XqwlATiOMzExIctyqVQSQoRcuKtr+NDgE48/urS8fP5Lu/LNdwAe
+4/uG0gMP9T34y1zn42rNvnzldnIbAqc0Vq27AOxWGwRVxz1pwG64qQQDMFK2V1+FEJxzTdOCkhAS
+buHDB5/slbqPvHXqz79uvJjqD+Qbh184+9nUt7Pf99Lulw72B9luKUOzfqQHVOb7whfCabhJjbU8
+32379aanqazh+lXbxaLwhQCEpmmhc66h71fPXPy8s3Dt+qL4YHIqkL9f/6Ovh+57eO/V3xZOfPTp
+FjI064GzOk+qij5SKVr1+sksJeRAfrLacAmgMrpSy6/UR6WBU66PdDoV9iCv07N7V3u+c5McPXuu
+l3a/+vwzF98pHNivbiFDE91YZDT+erEKiQDI6Lxctokibbq9s9hoelzfhik1v3BN7pG8ufmN8udf
+505fuASA7ZXffe2V2kzjdjI0m6a0zikkMJkCyGoMJKZrrNX2ff+fhpKY57pC+GuPOI7j+z7uHHum
+MfzsoLR71wPk/qNPPxXI4y8/p+zpiXZ1PSL3RSKRLWRoNnVYURSApDQGIMEZkUg6yfW8pUiSXUwL
+gEhU13i5bOVyOUqp4zi5XG56eppSeqcLn5v6avjQ4Idv5peWlz/5ohbImR9+fHvkiLxH8q7Ov3d+
+cgu5PYFlSnSV6QkGgBIYKTWhSIWcNlKoMqMsEVLIJVTOOh7PZDKMMcuyCoVCuO/wjaWl0xcuBWd1
+DfvylX8P4VvK0ERvqvMZNcGV4NrQ44xRlcsA3q/MAhjNJgHouh6LxfL5fKlUMgxju7ZylzBNc2XH
+YJpmZKf9Lf0NxOJrZGCN0FsAAAAASUVORK5CYII=
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/data/buttonmaker.png
+
+iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAIAAAD8q9/YAAAD6UlEQVRIieVXf0wbZRh+D/kxfhSB
+W3tuELO5ihUZ2qx0TmP9kWZbTF0NE4Zs4hZqq10lWM+W6eZYQkcOumUh9JCR9XBOEIumtiFU05z/
+zJlYdLc6moLdwBCSQSSYRcxtlNQ/Ts/mum5qmmHC89f7vt9zz/c+992XvIfo9XpYTUgHgJ6enpVu
+4y7BYDCkp1BObbSmUC3l8JMEAKStdBt3G0LDvb29KIpiGDY4OMhVKIoSi8UoijocDq6CIAiCILm5
+uR0dHYLH/SThJ4kB27vlmzYkbrZzm0IQ3B5ue4soJ5tPRTnZbntL4o7/RIqH0LDFYqFp2uPxmM1m
+rtLY2EjTNE3Tzc3NPC0WizEM09ramqioNlotnb3HDPWJS/gr1YLg9sjLyX56SwWfPqt4NC/O/3+D
+8A6XlJRMTU1ptdqZmRmuolKpGIYJh8MmkymeybJsZmZmMl06wACAnyS4i82fQ3ygNlory0rxfdUA
+YD/nCoQm/CQRGBuveHCjzTlwIRgCgHVo0dqC/F9+vY4VFWJFhQBgqtGqlfKM9Hu+uTR2nPqEU9M8
+tfV+TEIOeR8r3WR9dU8aghynBi79dNVPEnTg4nrxWlN7F8cUnrDP5/P5fHK5fGRkBAAWFxelUqnR
+aJTJZG1tbTwNQRClUhl/5jz8JEEdxX9nWUGdc642WvkAAA5W77Kfc534eOhg9S6O9vnX523OgcMN
+dVzKTFw58MIOAGjQ7vhhPAIAXZ9+8SLe8prt1HOVco6jfOShbZvLyCEvALy5R2tz9recPvv6bs2f
+ji6MvnXyA74N4QkXFxd3d3dPT08rFIrZ2VmNRmOxWPR6vU6nm5ubo2l6eHgYAGKxWKJV3hh6r4h6
+H6e8XyXj8LgPLfw+HElDEElRAVcJhCYAIDMjg0svjl850rD32x9Dj5c/3H7WBQBby2XPP6ncsB7j
+RfZrtv/dvxg99fYbABCNRrkK95qSGsYwzO12SyQSLg0GgyzLSqVSlUqF4/jo6OgdPQDAmqysRfYG
+ANxcWnqiomzpr70BYE1WJnvjJh9cm1/YIpMCwOz8wi2losvLwchk08tVwchkdHkZAA7tryU+HBTl
+5ljqazjOe92UuW53ZVlpIDRxbX6h/SNX6OrPyXoTftKdnZ1VVVUKhcJutwOA0+lsamrKz89nGAbH
+8b6+vju69ZOEw2KivF8CQOuZ/kMHajdLN3JLlyOTnxFH4gNyyPtOfY1570tdLk8ywUBovECU991Y
+mEvPM5cPN9Q9ULyOJyxc/63fR9dufwYAHC7PUd0+z4ljOu3OW6oher0+VZPW/3/wMBgMq27wSOVo
++W9ngBUBstr+lv4AyJx1z7/gSF0AAAAASUVORK5CYII=
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+Content-Location: http://www.linuxhowtos.org/status/output.jpg
+
+/9j/4AAQSkZJRgABAQAAAQABAAD//gA+Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcg
+SlBFRyB2NjIpLCBkZWZhdWx0IHF1YWxpdHkK/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMP
+FB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEc
+ITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8AAEQgA
+ZAEIAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMC
+BAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYn
+KCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeY
+mZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5
++v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwAB
+AgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpD
+REVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ip
+qrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMR
+AD8A+f6KKKACiiigB0cbSyLGgJZjgAdzVi/0+70y7ktb2CSCeM4eORcEH6VBG5jkVgcEHNeheKfL
+8UeCrDxIhX7ZabbK9Hc4H7tvxAx+HvWU6jjJLozanTU4t9TzqnIMsBTaUHBzWpktztPGOjWOneHf
+DVzawCOW6szJMwJ+dt5Gfyriq3Na8S3GtabpdlNHGiafAYUK5yw3E5P51h1lRjKMbS3Na8oyleIA
+ZOKt3Wm3llBbzXNvJFHcJvhZlwHXOMj8QateHLCLU9fsrOeeOCKaVVaSRtqqM8kntWx4/wBdh1jX
+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
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: https://www.paypal.com/en_US/i/btn/x-click-but21.gif
+
+R0lGODlhbgAXAPcDAP/WmP+oIv+sLMwAAP/Tjk1QVf/Og/+9WCA8aIhtRP/Xmf/LgP+9WU1VY//d
+qWpgUCA6Yv/Ogltlck1bcE1ZbaZ8PC9CX5d1QFtjb+GZK9UiE/+oIf/Tj3lmSFtXUcSaXD5JWWpf
+TT5JW9KVN4iDesSLM9KSL9KaRP+eDv/kuy9BXv+hFOG/ifDEgS9GayA6YyA9aT5QbS9GavDJi1te
+YmptcT5Qa1tYVPC0WvChJohvSSA7ZfCqP+G7f5eNfPDQnXlvYLWhgcSnfLWGPsSOO3l5d9KjW7Wd
+eoiGg4h4X8SSR//boz5MY7WjiP+5Ty9Hbf/CZXl6fFtldeGiQeGdM/+5Tnl2cv+tLnl2c6aJXv/g
+r+GsWv+sK2pvdf/mwXl8gKZ+QvCkMP+9V9K1hv/Mfv/hs//cppeAX8Swki9EZP+zQv/OgWpmYZeO
+goiAdP/kuf2rQP+mIf+0Rf6zSf/BY/+xO/7AaYiEf01bcqaXf//Id6aZhvDNltcmD/+zQf+kHoh4
+YLWSXf/Phf+nI/++Xv6gGv+2RpeNfZeAXv6hGv6iGYiFf/+qLf2cFP/eq7Wmjk1cc/7Cbf7LfpeK
+dv/Wl+G/iv+jGf+sLf/Wlf/VlP2yTv+iFeHFmv/Ynf+lIf+uNP/Znv+vOf66WP6wQj5Qbs4FAk1R
+WP/BZ/+gEf/Ukv/AYv/PhNAWFP7Lff6jIf+sLv+yO/+wOf+lHmpweaaUeP/erKaZhf+2Rf/Mff/d
+p/+6UmpxfP+mIP/Ri//juP60SaaJXf+oJv++Xf/jt//Vlv+iGP/aof7Lf/+yPP/eqv/frf7Db//m
+v//kuv/nwf/hsv/DZ//Xm/+6UP/NfxIzZveXOQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAMALAAAAABuABcA
+AAj/AAcIHFCtoMGDCBMqXMiwocOHEB0OHFjtD6FWxzJqPLZg48aOGheA9BiSpMmTH0tmHLkSZUuU
+HSWdYlSN4i9Kw5jp3Mmzp8+fQIMKHUq0aNA3ZkTVHKAolbOnUKM+9SK1qtWrWLNq3Up1K9YlngjK
+8tWsrNmzaMumSMu2bbO1btXGnYsWLt24agqq0fKsr9+/fcsAHky4sOHDiBMLTmxYC52Ccswkm0y5
+suXJDiw7yHy5s+fKmz9zFo35s+nOuVQV9NPJmOvXrzlRo4bEGJrZtWG7fkJNt+/XP3jnfv1oNjUY
+X34r//3jy4/bu5ZLNwZKWMFYmABoB6BAuwIFtmbf/wEgZXaT7d8B8KGGp/v29/AXzZbiXnsUarOi
+wKDWBn73+vC9pwAMMADQBCR7BCigf+kRo0tBcaxCwIQUTshBEbNNwIJxY8zQhQukHEJAENSQkMcE
+EsxQBAIukEAABxRWwiICMVRIwATUjDEiNRNwwMKKEgThI4oxIODiDBLQ6AMBElBjJAkazuCDCzEs
+SUAXKFIjgYUwUijIJwWhUAUZa0RggAERmBkBBQjIQEEN1MhAjQEYUIOFDdT04AY1ddrQwyR81nnE
+mWjCSQsFcxIagZNntkANBUI4aQUCCLRwxGxYIDAnolbI2UOdkMrZgqY14HmEo3wiKoSiEaxBhhMr
+hP+5wRW3iHHArQwwcAA1DTTABK9pNHDAFmfQsAM1ODRgHA4H/AoEENQkoSsDRlCzwwfKGoFrtQ3k
++gE1bNBADTAHAEJNFklQc8YBaVDDwBaIGEvNAekGggOvWVBDwwHfsvFtt9B+cMC0YhhyxQaxVoPC
+BgE07HDDJlCTQAGzDUFNCBlQA4EH1KgQAAQaUzNEABoXYHIFDlNsHDUlOFyBxA1TfAHFGQTAsQk0
+50BNARlDEELHAVCcQwnUdJAANRcEcAHSR6MMAjUPP4ywrFG7LDLFKlh8wdJG75xxARGHsEEBEJRg
+cs0BWAxCAgn8nIDDP3swMTUgBNBB0UfXDTTRXbP/TY0HH7PctMUFVAByDjeTXHfVAUxdDSpcCCD5
+5JI/QM0IplADhg7UEEHFC9RYQM0DYFCjgwAWvCDAEKKPLjkXoo8gORGuSy7Cyg+EIUAYt1Nzwwgj
++C4A50N8Hrrrt4tww+VcWE6NCEOgrjrtD1BOOReWFFRMHch07/334HvPgxLhh38CD+Wnrz4yJ0yx
+/vjgK3EC+FPMv374sAxSEC9VSOP//wAMoAAHSMACGvCACExgAp3wioIEAwrQiKAEJ0jBClrwghjM
+oAY3yEEOQiEUBdkELqZBwhKa8IQoTKEKV8jCFrrwhTC8RE0aoYdo2PCGOMyhDnfIwx768IdADGIQ
+Ug2QCIFUAw69MIYjlMHEJjrxiVCMohSnSMUqWvGKUazFEjKhiaUQpBCjsMMyxkjGMprxjGhMoxrX
+yMY2uhGNkZiDK7xIkYjY8Y54zKMeCzKRgAAAOw==
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: text/css;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.linuxhowtos.org/css/blue.css
+
+BODY {
+	FONT-FAMILY: Verdana, sans-serif
+}
+#background {
+	Z-INDEX: 0; POSITION: fixed; TOP: 0px; LEFT: 0px
+}
+#main {
+	Z-INDEX: 1; POSITION: absolute; WIDTH: 100%; TOP: 30px; LEFT: 0px
+}
+.inner {
+	Z-INDEX: 1; MARGIN-LEFT: 20px; MARGIN-RIGHT: 20px
+}
+TABLE {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; =
+PADDING-LEFT: 0px; BORDER-SPACING: 0px; WIDTH: 100%; PADDING-RIGHT: 0px; =
+BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+TD {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: =
+0px; PADDING-TOP: 0px
+}
+.shadr {
+	BACKGROUND-IMAGE: url(/data/shadow-r.png); WIDTH: 18px; =
+BACKGROUND-REPEAT: repeat-y
+}
+.shadb {
+	BACKGROUND-IMAGE: url(/data/shadow-b.png); BACKGROUND-REPEAT: repeat-x; =
+HEIGHT: 18px
+}
+.shadl {
+	WIDTH: 18px; HEIGHT: 18px
+}
+.shadt {
+	BACKGROUND-IMAGE: url(/data/shadow-r.png); WIDTH: 18px; =
+BACKGROUND-REPEAT: no-repeat; BACKGROUND-POSITION: 0px 18px; HEIGHT: =
+18px
+}
+.bd {
+	BORDER-BOTTOM: #000 2px solid; BORDER-LEFT: #000 2px solid; =
+PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: =
+#000 2px solid; BORDER-RIGHT: #000 2px solid; PADDING-TOP: 0px
+}
+#mc {
+	BACKGROUND-IMAGE: url(/data/rightbg.jpg)
+}
+#logo {
+	TEXT-ALIGN: center; BACKGROUND-COLOR: #fff; PADDING-LEFT: 20px; COLOR: =
+#8693a2; FONT-WEIGHT: bold
+}
+#logotext {
+	FONT-SIZE: 150%
+}
+#leftcontent {
+	BACKGROUND-IMAGE: url(/data/border.jpg); PADDING-LEFT: 5px; WIDTH: =
+160px; PADDING-RIGHT: 30px; VERTICAL-ALIGN: top
+}
+#leftcontent LI {
+	LIST-STYLE-TYPE: none; PADDING-LEFT: 0px; MARGIN-LEFT: 0px
+}
+#leftcontent UL {
+	MARGIN: 0px; PADDING-LEFT: 0px
+}
+#leftcontent UL LI UL {
+	MARGIN: 0px; PADDING-LEFT: 15px
+}
+#rightcontent {
+	WIDTH: 120px; FONT-SIZE: 75%; VERTICAL-ALIGN: top
+}
+.pdf {
+	FLOAT: right
+}
+#content {
+	PADDING-RIGHT: 5px; VERTICAL-ALIGN: top; PADDING-TOP: 5px
+}
+#wikilogin {
+	BORDER-BOTTOM: #000 1px dotted; TEXT-ALIGN: right; BORDER-LEFT: #000 =
+1px dotted; BORDER-TOP: #000 1px dotted; BORDER-RIGHT: #000 1px dotted
+}
+#wikilogin FORM {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: =
+0px; PADDING-TOP: 0px
+}
+#leftcontent {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#leftcontent A {
+	COLOR: #000; TEXT-DECORATION: none
+}
+#bottomline {
+	TEXT-ALIGN: center; FONT-SIZE: 75%
+}
+IMG {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: =
+0px
+}
+.wikiedit {
+	BORDER-BOTTOM: #f00 1px dotted; BORDER-LEFT: #f00 1px dotted; FLOAT: =
+right; BORDER-TOP: #f00 1px dotted; BORDER-RIGHT: #f00 1px dotted
+}
+.ladded {
+	BACKGROUND-COLOR: #00ff00
+}
+.ldeleted {
+	BACKGROUND-COLOR: #ffeeee
+}
+.lchanged {
+	BACKGROUND-COLOR: #eeeeff
+}
+.radded {
+	BACKGROUND-COLOR: #00ff00
+}
+.rdeleted {
+	BACKGROUND-COLOR: #ff0000
+}
+.rchanged {
+	BACKGROUND-COLOR: #eeeeff
+}
+#wikihist TD {
+	PADDING-LEFT: 10px
+}
+.otherads {
+	TEXT-ALIGN: center; BACKGROUND-COLOR: #000; FONT-FAMILY: Times, =
+sans-serif; COLOR: #fff
+}
+.adbox {
+	BORDER-BOTTOM: #000 1px solid; BORDER-LEFT: #000 1px solid; =
+PADDING-BOTTOM: 20px; BACKGROUND-COLOR: #cccccc; PADDING-LEFT: 2px; =
+PADDING-RIGHT: 2px; COLOR: #000; BORDER-TOP: #000 1px solid; =
+BORDER-RIGHT: #000 1px solid; PADDING-TOP: 20px
+}
+.adbox A {
+	COLOR: #0000ff; FONT-WEIGHT: bold
+}
+.adbox .blink A {
+	COLOR: #008000; FONT-SIZE: 75%; FONT-WEIGHT: normal; TEXT-DECORATION: =
+none
+}
+PRE {
+	BACKGROUND-COLOR: #eee
+}
+TEXTAREA {
+	WIDTH: 100%
+}
+#suggestions {
+	BORDER-BOTTOM: #000 1px solid; POSITION: absolute; BORDER-LEFT: #000 =
+1px solid; BACKGROUND-COLOR: #fff; WIDTH: 400px; DISPLAY: none; HEIGHT: =
+100px; FONT-SIZE: 75%; OVERFLOW: auto; BORDER-TOP: #000 1px solid; =
+BORDER-RIGHT: #000 1px solid
+}
+#suggestions UL {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: =
+0px; PADDING-TOP: 0px
+}
+#suggestions LI {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: =
+0px; PADDING-RIGHT: 0px; CURSOR: pointer; PADDING-TOP: 0px
+}
+#suggestions LI:hover {
+	BACKGROUND-COLOR: #0000ff; COLOR: #fff
+}
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.linuxhowtos.org/js/interactive.js
+
+var req =3D false;=0A=
+function loadXMLDoc(url) {=0A=
+  if(window.XMLHttpRequest) { try { req =3D new XMLHttpRequest(); } =
+catch(e) { req =3D false; } }=0A=
+  else if(window.ActiveXObject) { try { req =3D new =
+ActiveXObject("Msxml2.XMLHTTP"); } catch(e) { try { req =3D new =
+ActiveXObject("Microsoft.XMLHTTP"); } catch(e) { req =3D false; } } }=0A=
+  if(req) { req.onreadystatechange =3D processReqChange; req.open("GET", =
+url, true); req.send(""); }=0A=
+}=0A=
+function chk(ev)=0A=
+{=0A=
+  var key;=0A=
+  if (ev) key=3Dev.which;=0A=
+  else if (event) key=3Devent.keyCode;=0A=
+  if (key>9) {=0A=
+    var id=3Ddocument.getElementById("fulltextsearch");=0A=
+    if (id) {=0A=
+      var query=3Did.value+String.fromCharCode(key);=0A=
+      hidesuggest();=0A=
+      if (query.length>2)=0A=
+        loadXMLDoc("/suggest.php?q=3D"+query);=0A=
+    }=0A=
+  }=0A=
+}=0A=
+function processReqChange() =0A=
+{=0A=
+  if (req.readyState =3D=3D 4 && req.status =3D=3D 200)=0A=
+    eval(req.responseText);=0A=
+}=0A=
+function suggest(packarr,numhits)=0A=
+{=0A=
+  var sbox=3Ddocument.getElementById("suggestions");=0A=
+  var ibox=3Ddocument.getElementById("fulltextsearch");=0A=
+  if (sbox&&packarr[0])=0A=
+  {=0A=
+//    sbox.style.width=3Dibox.clientWidth+"px";=0A=
+    sbox.style.display=3D"block";=0A=
+    var i=3D0;=0A=
+    sbox.innerHTML=3D"<ul>";=0A=
+    while (packarr[i])=0A=
+    {=0A=
+      sbox.innerHTML+=3D"<li =
+onClick=3D\"document.getElementById('fulltextsearch').value=3D'"+packarr[=
+i]+"';hidesuggest();\">"+packarr[i]+" ("+numhits[i]+")</li>";=0A=
+      i++;=0A=
+    }=0A=
+    sbox.innerHTML+=3D"</ul>";=0A=
+    ibox.focus();=0A=
+  }=0A=
+}=0A=
+function hidesuggest()=0A=
+{=0A=
+document.getElementById("suggestions").style.display=3D"none";=0A=
+}=0A=
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.sharethistag.com/js/linux,howtos,socket,tcp,udp,c
+
+function =
+on6224(){e=3Ddocument.getElementById("sharethistaglayer6224");if(e)e.styl=
+e.display=3D"block";}function =
+off6224(){e=3Ddocument.getElementById("sharethistaglayer6224");if(e)e.sty=
+le.display=3D"none";}document.write('<div =
+style=3D"width:148px;height:50px;background:#0e252d =
+url(http://www.sharethistag.com/img/sharethistagbutton.jpg);color:#000;pa=
+dding:0;" onmouseout=3D"off6224()"><div id=3D"sharethistaglayer6224" =
+style=3D"position:absolute;display:none;width:150px;color:#fff;font:10px =
+Arial,sans-serif;min-height:36px;background-color:#0e252d; margin:14px 0 =
+0 0; padding:2px 5px 2px 5px;" onmouseover=3D"on6224()"> Show other =
+sites with the topic:<br /><ul style=3D"margin:0; padding:0;"><li =
+style=3D"margin:0;padding:0;"> <a =
+href=3D"http://www.sharethistag.com/tag/c" =
+style=3D"display:block;font:10px Arial, sans-serif; color:#FFF; =
+text-decoration:none;">- c</a></li><li style=3D"margin:0;padding:0;"> <a =
+href=3D"http://www.sharethistag.com/tag/howtos" =
+style=3D"display:block;font:10px Arial, sans-serif; color:#FFF; =
+text-decoration:none;">- howtos</a></li><li =
+style=3D"margin:0;padding:0;"> <a =
+href=3D"http://www.sharethistag.com/tag/linux" =
+style=3D"display:block;font:10px Arial, sans-serif; color:#FFF; =
+text-decoration:none;">- linux</a></li><li =
+style=3D"margin:0;padding:0;"> <a =
+href=3D"http://www.sharethistag.com/tag/socket" =
+style=3D"display:block;font:10px Arial, sans-serif; color:#FFF; =
+text-decoration:none;">- socket</a></li><li =
+style=3D"margin:0;padding:0;"> <a =
+href=3D"http://www.sharethistag.com/tag/tcp" =
+style=3D"display:block;font:10px Arial, sans-serif; color:#FFF; =
+text-decoration:none;">- tcp</a></li><li style=3D"margin:0;padding:0;"> =
+<a href=3D"http://www.sharethistag.com/tag/udp" =
+style=3D"display:block;font:10px Arial, sans-serif; color:#FFF; =
+text-decoration:none;">- udp</a></li></ul></div><a =
+href=3D"http://www.sharethistag.com/" =
+style=3D"display:block;height:19px; width:150px;text-decoration:none;" =
+onmouseover=3D"on6224()">&nbsp;</a></div>');
+------=_NextPart_000_0002_01CA4F1D.B13A8A10
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://pagead2.googlesyndication.com/pagead/show_ads.js
+
+(function(){var g=3Dtrue,h=3Dnull,j=3Dfalse,aa=3D(new =
+Date).getTime(),k=3Dfunction(a){var b=3D(new =
+Date).getTime()-aa;b=3D"&dtd=3D"+(b<1000?b:"M");return a+b};var =
+l=3Dthis,ba=3Dfunction(a,b,c){a=3Da.split(".");c=3Dc||l;!(a[0]in =
+c)&&c.execScript&&c.execScript("var "+a[0]);for(var =
+d;a.length&&(d=3Da.shift());)if(!a.length&&b!=3D=3Dundefined)c[d]=3Db;els=
+e c=3Dc[d]?c[d]:(c[d]=3D{})},n=3Dfunction(a){var b=3Dtypeof =
+a;if(b=3D=3D"object")if(a){if(a instanceof Array||!(a instanceof =
+Object)&&Object.prototype.toString.call(a)=3D=3D"[object Array]"||typeof =
+a.length=3D=3D"number"&&typeof a.splice!=3D"undefined"&&typeof =
+a.propertyIsEnumerable!=3D"undefined"&&!a.propertyIsEnumerable("splice"))=
+return"array";=0A=
+if(!(a instanceof =
+Object)&&(Object.prototype.toString.call(a)=3D=3D"[object =
+Function]"||typeof a.call!=3D"undefined"&&typeof =
+a.propertyIsEnumerable!=3D"undefined"&&!a.propertyIsEnumerable("call")))r=
+eturn"function"}else return"null";else if(b=3D=3D"function"&&typeof =
+a.call=3D=3D"undefined")return"object";return b},o=3Dfunction(a){return =
+n(a)=3D=3D"array"},ca=3Dfunction(a){var b=3Dn(a);return =
+b=3D=3D"array"||b=3D=3D"object"&&typeof =
+a.length=3D=3D"number"},p=3Dfunction(a){return typeof =
+a=3D=3D"string"},da=3Dfunction(a){a=3Dn(a);return a=3D=3D"object"||=0A=
+a=3D=3D"array"||a=3D=3D"function"};Math.floor(Math.random()*2147483648).t=
+oString(36);=0A=
+var ea=3Dfunction(a){var =
+b=3Dn(a);if(b=3D=3D"object"||b=3D=3D"array"){if(a.clone)return =
+a.clone.call(a);b=3Db=3D=3D"array"?[]:{};for(var c in =
+a)b[c]=3Dea(a[c]);return b}return a},fa=3Dfunction(a,b){var =
+c=3Db||l;if(arguments.length>2){var =
+d=3DArray.prototype.slice.call(arguments,2);return function(){var =
+e=3DArray.prototype.slice.call(arguments);Array.prototype.unshift.apply(e=
+,d);return a.apply(c,e)}}else return function(){return =
+a.apply(c,arguments)}},ga=3DDate.now||function(){return(new =
+Date).getTime()},q=3Dfunction(a,b,c){ba(a,=0A=
+b,c)};var ha=3Dfunction(a,b,c){if(a.forEach)a.forEach(b,c);else =
+if(Array.forEach)Array.forEach(a,b,c);else for(var =
+d=3Da.length,e=3Dp(a)?a.split(""):a,f=3D0;f<d;f++)f in =
+e&&b.call(c,e[f],f,a)},ia=3Dfunction(a){if(o(a))return =
+a.concat();else{for(var =
+b=3D[],c=3D0,d=3Da.length;c<d;c++)b[c]=3Da[c];return b}};var =
+r=3Dfunction(a,b){this.x=3Da!=3D=3Dundefined?a:0;this.y=3Db!=3D=3Dundefin=
+ed?b:0};r.prototype.clone=3Dfunction(){return new =
+r(this.x,this.y)};r.prototype.toString=3Dfunction(){return"("+this.x+", =
+"+this.y+")"};var =
+s=3Dfunction(a,b){this.width=3Da;this.height=3Db};s.prototype.clone=3Dfun=
+ction(){return new =
+s(this.width,this.height)};s.prototype.toString=3Dfunction(){return"("+th=
+is.width+" x =
+"+this.height+")"};s.prototype.ceil=3Dfunction(){this.width=3DMath.ceil(t=
+his.width);this.height=3DMath.ceil(this.height);return =
+this};s.prototype.floor=3Dfunction(){this.width=3DMath.floor(this.width);=
+this.height=3DMath.floor(this.height);return this};=0A=
+s.prototype.round=3Dfunction(){this.width=3DMath.round(this.width);this.h=
+eight=3DMath.round(this.height);return =
+this};s.prototype.scale=3Dfunction(a){this.width*=3Da;this.height*=3Da;re=
+turn this};var ja=3Dfunction(a,b,c){for(var d in =
+a)b.call(c,a[d],d,a)};var ka=3Dfunction(a){return =
+a.replace(/^[\s\xa0]+|[\s\xa0]+$/g,"")},qa=3Dfunction(a,b){if(b)return =
+a.replace(la,"&amp;").replace(ma,"&lt;").replace(na,"&gt;").replace(oa,"&=
+quot;");else{if(!pa.test(a))return =
+a;if(a.indexOf("&")!=3D-1)a=3Da.replace(la,"&amp;");if(a.indexOf("<")!=3D=
+-1)a=3Da.replace(ma,"&lt;");if(a.indexOf(">")!=3D-1)a=3Da.replace(na,"&gt=
+;");if(a.indexOf('"')!=3D-1)a=3Da.replace(oa,"&quot;");return =
+a}},la=3D/&/g,ma=3D/</g,na=3D/>/g,oa=3D/\"/g,pa=3D/[&<>\"]/,ta=3Dfunction=
+(a){if(u(a,"&"))return"document"in l&&!u(a,"<")?=0A=
+ra(a):sa(a);return a},ra=3Dfunction(a){var =
+b=3Dl.document.createElement("a");b.innerHTML=3Da;b.normalize&&b.normaliz=
+e();a=3Db.firstChild.nodeValue;b.innerHTML=3D"";return =
+a},sa=3Dfunction(a){return =
+a.replace(/&([^;]+);/g,function(b,c){switch(c){case "amp":return"&";case =
+"lt":return"<";case "gt":return">";case =
+"quot":return'"';default:if(c.charAt(0)=3D=3D"#"){c=3DNumber("0"+c.substr=
+(1));if(!isNaN(c))return String.fromCharCode(c)}return =
+b}})},ua=3Dfunction(a,b){for(var c=3Db.length,d=3D0;d<c;d++){var =
+e=3Dc=3D=3D1?b:b.charAt(d);=0A=
+if(a.charAt(0)=3D=3De&&a.charAt(a.length-1)=3D=3De)return =
+a.substring(1,a.length-1)}return a},u=3Dfunction(a,b){return =
+a.indexOf(b)!=3D-1},wa=3Dfunction(a,b){var =
+c=3D0;a=3Dka(String(a)).split(".");b=3Dka(String(b)).split(".");for(var =
+d=3DMath.max(a.length,b.length),e=3D0;c=3D=3D0&&e<d;e++){var =
+f=3Da[e]||"",i=3Db[e]||"",m=3Dnew RegExp("(\\d*)(\\D*)","g"),t=3Dnew =
+RegExp("(\\d*)(\\D*)","g");do{var =
+A=3Dm.exec(f)||["","",""],B=3Dt.exec(i)||["","",""];if(A[0].length=3D=3D0=
+&&B[0].length=3D=3D0)break;c=3DA[1].length=3D=3D0?0:parseInt(A[1],10);var=
+ zb=3DB[1].length=3D=3D=0A=
+0?0:parseInt(B[1],10);c=3Dva(c,zb)||va(A[2].length=3D=3D0,B[2].length=3D=3D=
+0)||va(A[2],B[2])}while(c=3D=3D0)}return =
+c},va=3Dfunction(a,b){if(a<b)return-1;else if(a>b)return 1;return =
+0};ga();var v,xa,w,ya,za,Aa,Ba,Ca,Da,Ea,Fa=3Dfunction(){return =
+l.navigator?l.navigator.userAgent:h},x=3Dfunction(){return =
+l.navigator},Ga=3Dfunction(){Aa=3Dza=3Dya=3Dw=3Dxa=3Dv=3Dj;var =
+a;if(a=3DFa()){var =
+b=3Dx();v=3Da.indexOf("Opera")=3D=3D0;xa=3D!v&&a.indexOf("MSIE")!=3D-1;ya=
+=3D(w=3D!v&&a.indexOf("WebKit")!=3D-1)&&a.indexOf("Mobile")!=3D-1;Aa=3D(z=
+a=3D!v&&!w&&b.product=3D=3D"Gecko")&&b.vendor=3D=3D"Camino"}};Ga();=0A=
+var y=3Dv,z=3Dxa,Ha=3Dza,C=3Dw,Ia=3Dya,Ja=3Dfunction(){var =
+a=3Dx();return =
+a&&a.platform||""},Ka=3DJa(),La=3Dfunction(){Ba=3Du(Ka,"Mac");Ca=3Du(Ka,"=
+Win");Da=3Du(Ka,"Linux");Ea=3D!!x()&&u(x().appVersion||"","X11")};La();=0A=
+var Ma=3DBa,Na=3DCa,Oa=3DDa,Pa=3Dfunction(){var =
+a=3D"",b;if(y&&l.opera){a=3Dl.opera.version;a=3Dtypeof =
+a=3D=3D"function"?a():a}else{if(Ha)b=3D/rv\:([^\);]+)(\)|;)/;else =
+if(z)b=3D/MSIE\s+([^\);]+)(\)|;)/;else =
+if(C)b=3D/WebKit\/(\S+)/;if(b)a=3D(a=3Db.exec(Fa()))?a[1]:""}return =
+a},Qa=3DPa(),Ra=3D{},D=3Dfunction(a){return =
+Ra[a]||(Ra[a]=3Dwa(Qa,a)>=3D0)};var E;var Sa=3Dfunction(a){return =
+p(a)?document.getElementById(a):a},Ta=3DSa,Va=3Dfunction(a,b){ja(b,functi=
+on(c,d){if(d=3D=3D"style")a.style.cssText=3Dc;else =
+if(d=3D=3D"class")a.className=3Dc;else =
+if(d=3D=3D"for")a.htmlFor=3Dc;else if(d in =
+Ua)a.setAttribute(Ua[d],c);else =
+a[d]=3Dc})},Ua=3D{cellpadding:"cellPadding",cellspacing:"cellSpacing",col=
+span:"colSpan",rowspan:"rowSpan",valign:"vAlign",height:"height",width:"w=
+idth",usemap:"useMap",frameborder:"frameBorder",type:"type"},Wa=3Dfunctio=
+n(a){var b=3Da.document;if(C&&!D("500")&&!Ia){if(typeof a.innerHeight=3D=3D=0A=
+"undefined")a=3Dwindow;b=3Da.innerHeight;var =
+c=3Da.document.documentElement.scrollHeight;if(a=3D=3Da.top)if(c<b)b-=3D1=
+5;return new =
+s(a.innerWidth,b)}a=3Db.compatMode=3D=3D"CSS1Compat"&&(!y||y&&D("9.50"))?=
+b.documentElement:b.body;return new =
+s(a.clientWidth,a.clientHeight)},Xa=3Dfunction(a){a=3D!C&&a.compatMode=3D=
+=3D"CSS1Compat"?a.documentElement:a.body;return new =
+r(a.scrollLeft,a.scrollTop)},Za=3Dfunction(){return =
+Ya(document,arguments)},Ya=3Dfunction(a,b){var =
+c=3Db[0],d=3Db[1];if(z&&d&&(d.name||d.type)){c=3D["<",c];d.name&&c.push('=
+ name=3D"',=0A=
+qa(d.name),'"');if(d.type){c.push(' =
+type=3D"',qa(d.type),'"');d=3Dea(d);delete =
+d.type}c.push(">");c=3Dc.join("")}var =
+e=3Da.createElement(c);if(d)if(p(d))e.className=3Dd;else =
+Va(e,d);if(b.length>2){function =
+f(i){if(i)e.appendChild(p(i)?a.createTextNode(i):i)}for(d=3D2;d<b.length;=
+d++){c=3Db[d];ca(c)&&!(da(c)&&c.nodeType>0)?ha($a(c)?ia(c):c,f):f(c)}}ret=
+urn e},ab=3Dfunction(a,b){a.appendChild(b)},bb=3Dfunction(a){return =
+a&&a.parentNode?a.parentNode.removeChild(a):h},cb=3Dfunction(a,b){var =
+c=3Db.parentNode;c&&c.replaceChild(a,=0A=
+b)},db=3DC&&D("522"),eb=3Dfunction(a,b){if(typeof =
+a.contains!=3D"undefined"&&!db&&b.nodeType=3D=3D1)return =
+a=3D=3Db||a.contains(b);if(typeof =
+a.compareDocumentPosition!=3D"undefined")return =
+a=3D=3Db||Boolean(a.compareDocumentPosition(b)&16);for(;b&&a!=3Db;)b=3Db.=
+parentNode;return b=3D=3Da},F=3Dfunction(a){return =
+a.nodeType=3D=3D9?a:a.ownerDocument||a.document},$a=3Dfunction(a){if(a&&t=
+ypeof a.length=3D=3D"number")if(da(a))return typeof =
+a.item=3D=3D"function"||typeof a.item=3D=3D"string";else =
+if(n(a)=3D=3D"function")return typeof a.item=3D=3D"function";return j},=0A=
+G=3Dfunction(a){this.a=3Da||l.document||document};G.prototype.createEleme=
+nt=3Dfunction(a){return =
+this.a.createElement(a)};G.prototype.createTextNode=3Dfunction(a){return =
+this.a.createTextNode(a)};G.prototype.n=3Dfunction(){return =
+this.a.compatMode=3D=3D"CSS1Compat"};G.prototype.m=3Dfunction(){return =
+Xa(this.a)};G.prototype.appendChild=3Dab;G.prototype.removeNode=3Dbb;G.pr=
+ototype.replaceNode=3Dcb;G.prototype.contains=3Deb;function =
+H(a,b){a=3DparseFloat(a);return isNaN(a)||a>1||a<0?b:a}function =
+I(a,b){if(a=3D=3D"true")return g;if(a=3D=3D"false")return j;return =
+b}function J(a,b){var c=3D/^([\w-]+\.)+[\w-]{2,}(\:[0-9]+)?$/;return =
+c.test(a)?a:b};var =
+fb=3D"pagead2.googlesyndication.com",gb=3D"googleads.g.doubleclick.net",h=
+b=3D"pubads.g.doubleclick.net",ib=3D"securepubads.g.doubleclick.net",jb=3D=
+"partner.googleadservices.com",K=3DJ("pagead2.googlesyndication.com",fb),=
+kb=3DJ("googleads.g.doubleclick.net",gb),lb=3DJ("pagead2.googlesyndicatio=
+n.com",fb);J("pubads.g.doubleclick.net",hb);J("partner.googleadservices.c=
+om",jb);J("securepubads.g.doubleclick.net",ib);function L(a){return =
+typeof =
+encodeURIComponent=3D=3D"function"?encodeURIComponent(a):escape(a)}functi=
+on mb(a,b,c){var =
+d=3Ddocument.createElement("script");d.type=3D"text/javascript";if(b)d.on=
+load=3Db;if(c)d.id=3Dc;d.src=3Da;var =
+e=3Ddocument.getElementsByTagName("head")[0];if(!e)return =
+j;window.setTimeout(function(){e.appendChild(d)},0);return g}function =
+nb(a,b){a.google_image_requests||(a.google_image_requests=3D[]);var =
+c=3Dnew Image;c.src=3Db;a.google_image_requests.push(c)}=0A=
+function ob(a){if(a in pb)return pb[a];return =
+pb[a]=3Dnavigator.userAgent.toLowerCase().indexOf(a)!=3D-1}var pb=3D{};=0A=
+function qb(){if(navigator.plugins&&navigator.mimeTypes.length){var =
+a=3Dnavigator.plugins["Shockwave Flash"];if(a&&a.description)return =
+a.description.replace(/([a-zA-Z]|\s)+/,"").replace(/(\s)+r/,".")}else =
+if(navigator.userAgent&&navigator.userAgent.indexOf("Windows =
+CE")>=3D0){a=3D3;for(var b=3D1;b;)try{b=3Dnew =
+ActiveXObject("ShockwaveFlash.ShockwaveFlash."+(a+1));a++}catch(c){b=3Dh}=
+return a.toString()}else if(ob("msie")&&!window.opera){b=3Dh;try{b=3Dnew =
+ActiveXObject("ShockwaveFlash.ShockwaveFlash.7")}catch(d){a=3D=0A=
+0;try{b=3Dnew =
+ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");a=3D6;b.AllowScriptAcces=
+s=3D"always"}catch(e){if(a=3D=3D6)return a.toString()}try{b=3Dnew =
+ActiveXObject("ShockwaveFlash.ShockwaveFlash")}catch(f){}}if(b){a=3Db.Get=
+Variable("$version").split(" ")[1];return =
+a.replace(/,/g,".")}}return"0"}function M(a){var =
+b=3Da.google_ad_format;if(b)return b.indexOf("_0ads")>0;return =
+a.google_ad_output!=3D"html"&&a.google_num_radlinks>0}function =
+N(a){return!!a&&a.indexOf("_sdo")!=3D-1}=0A=
+function O(a,b){var =
+c=3DMath.random();if(c<b){b=3DMath.floor(c/b*a.length);return =
+a[b]}return""}=0A=
+var rb=3Dfunction(a){a.u_tz=3D-(new =
+Date).getTimezoneOffset();a.u_his=3Dwindow.history.length;a.u_java=3Dnavi=
+gator.javaEnabled();if(window.screen){a.u_h=3Dwindow.screen.height;a.u_w=3D=
+window.screen.width;a.u_ah=3Dwindow.screen.availHeight;a.u_aw=3Dwindow.sc=
+reen.availWidth;a.u_cd=3Dwindow.screen.colorDepth}if(navigator.plugins)a.=
+u_nplug=3Dnavigator.plugins.length;if(navigator.mimeTypes)a.u_nmime=3Dnav=
+igator.mimeTypes.length},sb=3Dfunction(a){if(a.body)try{return =
+Wa(window)}catch(b){return new s(-12245933,-12245933)}else return new =
+s(-1,=0A=
+-1)};var =
+tb=3D{google_ad_channel:"channel",google_ad_host:"host",google_ad_host_ch=
+annel:"h_ch",google_ad_host_tier_id:"ht_id",google_ad_section:"region",go=
+ogle_ad_type:"ad_type",google_adtest:"adtest",google_allow_expandable_ads=
+:"ea",google_alternate_ad_url:"alternate_ad_url",google_alternate_color:"=
+alt_color",google_bid:"bid",google_city:"gcs",google_color_bg:"color_bg",=
+google_color_border:"color_border",google_color_line:"color_line",google_=
+color_link:"color_link",google_color_text:"color_text",google_color_url:"=
+color_url",=0A=
+google_contents:"contents",google_country:"gl",google_cust_age:"cust_age"=
+,google_cust_ch:"cust_ch",google_cust_gender:"cust_gender",google_cust_id=
+:"cust_id",google_cust_interests:"cust_interests",google_cust_job:"cust_j=
+ob",google_cust_l:"cust_l",google_cust_lh:"cust_lh",google_cust_u_url:"cu=
+st_u_url",google_disable_video_autoplay:"disable_video_autoplay",google_e=
+d:"ed",google_encoding:"oe",google_feedback:"feedback_link",google_flash_=
+version:"flash",google_font_face:"f",google_font_size:"fs",google_hints:"=
+hints",=0A=
+google_kw:"kw",google_kw_type:"kw_type",google_language:"hl",google_page_=
+url:"url",google_referrer_url:"ref",google_region:"gr",google_reuse_color=
+s:"reuse_colors",google_safe:"adsafe",google_tag_info:"gut",google_target=
+ing:"targeting",google_ui_features:"ui",google_ui_version:"uiv",google_vi=
+deo_doc_id:"video_doc_id",google_video_product_type:"video_product_type"}=
+,ub=3D{google_ad_client:"client",google_ad_format:"format",google_ad_outp=
+ut:"output",google_ad_callback:"callback",google_ad_height:"h",google_ad_=
+override:"google_ad_override",=0A=
+google_ad_slot:"slotname",google_ad_width:"w",google_ctr_threshold:"ctr_t=
+",google_image_size:"image_size",google_last_modified_time:"lmt",google_m=
+ax_num_ads:"num_ads",google_max_radlink_len:"max_radlink_len",google_num_=
+radlinks:"num_radlinks",google_num_radlinks_per_unit:"num_radlinks_per_un=
+it",google_only_ads_with_video:"only_ads_with_video",google_page_location=
+:"loc",google_rl_dest_url:"rl_dest_url",google_rl_filtering:"rl_filtering=
+",google_rl_mode:"rl_mode",google_rt:"rt",google_skip:"skip"},vb=3D=0A=
+{google_only_pyv_ads:"pyv",google_with_pyv_ads:"withpyv"};function =
+wb(a,b){try{return a.top.document.URL=3D=3Db.URL}catch(c){}return =
+j}function =
+xb(a,b,c,d){c=3Dc||a.google_ad_width;d=3Dd||a.google_ad_height;if(wb(a,b)=
+)return j;var e=3Db.documentElement;if(c&&d){var =
+f=3D1,i=3D1;if(a.innerHeight){f=3Da.innerWidth;i=3Da.innerHeight}else =
+if(e&&e.clientHeight){f=3De.clientWidth;i=3De.clientHeight}else =
+if(b.body){f=3Db.body.clientWidth;i=3Db.body.clientHeight}if(i>2*d||f>2*c=
+)return j}return g}function yb(a,b){for(var c in b)a["google_"+c]=3Db[c]}=0A=
+function Ab(a,b){if(!b)return a.URL;return a.referrer}function =
+Bb(a,b){if(!b&&a.google_referrer_url=3D=3Dh)return"0";else =
+if(b&&a.google_referrer_url=3D=3Dh)return"1";else =
+if(!b&&a.google_referrer_url!=3Dh)return"2";else =
+if(b&&a.google_referrer_url!=3Dh)return"3";return"4"}function =
+Cb(a,b,c,d){a.page_url=3DAb(c,d);a.page_location=3Dh}function =
+Db(a,b,c,d){a.page_url=3Db.google_page_url;a.page_location=3DAb(c,d)||"EM=
+PTY"}=0A=
+function Eb(a,b){var =
+c=3D{},d=3Dxb(a,b,a.google_ad_width,a.google_ad_height);c.iframing=3DBb(a=
+,d);a.google_page_url?Db(c,a,b,d):Cb(c,a,b,d);c.last_modified_time=3Db.UR=
+L=3D=3Dc.page_url?Date.parse(b.lastModified)/1000:h;c.referrer_url=3Dd?a.=
+google_referrer_url:a.google_page_url&&a.google_referrer_url?a.google_ref=
+errer_url:b.referrer;return c}function Fb(a){var =
+b=3D{},c=3Da.URL.substring(a.URL.lastIndexOf("http"));b.iframing=3Dh;b.pa=
+ge_url=3Dc;b.page_location=3Da.URL;b.last_modified_time=3Dh;b.referrer_ur=
+l=3Dc;return b}=0A=
+function Gb(a,b){b=3DHb(a,b);yb(a,b)}function Hb(a,b){return =
+a=3Da.google_page_url=3D=3Dh&&Ib[b.domain]?Fb(b):Eb(a,b)}var =
+Ib=3D{};Ib["ad.yieldmanager.com"]=3Dg;var =
+Jb=3Ddocument,Kb=3DI("false",j),Lb=3DI("false",j),Mb=3DI("false",j);I("fa=
+lse",j);var P=3Dwindow;var =
+Nb=3Dfunction(a,b,c){b=3Dfa(b,l,a);a=3Dwindow.onerror;window.onerror=3Db;=
+try{c()}catch(d){c=3Dd.toString();var =
+e=3D"";if(d.fileName)e=3Dd.fileName;var =
+f=3D-1;if(d.lineNumber)f=3Dd.lineNumber;b=3Db(c,e,f);if(!b)throw =
+d;}window.onerror=3Da};q("google_protectAndRun",Nb);=0A=
+var Pb=3Dfunction(a,b,c,d){if(Math.random()<0.01){var =
+e=3DJb;a=3D["http://",lb,"/pagead/gen_204","?id=3Djserror","&jscb=3D",Kb?=
+1:0,"&jscd=3D",Lb?1:0,"&context=3D",L(a),"&msg=3D",L(b),"&file=3D",L(c),"=
+&line=3D",L(d.toString()),"&url=3D",L(e.URL.substring(0,512)),"&ref=3D",L=
+(e.referrer.substring(0,512))];a.push(Ob());nb(P,a.join(""))}return!Mb};q=
+("google_handleError",Pb);=0A=
+var Rb=3Dfunction(a){Qb|=3Da},Qb=3D0,Ob=3Dfunction(){var =
+a=3D["&client=3D",L(P.google_ad_client),"&format=3D",L(P.google_ad_format=
+),"&slotname=3D",L(P.google_ad_slot),"&output=3D",L(P.google_ad_output),"=
+&ad_type=3D",L(P.google_ad_type)];return a.join("")};var =
+Q=3D"",Ub=3Dfunction(){if(window.google_ad_frameborder=3D=3Dh)window.goog=
+le_ad_frameborder=3D0;if(window.google_ad_output=3D=3Dh)window.google_ad_=
+output=3D"html";if(N(window.google_ad_format)){var =
+a=3Dwindow.google_ad_format.match(/^(\d+)x(\d+)_.*/);if(a){window.google_=
+ad_width=3DparseInt(a[1],10);window.google_ad_height=3DparseInt(a[2],10);=
+window.google_ad_output=3D"html"}}window.google_ad_format=3DSb(window.goo=
+gle_ad_format,window.google_ad_output,window.google_ad_width,window.googl=
+e_ad_height,window.google_ad_slot,=0A=
+!!window.google_override_format);Q=3Dwindow.google_ad_client||"";window.g=
+oogle_ad_client=3DTb(window.google_ad_format,window.google_ad_client);Gb(=
+window,document);if(window.google_num_slots_by_channel=3D=3Dh)window.goog=
+le_num_slots_by_channel=3D{};if(window.google_viewed_host_channels=3D=3Dh=
+)window.google_viewed_host_channels=3D{};if(window.google_num_slots_by_cl=
+ient=3D=3Dh)window.google_num_slots_by_client=3D{};if(window.google_prev_=
+ad_formats_by_region=3D=3Dh)window.google_prev_ad_formats_by_region=3D{};=
+if(window.google_prev_ad_slotnames_by_region=3D=3D=0A=
+h)window.google_prev_ad_slotnames_by_region=3D{};if(window.google_correla=
+tor=3D=3Dh)window.google_correlator=3D(new =
+Date).getTime();if(window.google_adslot_loaded=3D=3Dh)window.google_adslo=
+t_loaded=3D{};if(window.google_adContentsBySlot=3D=3Dh)window.google_adCo=
+ntentsBySlot=3D{};if(window.google_flash_version=3D=3Dh)window.google_fla=
+sh_version=3Dqb();if(window.google_new_domain_checked=3D=3Dh)window.googl=
+e_new_domain_checked=3D0;if(window.google_new_domain_enabled=3D=3Dh)windo=
+w.google_new_domain_enabled=3D0;if(!window.google_num_ad_slots)window.goo=
+gle_num_ad_slots=3D=0A=
+0;if(!window.google_num_0ad_slots)window.google_num_0ad_slots=3D0;if(!win=
+dow.google_num_sdo_slots)window.google_num_sdo_slots=3D0;window.google_ad=
+_section=3Dwindow.google_ad_section||window.google_ad_region||"";window.g=
+oogle_country=3Dwindow.google_country||window.google_gl||"";a=3D(new =
+Date).getTime();if(o(window.google_color_bg))window.google_color_bg=3DR(w=
+indow.google_color_bg,a);if(o(window.google_color_text))window.google_col=
+or_text=3DR(window.google_color_text,a);if(o(window.google_color_link))wi=
+ndow.google_color_link=3D=0A=
+R(window.google_color_link,a);if(o(window.google_color_url))window.google=
+_color_url=3DR(window.google_color_url,a);if(o(window.google_color_border=
+))window.google_color_border=3DR(window.google_color_border,a);if(o(windo=
+w.google_color_line))window.google_color_line=3DR(window.google_color_lin=
+e,a)},Vb=3Dfunction(a){var b;for(b in tb)a[b]=3Dh;for(b in =
+ub)a[b]=3Dh;for(b in =
+vb)a[b]=3Dh;a.google_container_id=3Dh;a.google_eids=3Dh;a.google_ad_regio=
+n=3Dh;a.google_gl=3Dh},R=3Dfunction(a,b){Rb(2);return =
+a[b%a.length]},Tb=3Dfunction(a,=0A=
+b){if(!b)return"";b=3Db.toLowerCase();return =
+b=3DN(a)?Wb(b):Xb(b)},Xb=3Dfunction(a){if(a&&a.substring(0,3)!=3D"ca-")a=3D=
+"ca-"+a;return =
+a},Wb=3Dfunction(a){if(a&&a.substring(0,9)!=3D"dist-aff-")a=3D"dist-aff-"=
++a;return =
+a},Sb=3Dfunction(a,b,c,d,e,f){if(!a&&b=3D=3D"html")a=3Dc+"x"+d;return =
+a=3DYb(a,e,f)?a.toLowerCase():""},Yb=3Dfunction(a,b,c){if(!a)return =
+j;if(!b)return g;return c};var S=3Ddocument,T=3Dnavigator,U=3Dwindow;=0A=
+function Zb(){var a=3DS.cookie,b=3DMath.round((new =
+Date).getTime()/1000),c=3DU.google_analytics_domain_name;c=3Dtypeof =
+c=3D=3D"undefined"?$b("auto"):$b(c);var =
+d=3Da.indexOf("__utma=3D"+c+".")>-1,e=3Da.indexOf("__utmb=3D"+c)>-1,f=3Da=
+.indexOf("__utmc=3D"+c)>-1,i=3D{},m=3D!!U&&!!U.gaGlobal;if(d){a=3Da.split=
+("__utma=3D"+c+".")[1].split(";")[0].split(".");i.sid=3De&&f?a[3]+"":m&&U=
+.gaGlobal.sid?U.gaGlobal.sid:b+"";i.vid=3Da[0]+"."+a[1];i.from_cookie=3Dg=
+}else{i.sid=3Dm&&U.gaGlobal.sid?U.gaGlobal.sid:b+"";i.vid=3Dm&&U.gaGlobal=
+.vid?U.gaGlobal.vid:=0A=
+(Math.round(Math.random()*2147483647)^ac()&2147483647)+"."+b;i.from_cooki=
+e=3Dj}i.dh=3Dc;i.hid=3Dm&&U.gaGlobal.hid?U.gaGlobal.hid:Math.round(Math.r=
+andom()*2147483647);return U.gaGlobal=3Di}=0A=
+function ac(){var =
+a=3DS.cookie?S.cookie:"",b=3DU.history.length,c,d=3D[T.appName,T.version,=
+T.language?T.language:T.browserLanguage,T.platform,T.userAgent,T.javaEnab=
+led()?1:0].join("");if(U.screen)d+=3DU.screen.width+"x"+U.screen.height+U=
+.screen.colorDepth;else =
+if(U.java){c=3Djava.awt.Toolkit.getDefaultToolkit().getScreenSize();d+=3D=
+c.screen.width+"x"+c.screen.height}d+=3Da;d+=3DS.referrer?S.referrer:"";f=
+or(a=3Dd.length;b>0;)d+=3Db--^a++;return bc(d)}=0A=
+function bc(a){var =
+b=3D1,c=3D0,d;if(!(a=3D=3Dundefined||a=3D=3D"")){b=3D0;for(d=3Da.length-1=
+;d>=3D0;d--){c=3Da.charCodeAt(d);b=3D(b<<6&268435455)+c+(c<<14);c=3Db&266=
+338304;b=3Dc!=3D0?b^c>>21:b}}return b}function =
+$b(a){if(!a||a=3D=3D""||a=3D=3D"none")return =
+1;if("auto"=3D=3Da){a=3DS.domain;if("www."=3D=3Da.substring(0,4))a=3Da.su=
+bstring(4,a.length)}return bc(a.toLowerCase())};var =
+cc=3D{google:1,googlegroups:1,gmail:1,googlemail:1,googleimages:1,googlep=
+rint:1};function =
+dc(a){a=3Da.google_page_location||a.google_page_url;if(!a)return =
+j;a=3Da.toString();if(a.indexOf("http://")=3D=3D0)a=3Da.substring(7,a.len=
+gth);else =
+if(a.indexOf("https://")=3D=3D0)a=3Da.substring(8,a.length);var =
+b=3Da.indexOf("/");if(b=3D=3D-1)b=3Da.length;a=3Da.substring(0,b);a=3Da.s=
+plit(".");b=3Dj;if(a.length>=3D3)b=3Da[a.length-3]in =
+cc;if(a.length>=3D2)b=3Db||a[a.length-2]in cc;return b}=0A=
+function ec(a,b,c){if(dc(a)){a.google_new_domain_checked=3D1;return =
+j}if(a.google_new_domain_checked=3D=3D0){var =
+d=3DMath.random();if(d<=3Dc){c=3D"http://"+kb+"/pagead/test_domain.js";d=3D=
+"script";b.write("<"+d+' =
+src=3D"'+c+'"></'+d+">");a.google_new_domain_checked=3D1;return =
+g}}return j}function =
+fc(a){if(!dc(a)&&a.google_new_domain_enabled=3D=3D1)return"http://"+kb;re=
+turn"http://"+lb};document.URL&&(document.URL.indexOf("?google_debug")>0|=
+|document.URL.indexOf("&google_debug")>0);var =
+V=3Dfunction(a){this.v=3Da;this.g=3D[];this.f=3D0;this.b=3D[];this.r=3D0;=
+this.c=3D[];this.p=3Dj;this.h=3Dthis.i=3D"";this.o=3Dj};V.prototype.t=3Df=
+unction(a,b){var =
+c=3Dthis.v[b],d=3Dthis.g;this.v[b]=3Dfunction(e){if(e&&e.length>0){var =
+f=3De.length>1?e[1].url:h;d.push([a,ta(e[0].url),f])}c(e)}};V.prototype.s=
+=3Dfunction(){this.f++};V.prototype.u=3Dfunction(a){this.b.push(a)};V.pro=
+totype.q=3Dfunction(){if(!this.p){mb("http://"+K+"/pagead/osd.js");this.p=
+=3Dg}};=0A=
+V.prototype.j=3Dfunction(a){if(this.f>0)for(var =
+b=3Ddocument.getElementsByTagName("iframe"),c=3Dthis.o?"google_ads_iframe=
+_":"google_ads_frame",d=3D0;d<b.length;d++){var =
+e=3Db.item(d);e.src&&e.name&&e.name.indexOf(c)=3D=3D0&&a(e,e.src)}};=0A=
+V.prototype.k=3Dfunction(a){var b=3Dthis.g;if(b.length>0)for(var =
+c=3Ddocument.getElementsByTagName("a"),d=3Dfunction(A,B){return =
+A.innerHTML.indexOf(B)>0},e=3D0;e<c.length;e++)for(var =
+f=3D0;f<b.length;f++)if(c.item(e).href=3D=3Db[f][1]){var =
+i=3Dc.item(e).parentNode;if(b[f][2])for(var =
+m=3Di,t=3D0;t<4;t++){if(d(m,b[f][2])){i=3Dm;break}m=3Dm.parentNode}a(i,b[=
+f][0]);b.splice(f,1);break}};=0A=
+V.prototype.l=3Dfunction(a){for(var b=3D0;b<this.b.length;b++){var =
+c=3Dthis.b[b],d=3Dgc(c);if(d)(d=3Ddocument.getElementById("google_ads_div=
+_"+d))&&a(d,c)}};V.prototype.d=3Dfunction(a){this.k(a);this.l(a);this.j(a=
+)};V.prototype.setupOsd=3Dfunction(a,b,c){this.r=3Da;this.i=3Db;this.h=3D=
+c};V.prototype.getOsdMode=3Dfunction(){return =
+this.r};V.prototype.getEid=3Dfunction(){return =
+this.i};V.prototype.getCorrelator=3Dfunction(){return =
+this.h};V.prototype.e=3Dfunction(){return =
+this.g.length+this.f+this.b.length};=0A=
+V.prototype.setValidAdBlockTypes=3Dfunction(a){this.c=3Da};V.prototype.re=
+gisterAdBlockByType=3Dfunction(a,b,c){if(this.c.length>0){for(var =
+d=3D0;d<this.c.length;d++)if(this.c[d]=3D=3Da){this.o=3Dc;if(a=3D=3D"js")=
+this.t(b,"google_ad_request_done");else if(a=3D=3D"html")this.s();else =
+a=3D=3D"json_html"&&this.u(b)}this.q()}};var =
+gc=3Dfunction(a){if((a=3Da.match(/[&\?](?:slotname)=3D([^&]+)/))&&a.lengt=
+h=3D=3D2)return =
+a[1];return""},hc=3Dfunction(){window.__google_ad_urls||(window.__google_=
+ad_urls=3Dnew V(window));return window.__google_ad_urls};=0A=
+q("Goog_AdSense_getAdAdapterInstance",hc);q("Goog_AdSense_OsdAdapter",V);=
+q("Goog_AdSense_OsdAdapter.prototype.numBlocks",V.prototype.e);q("Goog_Ad=
+Sense_OsdAdapter.prototype.findBlocks",V.prototype.d);q("Goog_AdSense_Osd=
+Adapter.prototype.getOsdMode",V.prototype.getOsdMode);q("Goog_AdSense_Osd=
+Adapter.prototype.getEid",V.prototype.getEid);q("Goog_AdSense_OsdAdapter.=
+prototype.getCorrelator",V.prototype.getCorrelator);q("Goog_AdSense_OsdAd=
+apter.prototype.setValidAdBlockTypes",V.setValidAdBlockTypes);=0A=
+q("Goog_AdSense_OsdAdapter.prototype.setupOsd",V.prototype.setupOsd);q("G=
+oog_AdSense_OsdAdapter.prototype.registerAdBlockByType",V.prototype.regis=
+terAdBlockByType);var =
+ic,jc,kc,lc,mc,nc,oc=3Dfunction(){nc=3Dmc=3Dlc=3Dkc=3Djc=3Dic=3Dj;var =
+a=3DFa();if(a)if(a.indexOf("Firefox")!=3D-1)ic=3Dg;else =
+if(a.indexOf("Camino")!=3D-1)jc=3Dg;else =
+if(a.indexOf("iPhone")!=3D-1||a.indexOf("iPod")!=3D-1)kc=3Dg;else =
+if(a.indexOf("Android")!=3D-1)lc=3Dg;else =
+if(a.indexOf("Chrome")!=3D-1)mc=3Dg;else =
+if(a.indexOf("Safari")!=3D-1)nc=3Dg};oc();var pc=3Dfunction(a,b){var =
+c=3DF(a);if(c.defaultView&&c.defaultView.getComputedStyle)if(a=3Dc.defaul=
+tView.getComputedStyle(a,""))return a[b];return =
+h},W=3Dfunction(a,b){return =
+pc(a,b)||(a.currentStyle?a.currentStyle[b]:h)||a.style[b]},qc=3Dfunction(=
+a){a=3Da?a.nodeType=3D=3D9?a:F(a):document;if(z&&!(a?new =
+G(F(a)):E||(E=3Dnew G)).n())return a.body;return =
+a.documentElement},rc=3Dfunction(a){var =
+b=3Da.getBoundingClientRect();if(z){a=3Da.ownerDocument;b.left-=3Da.docum=
+entElement.clientLeft+a.body.clientLeft;b.top-=3Da.documentElement.client=
+Top+=0A=
+a.body.clientTop}return b},sc=3Dfunction(a){if(z)return =
+a.offsetParent;var =
+b=3DF(a),c=3DW(a,"position"),d=3Dc=3D=3D"fixed"||c=3D=3D"absolute";for(a=3D=
+a.parentNode;a&&a!=3Db;a=3Da.parentNode){c=3DW(a,"position");d=3Dd&&c=3D=3D=
+"static"&&a!=3Db.documentElement&&a!=3Db.body;if(!d&&(a.scrollWidth>a.cli=
+entWidth||a.scrollHeight>a.clientHeight||c=3D=3D"fixed"||c=3D=3D"absolute=
+"))return a}return h},tc=3Dfunction(a){var =
+b,c=3DF(a),d=3DW(a,"position"),e=3DHa&&c.getBoxObjectFor&&!a.getBoundingC=
+lientRect&&d=3D=3D"absolute"&&(b=3Dc.getBoxObjectFor(a))&&(b.screenX<0||=0A=
+b.screenY<0),f=3Dnew r(0,0),i=3Dqc(c);if(a=3D=3Di)return =
+f;if(a.getBoundingClientRect){b=3Drc(a);a=3D(c?new G(F(c)):E||(E=3Dnew =
+G)).m();f.x=3Db.left+a.x;f.y=3Db.top+a.y}else =
+if(c.getBoxObjectFor&&!e){b=3Dc.getBoxObjectFor(a);a=3Dc.getBoxObjectFor(=
+i);f.x=3Db.screenX-a.screenX;f.y=3Db.screenY-a.screenY}else{b=3Da;do{f.x+=
+=3Db.offsetLeft;f.y+=3Db.offsetTop;if(b!=3Da){f.x+=3Db.clientLeft||0;f.y+=
+=3Db.clientTop||0}if(C&&W(b,"position")=3D=3D"fixed"){f.x+=3Dc.body.scrol=
+lLeft;f.y+=3Dc.body.scrollTop;break}b=3Db.offsetParent}while(b&&b!=3Da);i=
+f(y||C&&d=3D=3D"absolute")f.y-=3D=0A=
+c.body.offsetTop;for(b=3Da;(b=3Dsc(b))&&b!=3Dc.body&&b!=3Di;){f.x-=3Db.sc=
+rollLeft;if(!y||b.tagName!=3D"TR")f.y-=3Db.scrollTop}}return =
+f},uc=3Dfunction(a,b,c,d){if(/^\d+px?$/.test(b))return =
+parseInt(b,10);else{var =
+e=3Da.style[c],f=3Da.runtimeStyle[c];a.runtimeStyle[c]=3Da.currentStyle[c=
+];a.style[c]=3Db;b=3Da.style[d];a.style[c]=3De;a.runtimeStyle[c]=3Df;retu=
+rn b}},vc=3Dfunction(a){var =
+b=3DF(a),c=3D"";if(b.createTextRange){c=3Db.body.createTextRange();c.move=
+ToElementText(a);c=3Dc.queryCommandValue("FontName")}if(!c){c=3DW(a,"font=
+Family");if(y&&=0A=
+Oa)c=3Dc.replace(/ =
+\[[^\]]*\]/,"")}a=3Dc.split(",");if(a.length>1)c=3Da[0];return =
+ua(c,"\"'")},wc=3D/[^\d]+$/,xc=3Dfunction(a){return(a=3Da.match(wc))&&a[0=
+]||h},yc=3D{cm:1,"in":1,mm:1,pc:1,pt:1},zc=3D{em:1,ex:1},Ac=3Dfunction(a)=
+{var b=3DW(a,"fontSize"),c=3Dxc(b);if(b&&"px"=3D=3Dc)return =
+parseInt(b,10);if(z)if(c in yc)return uc(a,b,"left","pixelLeft");else =
+if(a.parentNode&&a.parentNode.nodeType=3D=3D1&&c in =
+zc){a=3Da.parentNode;c=3DW(a,"fontSize");return =
+uc(a,b=3D=3Dc?"1em":b,"left","pixelLeft")}c=3DZa("span",{style:"visibilit=
+y:hidden;position:absolute;line-height:0;padding:0;margin:0;border:0;heig=
+ht:1em;"});=0A=
+ab(a,c);b=3Dc.offsetHeight;bb(c);return b};var X=3D{};function =
+Bc(a){if(a=3D=3D1)return g;return!X[a]}function =
+Y(a,b){if(a)if(b=3D=3D1)if(X[b])X[b]+=3D","+a;else X[b]=3Da;else =
+X[b]=3Da}function Cc(){var a=3D[];for(var b in X)a.push(X[b]);return =
+a.join(",")}function Dc(a,b){if(a&&a instanceof Array)for(var =
+c=3D0;c<a.length;c++)a[c]&&typeof a[c]=3D=3D"string"&&Y(a[c],b)}var =
+Z=3Dj;=0A=
+function Ec(a,b){var =
+c=3D"script";Z=3DFc(a,b);if(!Z)a.google_allow_expandable_ads=3Dj;var =
+d=3D!Gc();Z&&d&&b.write("<"+c+' =
+src=3D"http://'+K+'/pagead/expansion_embed.js"></'+c+">");a=3Dec(a,b,H("1=
+",0.01));(d=3Dd||a)&&ob("msie")&&!window.opera?b.write("<"+c+' =
+src=3D"http://'+K+'/pagead/render_ads.js"></'+c+">"):b.write("<"+c+'>goog=
+le_protectAndRun("ads_core.google_render_ad", google_handleError, =
+google_render_ad);</'+c+">")}function $(a){return a!=3Dh?'"'+a+'"':'""'}=0A=
+function Hc(a){var b=3D"google_unique_id";if(a[b])++a[b];else =
+a[b]=3D1;return a[b]}var Ic=3Dfunction(a,b){var =
+c=3Db.slice(-1);c=3Dc=3D=3D"?"||c=3D=3D"#"?"":"&";b=3D[b];for(var d in =
+a){var e=3Da[d];if(e||e=3D=3D=3D0||e=3D=3D=3Dj){if(typeof =
+e=3D=3D"boolean")e=3De?1:0;b.push(c,d,"=3D",L(e));c=3D"&"}}return =
+b.join("")};function Jc(){var =
+a=3Dz&&D("6"),b=3DHa&&D("1.8.1"),c=3DC&&D("525");if(Na&&(a||b||c))return =
+g;else if(Ma&&(c||b))return g;else if(Oa&&b)return g;return j}=0A=
+function Gc(){return(typeof =
+ExpandableAdSlotFactory=3D=3D"function"||typeof =
+ExpandableAdSlotFactory=3D=3D"object")&&typeof =
+ExpandableAdSlotFactory.createIframe=3D=3D"function"}function =
+Fc(a,b){if(a.google_allow_expandable_ads=3D=3D=3Dj||!b.body||a.google_ad_=
+output!=3D"html"||xb(a,b)||!Kc(a)||isNaN(a.google_ad_height)||isNaN(a.goo=
+gle_ad_width)||!Jc())return j;return g}function Kc(a){var =
+b=3Da.google_ad_format;if(N(b))return =
+j;if(M(a)&&b!=3D"468x15_0ads_al")return j;return g}=0A=
+function Lc(){var =
+a;if(P.google_ad_output=3D=3D"html"&&!(M(P)||N(P.google_ad_format))&&Bc(0=
+)){a=3D["6083035","6083034"];a=3DO(a,H("0.001",0));Y(a,0)}return =
+a=3D=3D"6083035"}function =
+Mc(a,b){if((a.google_unique_id||0)=3D=3D0&&a.google_ad_output=3D=3D"html"=
+&&document.body&&typeof =
+b.body.getBoundingClientRect=3D=3D"function")return =
+O(["36812001","36812002"],H("0",0));return""}=0A=
+function =
+Nc(a,b){if((a.google_unique_id||0)!=3D0||N(a.google_ad_format))return"";v=
+ar =
+c=3D"";a=3DM(a);if(b=3D=3D"html"||a)c=3DO(["36815001","36815002"],H("0.00=
+6",0));if(c=3D=3D""&&(b=3D=3D"js"||a))c=3DO(["36815003","36815004"],H("0.=
+006",0));if(c=3D=3D""&&(b=3D=3D"html"||b=3D=3D"js"))c=3DO(["36813005","36=
+813006"],H("0.008",0));return c}=0A=
+function Oc(){var =
+a=3Dhc(),b=3Dwindow.google_enable_osd,c=3D"";if(b=3D=3D=3Dg){c=3D"3681300=
+6";Pc(c,a)}else =
+if(b!=3D=3Dj&&Bc(0)){c=3DO(["68120011","68120021","68120031","68120041"],=
+H("0",0))||Mc(window,document);if(c=3D=3D""){c=3DNc(window,window.google_=
+ad_output);if(c!=3D"")Pc(c,a);else c=3Da.getEid()}}return c}=0A=
+function Pc(a,b){var c=3Db.getOsdMode(),d=3D[];switch(a){case =
+"36815004":c=3D1;d=3D["js"];break;case =
+"36815002":c=3D1;d=3D["html"];break;case =
+"36813006":c=3D0;d=3D["html","js"];break}d.length>0&&b.setValidAdBlockTyp=
+es(d);b.setupOsd(c,a,window.google_correlator)}=0A=
+function Qc(a,b,c,d){var =
+e=3DHc(a);c=3DIc({ifi:e},c);c=3Dc.substring(0,1992);c=3Dc.replace(/%\w?$/=
+,"");var =
+f=3D"script";if((a.google_ad_output=3D=3D"js"||a.google_ad_output=3D=3D"j=
+son_html")&&(a.google_ad_request_done||a.google_radlink_request_done))b.w=
+rite("<"+f+' language=3D"JavaScript1.1" =
+src=3D'+$(k(c))+"></"+f+">");else =
+if(a.google_ad_output=3D=3D"html")if(Z&&Gc()){b=3Da.google_container_id||=
+d||h;a["google_expandable_ad_slot"+e]=3DExpandableAdSlotFactory.createIfr=
+ame("google_ads_frame"+e,k(c),a.google_ad_width,a.google_ad_height,=0A=
+b)}else{e=3D'<iframe name=3D"google_ads_frame" =
+width=3D'+$(a.google_ad_width)+" height=3D"+$(a.google_ad_height)+" =
+frameborder=3D"+$(a.google_ad_frameborder)+" src=3D"+$(k(c))+' =
+marginwidth=3D"0" marginheight=3D"0" vspace=3D"0" hspace=3D"0" =
+allowtransparency=3D"true" =
+scrolling=3D"no"></iframe>';a.google_container_id?Rc(a.google_container_i=
+d,b,e):b.write(e)}return c}function Sc(a){Vb(a)}function =
+Tc(a,b){if(!Uc())return j;var =
+c=3DLc();a=3DVc(a,b);c=3Dfc(window)+Wc(a.google_ad_format,c);window.googl=
+e_ad_url=3DIc(a,c);return g}=0A=
+var Zc=3Dfunction(a){a.dt=3Daa;var =
+b=3Dwindow.google_prev_ad_formats_by_region,c=3Dwindow.google_ad_section,=
+d=3Dwindow.google_ad_format,e=3Dwindow.google_ad_slot;if(b[c])if(!N(d)){a=
+.prev_fmts=3Db[c];if(window.google_num_slots_by_client.length>1)a.slot=3D=
+window.google_num_slots_by_client[Q]}var =
+f=3Dwindow.google_prev_ad_slotnames_by_region;if(f[c])a.prev_slotnames=3D=
+f[c].toLowerCase();if(d){if(!N(d))if(b[c])b[c]+=3D","+d;else =
+b[c]=3Dd}else if(e)if(f[c])f[c]+=3D","+e;else =
+f[c]=3De;a.correlator=3Dwindow.google_correlator;if(window.google_new_dom=
+ain_checked=3D=3D=0A=
+1&&window.google_new_domain_enabled=3D=3D0)a.dblk=3D1;if(window.google_ad=
+_channel){b=3Dwindow.google_num_slots_by_channel;c=3D"";d=3Dwindow.google=
+_ad_channel.split(Xc);for(e=3D0;e<d.length;e++){f=3Dd[e];if(b[f])c+=3Df+"=
++";else =
+b[f]=3D1}a.pv_ch=3Dc}if(window.google_ad_host_channel){b=3DYc(window.goog=
+le_ad_host_channel,window.google_viewed_host_channels);a.pv_h_ch=3Db}if(K=
+b)a.jscb=3D1;if(Lb)a.jscd=3D1;a.frm=3Dwindow.google_iframing;b=3DZb();a.g=
+a_vid=3Db.vid;a.ga_sid=3Db.sid;a.ga_hid=3Db.hid;a.ga_fc=3Db.from_cookie;a=
+.ga_wpids=3Dwindow.google_analytics_uacct},=0A=
+$c=3Dfunction(a,b,c){var d;if(b)if(typeof =
+a.getBoundingClientRect=3D=3D"function"){a=3Da.getBoundingClientRect();d=3D=
+{x:a.left,y:a.top}}else{d=3D{};d.x=3D"-252738";d.y=3D"-252738"}else =
+try{d=3Dtc(a)}catch(e){d=3D{};d.x=3D"-252738";d.y=3D"-252738"}if(d){c.adx=
+=3Dd.x;c.ady=3Dd.y}},ad=3Dfunction(a){var =
+b=3Dsb(document);if(b){a.biw=3Db.width;a.bih=3Db.height}};=0A=
+function Yc(a,b){var c=3Da.split("|");a=3D-1;for(var =
+d=3D[],e=3D0;e<c.length;e++){var =
+f=3Dc[e].split(Xc);b[e]||(b[e]=3D{});for(var =
+i=3D"",m=3D0;m<f.length;m++){var =
+t=3Df[m];if(t!=3D"")if(b[e][t])i+=3D"+"+t;else =
+b[e][t]=3D1}i=3Di.slice(1);d[e]=3Di;if(i!=3D"")a=3De}b=3D"";if(a>-1){for(=
+e=3D0;e<a;e++)b+=3Dd[e]+"|";b+=3Dd[a]}return b}=0A=
+function bd(){var a=3DOc();Y(a,0);var b=3Dj,c=3Dj,d=3Dj;switch(a){case =
+"68120031":d=3Dg;case "68120021":c=3Dg;case "68120041":b=3Dg;break;case =
+"36812002":if(!window.google_atf_included){window.google_atf_included=3Dg=
+;mb("http://"+K+"/pagead/atf.js")}break}var e;if(b){var =
+f=3D"google_temp_span";e=3Dwindow.google_container_id&&Ta(window.google_c=
+ontainer_id)||Ta(f);if(!e&&!window.google_container_id){document.write("<=
+span =
+id=3D"+f+"></span>");e=3DTa(f)}}a=3Dj;a=3Dc?Tc(e,d):Tc();e&&e.id=3D=3Df&&=
+bb(e);if(a){c=3DQc(window,document,window.google_ad_url);=0A=
+hc().registerAdBlockByType(window.google_ad_output,c,j);Sc(window)}}var =
+cd=3Dfunction(a){var b;for(b in ub)a[ub[b]]=3Dwindow[b];for(b in =
+tb)a[tb[b]]=3Dwindow[b];for(b in =
+vb)a[vb[b]]=3Dwindow[b]},dd=3Dfunction(a){Dc(window.google_eids,1);a.eid=3D=
+Cc()};function ed(a,b,c,d){a=3DPb(a,b,c,d);Ec(window,document);return =
+a}function fd(){Ub()}=0A=
+function gd(a){var =
+b=3D{};a=3Da.split("?");a=3Da[a.length-1].split("&");for(var =
+c=3D0;c<a.length;c++){var =
+d=3Da[c].split("=3D");if(d[0])try{b[d[0].toLowerCase()]=3Dd.length>1?wind=
+ow.decodeURIComponent?decodeURIComponent(d[1].replace(/\+/g," =
+")):unescape(d[1]):""}catch(e){}}return b}function hd(){var =
+a=3Dwindow,b=3Dgd(document.URL);if(b.google_ad_override){a.google_ad_over=
+ride=3Db.google_ad_override;a.google_adtest=3D"on"}}=0A=
+function =
+Rc(a,b,c){if(a)if((a=3Db.getElementById(a))&&c&&c.length!=3D""){a.style.v=
+isibility=3D"visible";a.innerHTML=3Dc}}=0A=
+var Wc=3Dfunction(a,b){return =
+a=3DN(a)?"/pagead/sdo?":b?"/pagead/render_iframe_ads.html#":"/pagead/ads?=
+"},id=3Dfunction(a,b){b.dff=3Dvc(a);b.dfs=3DAc(a)},Uc=3Dfunction(){var =
+a=3Dwindow.google_prev_ad_formats_by_region,b=3Dwindow.google_prev_ad_slo=
+tnames_by_region,c=3Dwindow.google_ad_section;if(N(window.google_ad_forma=
+t)){window.google_num_sdo_slots+=3D1;if(window.google_num_sdo_slots>4)ret=
+urn j}else =
+if(M(window)){window.google_num_0ad_slots+=3D1;if(window.google_num_0ad_s=
+lots>3)return j}else{window.google_num_ad_slots+=3D=0A=
+1;if(window.google_num_slots_to_rotate){Rb(1);a[c]=3Dh;b[c]=3Dh;if(window=
+.google_num_slot_to_show=3D=3Dh)window.google_num_slot_to_show=3D(new =
+Date).getTime()%window.google_num_slots_to_rotate+1;if(window.google_num_=
+slot_to_show!=3Dwindow.google_num_ad_slots)return j}else =
+if(window.google_num_ad_slots>6&&c=3D=3D"")return =
+j}a=3Dwindow.google_num_slots_by_client;if(a[Q])a[Q]+=3D1;else{a[Q]=3D1;a=
+.length+=3D1}return g},Vc=3Dfunction(a,b){var =
+c=3D{};cd(c);Zc(c);rb(c);if(a){id(a,c);$c(a,!!b,c)}ad(c);dd(c);c.fu=3DQb;=
+return c},Xc=3D/[+, ]/;=0A=
+window.google_render_ad=3Dbd;var =
+jd=3D["30143070","30143071","30143075"],kd=3Dtypeof =
+window.postMessage=3D=3D"function"||typeof =
+window.postMessage=3D=3D"object"||typeof =
+document.postMessage=3D=3D"function",md=3Dfunction(a,b){typeof =
+A1_googleCreateSlot=3D=3D"function"?A1_googleCreateSlot(a.google_ad_clien=
+t):ld(a,b)},od=3Dfunction(){if(!nd())return j;return =
+g},pd=3Dfunction(a){if(N(a.google_ad_format))return j;var =
+b=3Da.google_ad_output;if(b&&b!=3D"html")return =
+j;a=3Da.google_ad_client;if(typeof =
+a!=3D"string"||a.substring(0,4)!=3D"pub-"&&a.substring(0,7)!=3D"ca-pub-")=
+return j;=0A=
+return g},rd=3Dfunction(a){if(typeof =
+a.google_a1_eid=3D=3D"string")return a.google_a1_eid;var =
+b=3DH("0.001",0);a.google_a1_eid=3Dqd(jd,b);return =
+a.google_a1_eid},ld=3Dfunction(a,b){if(!a.google_included_a1_script){var =
+c=3D"script",d=3D"/pagead/show_ads_sra3.js?v\x3d1";b.write("<"+c+' =
+src=3D"http://'+K+d+'"></'+c+">");a.google_included_a1_script=3Dg}},nd=3D=
+function(){if(z&&D("8"))return j;return kd||!C},qd=3Dfunction(a,b){var =
+c=3DMath.random();if(c<b){b=3DMath.floor(c/b*a.length);return =
+a[b]}return""};function =
+sd(){hd();Nb("show_ads.google_init_globals",ed,fd);Ec(window,document)}fu=
+nction td(){if(!od(window)||!pd(window))sd();else =
+if(Mb&&window.google_use_a1=3D=3D=3Dg)md(window,document);else{var =
+a=3Drd(window);if(a){Y(a,0);window.google_allow_expandable_ads=3Dj}!a||a=3D=
+=3D"30143070"?sd():md(window,document)}}Nb("show_ads.main",Pb,td);})()=0A=
+
+------=_NextPart_000_0002_01CA4F1D.B13A8A10--

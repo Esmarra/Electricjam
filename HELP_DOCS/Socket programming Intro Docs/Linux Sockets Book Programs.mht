@@ -1,0 +1,1315 @@
+From: <Guardado pelo Windows Internet Explorer 7>
+Subject: Linux Sockets: Book Programs
+Date: Fri, 31 Oct 2008 17:46:31 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0005_01C93B80.9BE6B2D0"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.5579
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0005_01C93B80.9BE6B2D0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.cs.utah.edu/~swalton/listings/sockets/programs/
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Linux Sockets: Book Programs</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Diso-8859-1">
+<META content=3D"Sean Walton" name=3DAuthor>
+<META content=3D"MSHTML 6.00.6000.16735" name=3DGENERATOR></HEAD>
+<BODY>
+<TABLE cellSpacing=3D0 cellPadding=3D0 width=3D1024=20
+background=3Dhttp://www.cs.utah.edu/~swalton/images/WebsiteHeader.jpg =
+border=3D0>
+  <TBODY>
+  <TR height=3D121>
+    <TD vAlign=3Dtop colSpan=3D2><FONT face=3DArial size=3D48>Network=20
+      Programming</FONT></TD>
+    <TD vAlign=3Dtop align=3Dright><FONT face=3DArial size=3D5><FONT=20
+      color=3D#ffffff>Program Listings </FONT><BR><FONT =
+face=3DArial,Helvetica=20
+      color=3D#ffffff size=3D-1>Last updated: Tuesday, 12-Dec-2006 =
+14:52:57=20
+      MST&nbsp;&nbsp; </FONT></FONT></TD></TR></TBODY></TABLE>
+<TABLE width=3D1024=20
+background=3Dhttp://www.cs.utah.edu/~swalton/images/region-background.jpg=
+>
+  <TBODY>
+  <TR>
+    <TD width=3D"100%" rowSpan=3D10>
+      <TABLE cellSpacing=3D0 cellPadding=3D0 width=3D"100%" border=3D0>
+        <TBODY>
+        <TR>
+          <TD><FONT face=3Darial,helvetica size=3D+0>The <I>Linux Socket =
+
+            Programming</I> book cites several programs which were too =
+lengthy=20
+            to include entirely in the text. This page gives you access =
+to all=20
+            the complete and commented code listings.</FONT>=20
+</TD></TR></TBODY></TABLE>
+      <TABLE cellSpacing=3D0 cellPadding=3D0 width=3D"100%" border=3D0>
+        <TBODY>
+        <TR>
+          <TD>
+            <HR>
+          </TD></TR></TBODY></TABLE>
+      <TABLE cellSpacing=3D0 cellPadding=3D0 width=3D"100%" border=3D0>
+        <TBODY>
+        <TR height=3D40>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica color=3D#001080=20
+            size=3D+1>Program Source for Book</FONT> <FONT =
+face=3DArial,Helvetica=20
+            size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/program=
+s.zip">[Complete=20
+            zip file]</FONT></A></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><B>Chapter 1: =
+Introducing=20
+            the Cookbook Client</B></FONT></TD></TR>
+        <TR>
+          <TD width=3D25></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap1/simple-client.c">simple-client.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Open a port =
+and read=20
+            server's message.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter 2: =
+TCP/IP=20
+            Network Language Fluency</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap2/test-port-client.c">test-port-client.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>The Simple =
+Client is=20
+            expanded to include sending a message and selecting any=20
+          port.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter 3: =
+Different=20
+            Types of Internet Packets</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap3/snooper.c">snooper.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Listen to the =
+packets=20
+            on the network.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter 4: =
+Sending=20
+            Messages Between Peers</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap4/connected-peer.c">connected-peer.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Listen to the =
+packets=20
+            on the network.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap4/connectionless-receiver.c">connectionless-receiver.c<BR></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap4/connectionless-sender.c">connectionless-sender.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Pass messages =
+between=20
+            programs.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap4/http-client.c">http-client.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Display the =
+reply to an=20
+            HTTP request.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap4/ttcp-client.c">ttcp-client.c<BR></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap4/ttcp-server.c">ttcp-server.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Send =
+transaction TCP=20
+            messages (T/TCP) between client and server (Linux does not =
+yet=20
+            support this protocol).</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap4/udp-reconnect.c">udp-reconnect.c<BR></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part1/c=
+hap4/udp-server.c">udp-server.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Demonstrates =
+connecting=20
+            and reconnecting using UDP.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter 6: =
+A Server=20
+            Primer</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap6/html-ls-server.c">html-ls-server.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Creates an =
+HTML page=20
+            from the directory listing.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap6/simple-server.c">simple-server.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Simple echo=20
+            server.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter 7: =
+Dividing=20
+            the Load: Multitasking</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/parent-child.c">parent-child.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Trivial =
+task-creation=20
+            example.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/echo-process.c">echo-process.c<BR></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/echo-thread.c">echo-thread.c<BR></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/trivial-server.c">trivial-server.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Multitasked =
+echo=20
+            servers.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/exec-server.c">exec-server.c</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/ls-server.c">ls-server.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Examples of =
+servers=20
+            that call exec().</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/html-ls-server.c">html-ls-server.c<BR></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/http-dir.c">http-dir.c<BR></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/serverls.c">serverls.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Various =
+multitasked ls=20
+            or directory servers.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap7/thread-mutex.c">thread-mutex.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Example =
+showing threads=20
+            with mutexes.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter 8: =
+Choosing=20
+            When to Wait for I/O</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap8/demand-accept.c">demand-accept.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Simple =
+on-demand=20
+            servlet creator.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap8/echo-timeout.c">echo-timeout.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT =
+face=3DArial,Helvetica>Implementation of a=20
+            connection timeout.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter 9: =
+Breaking=20
+            Performance Barriers</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/bored-child.c">bored-child.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Example of =
+servlets=20
+            that terminate if not enough activity.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/capped-servlets.c">capped-servlets.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Creates =
+servlets up to=20
+            a spoecified point. Keeps the host from =
+overloading.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/fair-load.c">fair-load.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Balances the =
+servlet=20
+            load between tasks and select()s.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/heartbeat-client.c">heartbeat-client.c<BR></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/heartbeat-server.c">heartbeat-server.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Example of =
+how to=20
+            manually determine if a server or client drops =
+out.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/preforking-servlets.c">preforking-servlets.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Creates tasks =
+ahead of=20
+            time in anticipation of a connection.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/servlet-chummer.c">servlet-chummer.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>An example to =
+solve the=20
+            dynamic connections and load problem.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/servlets-ondemand.c">servlets-ondemand.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Creates as =
+many=20
+            servlets as accepted connections.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/smart-select.c">smart-select.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Combines =
+multitasking=20
+            with select() system call.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/test-server.c">test-server.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>General =
+server=20
+            tester.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/urgent-receiver.c">urgent-receiver.c</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap9/urgent-sender.c">urgent-sender.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Example of =
+send and=20
+            receiving urgent (out of band) messages.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter =
+10:=20
+            Designing Robust Linux Sockets</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap10/restart-example.c">restart-example.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Example =
+restarting a=20
+            wayward process (WARNING: it does not always =
+work!).</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap10/sigpipe-client.c">sigpipe-client.c</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part2/c=
+hap10/sigpipe-server.c">sigpipe-server.c</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Example of =
+getting and=20
+            capturing the EPIPE signal.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter =
+12: Using=20
+            Java's Networking API</B></FONT></TD></TR>
+        <TR>
+          <TD width=3D50></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/DatagramIO.java">DatagramIO.java</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Datagram=20
+            messenger</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/SimpleEchoClient.java">SimpleEchoClient.java</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/SimpleEchoServer.java">SimpleEchoServer.java</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Client/server =
+without=20
+            I/O stream translation.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/EchoClient.java">EchoClient.java</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/EchoServer.java">EchoServer.java</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Client/server =
+with I/O=20
+            stream translation.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/ObjectReceiver.java">ObjectReceiver.java</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/ObjectSender.java">ObjectSender.java</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Sending and =
+receiving=20
+            objects.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/SimpleMulticastDestination.java">SimpleMulticastDestination.java<BR=
+></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/SimpleMulticastSource.java">SimpleMulticastSource.java</FONT></A></=
+TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Simple =
+multicast=20
+            example.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/SimplePeerDestination.java">SimplePeerDestination.java</FONT><BR><F=
+ONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/SimplePeerSource.java">SimplePeerSource.java</FONT>=20
+            </A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Simple =
+datagram=20
+            example.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/MessageGroupWindow.java">MessageGroupWindow.java</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/MessageWindow.java">MessageWindow.java</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>GUI-based=20
+            datagram/multicast examples.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/ThreadedEchoServer.java">ThreadedEchoServer.java</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Threaded echo =
+
+            server.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/WindowChat.java">WindowChat.java</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>GUI-based =
+socket (TCP)=20
+            messenger.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/ErrorDialog.java">ErrorDialog.java</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>General GUI =
+error=20
+            display.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap12/IPv6Test.java">IPv6Test.java</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>IPv6-support=20
+            verifier.</FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter =
+13:=20
+            Designing and Using a C++ Socket =
+Framework</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap13/socket.cpp">socket.cpp</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap13/socket.h">socket.h</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Entire C++=20
+            framework.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap13/echo-client.cpp">echo-client.cpp</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap13/echo-server.cpp">echo-server.cpp</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Echo =
+client/server=20
+            example.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap13/broadcast-peer.cpp">broadcast-peer.cpp<BR></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap13/multicast-peer.cpp">multicast-peer.cpp</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT =
+face=3DArial,Helvetica>Broadcast/multicast=20
+            examples.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap13/peer-caller.cpp">peer-caller.cpp</FONT><BR><FONT=20
+            face=3DArial,Helvetica size=3D-1></A><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap13/peer-replier.cpp">peer-replier.cpp</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Dual program =
+example=20
+            for datagrams.</FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part3/c=
+hap13/peer.cpp">peer.cpp</FONT></A></TD>
+          <TD vAlign=3Dcenter><FONT face=3DArial,Helvetica>Peer-to-peer =
+datagram=20
+            example.</FONT></TD></TR></TBODY></TABLE>
+      <TABLE cellSpacing=3D0 cellPadding=3D0 width=3D1024=20
+      =
+background=3Dhttp://www.cs.utah.edu/~swalton/images/region-background.jpg=
+=20
+      border=3D0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3D4><FONT face=3DArial,Helvetica><BR><B>Chapter =
+15: Network=20
+            Encapsulation with Remote Procedure Calls =
+(RPCs)</B></FONT></TD></TR>
+        <TR>
+          <TD width=3D25></TD>
+          <TD vAlign=3Dtop width=3D180 rowSpan=3D7>Time Server</TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/Makefile.rpctime">Makefile.rpctime</A></FONT></TD>
+          <TD rowSpan=3D7>This is a very simplified program that =
+demonstrates=20
+            passing scalar (simple) variables through an RPC connection. =
+The=20
+            rpcgen program creates all files from the .x file.</TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpctime.h">rpctime.h</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpctime.x">rpctime.x</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpctime_client.c">rpctime_client.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpctime_clnt.c">rpctime_clnt.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpctime_server.c">rpctime_server.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpctime_svc.c">rpctime_svc.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD vAlign=3Dtop rowSpan=3D8>Process Table Server</TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/Makefile.rpcproc">Makefile.rpcproc</A></FONT></TD>
+          <TD rowSpan=3D8>This program extends the types to include =
+strings. The=20
+            program's server opens a pipe to 'ps' and sends the =
+resulting=20
+            strings to the client. The new XDR file helps with data type =
+
+            conversion.</TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcproc.h">rpcproc.h</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcproc.x">rpcproc.x</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcproc_client.c">rpcproc_client.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcproc_clnt.c">rpcproc_clnt.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcproc_server.c">rpcproc_server.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcproc_svc.c">rpcproc_svc.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcproc_xdr.c">rpcproc_xdr.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD vAlign=3Dtop rowSpan=3D8>Linked List Server</TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/Makefile.rpclist">Makefile.rpclist</A></FONT></TD>
+          <TD rowSpan=3D8>The rpcgen program allows you to create =
+dynamic data=20
+            types and send them over the communication link. It has some =
+
+            interesting limitations, though, which the book covers in=20
+        detail.</TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpclist.h">rpclist.h</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpclist.x">rpclist.x</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpclist_client.c">rpclist_client.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpclist_clnt.c">rpclist_clnt.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpclist_server.c">rpclist_server.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpclist_svc.c">rpclist_svc.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpclist_xdr.c">rpclist_xdr.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD vAlign=3Dtop rowSpan=3D8>List-Process Table Server</TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/Makefile.rpcps">Makefile.rpcps</A></FONT></TD>
+          <TD rowSpan=3D8>This program merges the list and proc-table =
+programs=20
+            to create a fielded, dynamic memory process information =
+query.</TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcps.h">rpcps.h</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcps.x">rpcps.x</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcps_client.c">rpcps_client.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcps_clnt.c">rpcps_clnt.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcps_server.c">rpcps_server.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcps_svc.c">rpcps_svc.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap15/rpcps_xdr.c">rpcps_xdr.c</A></FONT></TD></TR></TBODY></TABLE>
+      <TABLE cellSpacing=3D0 cellPadding=3D0 width=3D1024=20
+      =
+background=3Dhttp://www.cs.utah.edu/~swalton/images/region-background.jpg=
+=20
+      border=3D0>
+        <TBODY>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter =
+16: Adding=20
+            Security to Network Programs and SSL</B></FONT></TD></TR>
+        <TR>
+          <TD width=3D25></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap16/ssl_client.c">ssl_client.c</A></FONT></TD>
+          <TD rowSpan=3D2>The SSL (with the OpenSSL API) client/server =
+uses the=20
+            standard socket interface as the starting point, and then, =
+it does=20
+            the handshaking for a secure connection.</TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap16/ssl_server.c">ssl_server.c</A></FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter =
+17: Sharing=20
+            Messages with Multicast, Broadcast, and =
+Mbone</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap17/bcast_client.c">bcast_client.c</A></FONT></TD>
+          <TD rowSpan=3D3>Broadcasting, an older method of sharing =
+information=20
+            uses the network mask to send and receive general messages.=20
+            Multicast replaces broadcast as a more WAN-friendly =
+solution. Until=20
+            multicasting is fully supported on the Internet, Mbone acts =
+as a=20
+            virtual network using IP-over-IP protocols.</TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap17/dgram_echo.c">dgram_echo.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap17/mcast_client.c">mcast_client.c</A></FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter =
+18: The=20
+            Power of Raw Sockets</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap18/myping.c">myping.c</A></FONT></TD>
+          <TD rowSpan=3D3>Raw sockets permit you to experiment with =
+nearly=20
+            zero-level protocols, simplifying custom =
+protocols.</TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap18/mytrace.c">mytrace.c</A></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap18/ping.c">ping.c</A></FONT></TD></TR>
+        <TR>
+          <TD colSpan=3D3><FONT face=3DArial,Helvetica><BR><B>Chapter =
+19: IPv6:=20
+            The Next Generation to IP</B></FONT></TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap19/client_v6.c">client_v6.c</A></FONT></TD>
+          <TD rowSpan=3D2>When written right, converting to IPv6 from =
+IPv4 is=20
+            very simple and only requires a few changes. These examples =
+show the=20
+            few changes in socket creation and setup.</TD></TR>
+        <TR>
+          <TD></TD>
+          <TD><FONT face=3DArial,Helvetica size=3D-1><A=20
+            =
+href=3D"http://www.cs.utah.edu/~swalton/listings/sockets/programs/part4/c=
+hap19/server_v6.c">server_v6.c</A></FONT></TD></TR></TBODY></TABLE></TD><=
+/TR></TD></TR></TBODY></TABLE>
+<TABLE height=3D64 cellSpacing=3D0 cellPadding=3D0 width=3D1024 =
+bgColor=3D#ffffff=20
+background=3Dhttp://www.cs.utah.edu/~swalton/images/WebsiteFooter.jpg =
+border=3D0>
+  <TBODY>
+  <TR>
+    <TD colSpan=3D2>
+      <HR>
+    </TD></TR>
+  <TR>
+    <TD align=3Dleft><FONT color=3D#ffffff>Copyright =A9 2001-2006 =
+Intelligent=20
+      Algorithmic Solutions and Sean Walton</FONT></TD>
+    <TD align=3Dright><A=20
+  =
+href=3D"mailto:swalton@cs.utah.edu">eMail</A></TD></TR></TBODY></TABLE></=
+BODY></HTML>
+
+------=_NextPart_000_0005_01C93B80.9BE6B2D0
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+Content-Location: http://www.cs.utah.edu/~swalton/images/WebsiteHeader.jpg
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a
+HBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy
+MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAB5BAQDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0Dwb4
+N8LXXgbw/cXHhrR5p5dNtnkkksYmZ2MSkkkrkknvWyfA3hH/AKFXQ/8AwXxf/E0vgb/kn3hr/sFW
+v/opa3jQBz58DeEf+hV0T/wXxf8AxNNPgfwj/wBCton/AIL4v/ia6A000AYB8D+Ef+hW0T/wXxf/
+ABNNPgfwl/0K2if+C+L/AOJrfNIaAMA+CPCX/Qr6J/4L4v8A4mmHwR4T/wChX0X/AMF8X/xNb5NN
+NAGCfBPhP/oV9F/8AIv/AImmnwT4T/6FjRf/AAAi/wDia3jSGgDBPgrwp/0LGi/+AEX/AMTTT4K8
+Kf8AQsaL/wCAEX/xNbxppoAwj4K8Kf8AQs6N/wCAEX/xNNPgvwr/ANCzo3/gBF/8TW8aaaAMI+C/
+Cv8A0LOjf+AEX/xNNPgzwr/0LWjf+AEX/wATW6TTDQBhnwZ4W/6FrRv/AABi/wDiaafBvhb/AKFr
+R/8AwBi/+JrdNNNAGGfBvhb/AKFrR/8AwBi/+Jpp8G+F/wDoW9H/APAGL/4mtw000AYh8HeF/wDo
+W9H/APAGL/4mmnwd4X/6FvR//AGL/wCJrcNNNAGIfB/hj/oXNI/8AYv/AImmnwf4Y/6FzSP/AABi
+/wDia2zTSaAMQ+EPDP8A0Lmkf+AMf/xNNPhDwz/0Lukf+AUf/wATW2aaaAMU+EfDP/Qu6R/4BR//
+ABNNPhHwz/0Luk/+AUf/AMTW0aQ0AYp8I+Gv+he0n/wCj/8AiaafCXhr/oXtJ/8AAKP/AOJraNNN
+AGMfCXhr/oXtJ/8AAKP/AOJpp8JeG/8AoXtJ/wDAKP8AwrZNIaAMY+E/Df8A0L+lf+AUf+FMPhTw
+5/0L+lf+Acf+FbJNNNAGOfCnhz/oX9K/8A4/8KafCnhz/oAaV/4Bx/4VsGkNAGOfCvh3/oAaV/4B
+x/4U0+FfDv8A0ANL/wDAOP8AwrYNNNAGQfC3h3/oA6X/AOAcf+FNPhbw9/0AdL/8A4/8K1zSGgDI
+Phbw9/0AdL/8A4/8KafC/h7/AKAWmf8AgJH/AIVrk0w0AZJ8L+H/APoBaZ/4CR/4U0+GPD//AEAt
+M/8AASP/AArXNNNAGSfDHh//AKAemf8AgJH/AIU0+GdA/wCgHpn/AICR/wCFaxppoAyj4Z0D/oB6
+b/4CR/4U0+GdA/6Aem/+Akf+FaxppoAyj4a0H/oCab/4CR/4U0+GtB/6Amm/+Aif4Vqmmk0AZR8N
+6D/0BNN/8BU/wpp8N6F/0BdO/wDAVP8ACtU000AZZ8OaF/0BdO/8BU/wpp8OaF/0BdO/8BU/wrUN
+NNAGYfDmh/8AQG07/wABU/wpp8O6H/0BtO/8BU/wrUNNNAGYfDuh/wDQG0//AMBU/wAKafD2if8A
+QH0//wABU/wrTNIaAMs+HtE/6A+n/wDgMn+FNPh/Rf8AoD6f/wCAyf4Vpk000AZp8P6L/wBAjT//
+AAGT/Cmnw/ov/QIsP/AZP8K0jSGgDNOgaN/0CLD/AMBk/wAKadA0b/oEWH/gMn+FaRppoAzjoOjf
+9Amw/wDAZP8ACmnQdH/6BNh/4DJ/hWiaQ0AZx0HR/wDoE2P/AIDp/hTToWj/APQKsf8AwHT/AArR
+JphoAz/7C0j/AKBVj/4Dp/hSHQ9I/wCgVY/+A6f4VoGmmgDPOh6R/wBAux/8B0/wpDomk/8AQLsv
+/AdP8KvmkNAGedE0n/oF2X/gOn+FIdE0n/oF2X/gOn+FXzTTQBQOi6V/0DLL/wAB1/wpDoulf9Ay
+y/78L/hV400mgCgdG0r/AKBln/34X/CmnRtL/wCgbZ/9+F/wq+aaaAKJ0fS/+gbZ/wDfhf8ACmnR
+9L/6Btn/AN+F/wAKvGmmgCkdH0z/AKB1p/34X/CmnSNM/wCgdaf9+F/wq8aaaAKR0jTP+gdaf9+F
+/wAKadJ03/oH2n/flf8ACrpppoApHSdN/wCgfaf9+V/wpp0rTv8AoH2v/flf8Kuk000AUzpWnf8A
+Pha/9+V/wpp0vTv+fC1/78r/AIVcNIaAKZ0vT/8Anwtf+/K/4U06Xp//AD4Wv/flf8KuGmmgCodM
+0/8A58bb/vyv+FNOmaf/AM+Nt/36X/CrZpDQBUOm2H/Pjbf9+l/wpp02w/58rb/v0v8AhVsmmGgC
+qdOsf+fK2/79L/hTTp1j/wA+Vv8A9+l/wq0aQ0AVTp1j/wA+dv8A9+l/wpp0+y/587f/AL9L/hVo
+000AVjp9l/z52/8A36X/AAppsLL/AJ9Lf/v2P8KtGmmgCsbCz/59IP8Av2P8KabCz/59IP8Av2P8
+Ksmmk0AVjY2f/PrB/wB+xTTY2n/PrB/37FWTTTQBXNlaf8+sH/fsU02Vp/z6w/8AfsVYNNNAEBs7
+X/n2h/79immztf8An2h/74FWDTTQBAbO1/59of8AvgU02lt/z7w/98CpzTTQBAbW2/594v8AvgU0
+2tv/AM+8X/fAqc000AQm1t/+eEX/AHwKaba3/wCeEX/fAqY0hoAhNtb/APPCP/vgU020H/PGP/vg
+VMaaaAIjbwf88Y/++RTTbwf88Y/++RUppDQBEYIf+eMf/fIppgh/55J/3yKlJphoAjMMX/PJP++R
+TTDF/wA8k/75FSGkNAEZii/55p/3yKaYo/8Anmn/AHyKkNNNADDFH/zzX8qaY4/7i/lUhppoAYY0
+/uL+VNKJ/cX8qeaaTQB9ZfBX/kkmifW4/wDSiSij4K/8kk0T63H/AKUSUUAbHgb/AJJ94a/7BVr/
+AOilreNYHgb/AJJ94b/7BVr/AOilreNACGmmlNNNACGmk0pppoAQ000pppoAQ0hoNIaAENNNKaaa
+AA000pphNACE000pppoADTTSmmmgBDTTSmmmgANNNKaaaAEJphpxNMNAAaaaU000AIaQ0GkNACGm
+mlNNNACGmk0pppoAQ000pppoAQ0hoNIaAENNNKaaaAENIaDTSaAEJpppTTTQAGmmlNNNACGmmlNN
+NAAaaaU000AITTDSk000ABpppTTTQAhpppTTTQAGmmlNNNACGmk0pppoAQ000pppoAQ0hoNIaAEN
+NNKaaaAENIaDTSaAEJpppTTTQAGmmlNNNACGkNBpDQAhpppTTTQAhNNJpSaYaAA000pppoAQ000p
+ppoADTTSmmmgBDTSaU000AIaaaU000AIaQ0GkNACGmmlNNNACGkNBppNACE000pppoAQ0hoNIaAE
+NNNKaaaAA000pppoAQmmGlJppoADTTSmmmgBDTTSmmmgANNNKaaaAENNJpSaYaAA000pppoAQ0ho
+NIaAENNNKaaaAENIaDTSaAEJpppTTTQAhpDQaQ0AIaaaU000ABpppTTTQAhNMNKTTTQB9a/BX/kk
+mifW4/8ASiSij4K/8kk0T63H/pRJRQBreB/+SfeG/wDsFWv/AKKWt41g+B/+Sf8Ahv8A7BVr/wCi
+lrdNACGmmlNNJoAQmmmg0hoAQ000pppoAQ0hoNIaAENNNKaaaAENNJpSaaaAENNNKaaaAA000ppp
+oAQ000pppoADTSaU0wmgBDTTSmmmgANNNKaaaAENIaDSGgBDTTSmmk0AITTTQaQ0AIaaaU000AIa
+Q0GkNACGmmlNNNACGmk0pNNNACGmmlNNNAAaaaU000AIaaaU000ABppNKaYTQAhpppTTTQAGmmlN
+NNACGmmlNNNAAaaaU00mgBCaaaDSGgBDTTSmmmgBDSGg0hoAQ000pppoAQ000pNNNACGmmlNNNAA
+aaaU000AIaQ0GkNACGmk0pphNACGmmlNNNAAaaaU000AIaaaU000ABpppTTSaAEJppoNNNAAaaaU
+000AIaQ0GkNACGmmlNNNACGmk0pNNNACGmmlNNNACGkNBpDQAhpppTTTQAGmk0pphNACGmmlNNNA
+AaaaU000AIaaaU000ABpppTTSaAGk000pppoADTTSmmmgBDSGg0hoAQ000pppoAQmmmlJppoAQ00
+0pppoAQ0hoNIaAENNNKaaaAENNJpTTSaAENNNKaaaAPrf4Kf8kj0T63H/pRJRSfBT/kkeifW4/8A
+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
+
+------=_NextPart_000_0005_01C93B80.9BE6B2D0
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+Content-Location: http://www.cs.utah.edu/~swalton/images/region-background.jpg
+
+/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a
+HBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy
+MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAaBAADASIA
+AhEBAxEB/8QAGAABAQEBAQAAAAAAAAAAAAAAAAECBgf/xAAXEAEBAQEAAAAAAAAAAAAAAAAAAUEx
+/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAECBP/EABURAQEAAAAAAAAAAAAAAAAAAAAB/9oADAMBAAIR
+AxEAPwD19plp31hqNTjManEVY1GY1GBuKkVKNTgTgyCxFgoACwIICooAAKAgKigAAAILAgAQICgI
+KAAqKAACgAKioBAgKaGiioqAAAACgICooBoaCgICooAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOfjSRp31gjUI1GapGoRqMhGgiDUCKyIsRYKCgEAqAqKAKA
+AICgAAAKIJFJ1QQigAEQUIoIpAAAFFggigAQICmhooqKgAAAAoCAqKAaGgoCAqKAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/9k=
+
+------=_NextPart_000_0005_01C93B80.9BE6B2D0
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+Content-Location: http://www.cs.utah.edu/~swalton/images/WebsiteFooter.jpg
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a
+HBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy
+MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABABAQDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDwAU4A
+Vr+TF/zyT/vkUohi/wCeaf8AfIr2/wCxKn86L5DIAHpTgo9BWsIYv+eaf98inCGL/nmn/fIo/sSp
+/Og5DICr6D8qcEX+6PyrXEMX/PNP++RSiGL/AJ5p/wB8il/YtT+ZByGSEX+6PypwjT+6v5VreTF/
+zzT/AL5FKIo/+eaf98ij+xan8yDkMkRp/cX8qcI0/uL+Vaohj/55p/3yKcIo/wDnmn/fIo/sWp/M
+g5DJEUf9xfypwij/AOea/lWsIo/+eaf98ilEUf8AzzX8qP7FqfzIOQyhDH/zzT/vkU4Qxf8APNP+
++RWoIo/+ea/lThFH/cX8qX9jVP5kHIZQgi/55J/3yKcIIv8Ankn/AHyK1BFH/cX8qcIo/wC4v5Uf
+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
+gD//2Q==
+
+------=_NextPart_000_0005_01C93B80.9BE6B2D0--

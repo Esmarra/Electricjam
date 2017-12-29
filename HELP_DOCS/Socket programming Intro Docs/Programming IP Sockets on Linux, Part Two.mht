@@ -1,0 +1,1619 @@
+From: <Guardado pelo Windows Internet Explorer 8>
+Subject: Programming IP Sockets on Linux, Part Two
+Date: Sat, 17 Oct 2009 11:32:12 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0002_01CA4F1D.786FA8F0"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.5579
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0002_01CA4F1D.786FA8F0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://gnosis.cx/publish/programming/sockets2.html
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Programming IP Sockets on Linux, Part Two</TITLE>
+<META content=3D"text/html; charset=3Dwindows-1252" =
+http-equiv=3DContent-Type>
+<META name=3DGENERATOR content=3D"MSHTML 8.00.6001.18828"></HEAD>
+<BODY>
+<H1>Programming IP Sockets on Linux, Part Two</H1>
+<P>by David Mertz, Ph.D. &lt;mertz@gnosis.cx&gt;</P>
+<HR>
+
+<H2 align=3Dcenter>Before you start</H2>
+<HR>
+
+<P>(see also <A =
+href=3D"http://gnosis.cx/publish/programming/sockets.html">Part=20
+One</A> of this tutorial)</P>
+<H3>About this tutorial</H3>
+<P>IP sockets are the lowest level layer upon which high level internet=20
+protocols are built--every thing from HTTP, to SSL, to POP3, to =
+Kerberos, to=20
+UDP-Time. To implement custom protocols, or to customize implementation =
+of=20
+well-known protocols, a programmer needs a working knowledge of the =
+basic socket=20
+infrastructure. A similar API is available in many languages; this =
+tutorial uses=20
+C programming as a ubiquitous low-level language, and Python as a =
+representative=20
+higher-level language for examples. </P>
+<P>Readers of the first part of this tutorial were introduced to the =
+basics of=20
+programming custom network tools using the widespread and cross-platform =
+
+Berkeley Sockets Interface. This tutorial picks up with further =
+explanation of=20
+User Datagram Protocol (UDP), and continues with discussion of writing =
+scalable=20
+socket servers. </P>
+<H3>Prerequisites</H3>
+<P>This tutorial is best suited for readers with a minimal level of =
+knowledge of=20
+C and Python . However, readers who are not familiar with either =
+programming=20
+language should be able to make it through with a bit of extra effort; =
+most of=20
+the underlying concepts will apply equally to other programming =
+languages, and=20
+calls will be quite similar in most high-level scripting languages like =
+Ruby,=20
+Perl, TCL, etc. </P>
+<P>While this tutorial introduces the basic concepts behind IP (internet =
+
+protocol) networks, it certainly does not hurt readers to have some =
+prior=20
+acquaintance with the concept of network protocols and layers. </P>
+<H3>About the author</H3>
+<P>David Mertz is a writer, a programmer, and a teacher, who always =
+endeavors to=20
+improve his communication to readers (and tutorial takers). He welcomes =
+any=20
+comments, please direct them to <A>&lt;mertz@gnosis.cx&gt;</A> . </P>
+<P>David also wrote the book <A>Text Processing in Python</A> which =
+readers can=20
+read online at <A>http://gnosis.cx/TPiP/</A> </P>
+<HR>
+
+<H2 align=3Dcenter>Understanding network layers and protocols</H2>
+<HR>
+
+<H3>What is a network?</H3>
+<P>The next couple panels contain a quick recap of the discussion in =
+part I of=20
+this tutorial--if you already read that, you can skip forward through =
+the next=20
+few panels. </P>
+<P>A computer network is composed of a number of <A>"network layers"</A> =
+, each=20
+providing a different restriction and/or guarantee about the data at =
+that layer.=20
+The protocols at each network layer generally have their own packet =
+formats,=20
+headers, and layout. </P>
+<P>The seven traditional layers of a network are divided into two =
+groups: upper=20
+layers and lower layers. The sockets interface provides a uniform API to =
+the=20
+lower layers of a network, and allows you to implement upper layers =
+within your=20
+sockets application. Further, application data formats may themselves =
+constitute=20
+further layers. </P><IMG=20
+src=3D"http://gnosis.cx/publish/programming/network-layers.png">=20
+<H3>What do sockets do?</H3>
+<P>While the sockets interface theoretically allows access to =
+<I>protocol=20
+families</I> other than IP, in practice, every network layer you use in =
+your=20
+sockets application will use IP. For this tutorial we only look at IPv4; =
+in the=20
+future IPv6 will become important also, but the principles are the same. =
+At the=20
+transport layer, sockets support two specific protocols: TCP =
+(transmission=20
+control protocol) and UDP (user datagram protocol). </P>
+<P>Sockets cannot be used to access lower (or higher) network layers; =
+for=20
+example, a socket application does not know whether it is running over =
+ethernet,=20
+token ring, 802.11b, or a dialup connection. Nor does the sockets =
+pseudo-layer=20
+know anything about higher-level protocols like NFS, HTTP, FTP, and the =
+like=20
+(except in the sense that you might yourself write a sockets application =
+that=20
+implements those higher-level protocols). </P>
+<P>At times, the sockets interface is not your best choice for a network =
+
+programming API. Many excellent libraries exist (in various languages) =
+to use=20
+higher-level protocols directly, without having to worry about the =
+details of=20
+sockets. While there is nothing wrong with writing you own SSH client, =
+for=20
+example, there is not need to do so simply to let an application =
+transfer data=20
+securely. Lower-level layers than those sockets address fall pretty much =
+in the=20
+domain of device driver programming. </P>
+<H3>IP, TCP and UDP</H3>
+<P>As the last panel indicated, when you program a sockets application, =
+you have=20
+a choice to make between using TCP and using UDP. Each has its own =
+benefits and=20
+disadvantages. </P>
+<P>TCP is a stream protocol, while UDP is a datagram protocol. That is =
+to say,=20
+TCP establishes a continuous open connection between a client and a =
+server, over=20
+which bytes may be written--and correct order guaranteed--for the life =
+of the=20
+connection. However, bytes written over TCP have no built-in structure, =
+so=20
+higher-level protocols are required to delimit any data records and =
+fields=20
+within the transmitted bytestream. </P>
+<P>UDP, on the other hand, does not require that any connection be =
+established=20
+between client and server, it simply transmits a message between =
+addresses. A=20
+nice feature of UDP is that its packets are self-delimiting--each =
+datagram=20
+indicates exactly where it begins and ends. UDP, however, provides no =
+guarantee=20
+that packets will arrive in-order, or even at all. Higher-level =
+protocols built=20
+on top of UDP may, of course, provide handshaking and acknowledgements. =
+</P>
+<P>A useful analogy for understanding the difference between TCP and UDP =
+is the=20
+difference between a telephone call and posted letters. The telephone =
+call is=20
+not active until the caller "rings" the receiver and the receiver picks =
+up. On=20
+the other hand, when you send a letter, the post office starts delivery =
+without=20
+any assurance the recipient exists, nor any strong guarantee about how =
+long=20
+delivery will take. The recipient may receive various letters in a =
+different=20
+order than they were sent, and the sender may receive mail interspersed =
+in time=20
+with those she sends. Unlike with the USPS, undeliverable mail always =
+goes to=20
+the dead letter office, and is not returned to sender. </P>
+<H3>Peers, ports, names, and addresses</H3>
+<P>Beyond the protocol--TCP or UDP--there are two things a peer (a =
+client or=20
+server) needs to know about the machine it communicates with: An IP =
+address and=20
+a port. An IP address is a 32-bit data value, usually represented for =
+humans in=20
+"dotted quad" notation, e.g., <CODE>64.41.64.172</CODE> . A port is a =
+16-bit=20
+data value, usually simply represented as a number less than 65536--most =
+often=20
+one in the tens or hundreds range. An IP address gets a packet <I>to</I> =
+a=20
+machine, a port lets the machine decide which process/service (if any) =
+to direct=20
+it to. That is a slight simplification, but the idea is correct. </P>
+<P>The above description is almost right, but it misses something. Most =
+of the=20
+time when humans think about an internet host (peer), we do not remember =
+a=20
+number like <CODE>64.41.64.172</CODE> , but instead a name like=20
+<CODE>gnosis.cx</CODE> . The first part of this tutorial demonstrated =
+the use of=20
+DNS and local lookups to find IP addresses from domain names. </P>
+<HR>
+
+<H2 align=3Dcenter>Writing UDP applications (in Python)</H2>
+<HR>
+
+<H3>The steps in writing a socket application</H3>
+<P>As in the first part of this tutorial, my examples for both clients =
+and=20
+servers will use one of the simplest possible applications: one that =
+sends data=20
+and receives the exact same thing back. In fact, many machines run an =
+"echo=20
+server" for debugging purposes; this is convenient for our initial =
+client, since=20
+it can be used before we get to the server portion (assuming you have a =
+machine=20
+with <CODE>echod</CODE> running). </P>
+<P>I would like to acknowledge the book <I>TCP/IP Sockets in C</I> by =
+Donahoo=20
+and Calvert (see Resources). I have adapted several examples that they =
+present.=20
+I recommend the book--but admittedly, echo servers/clients will come =
+early in=20
+most presentations of sockets programming. </P>
+<P>Readers of the first part of the tutorial have already seen a TCP =
+echo client=20
+in detail. So let us jump into a similar client based on UDP istead. =
+</P>
+<H3>A high level Python server</H3>
+<P>We will get to clients and servers in C below. But it is easier to =
+start with=20
+far less verbose versions in Python, and see the overall structure. The =
+first=20
+thing we need before we can test a client <CODE>UDPecho</CODE> =
+application is to=20
+get a server running, for the client to talk to. Python, in fact, gives =
+us the=20
+high-level <CODE>SocketServer</CODE> module that lets us write socket =
+servers=20
+with minimal customization needed: </P><PRE>=20
+          #!/usr/bin/env python
+          "USAGE: %s &lt;port&gt;"
+          from SocketServer import DatagramRequestHandler, UDPServer
+          from sys import argv
+
+          class EchoHandler(DatagramRequestHandler):
+              def handle(self):
+                  print "Client connected:", self.client_address
+                  message =3D self.rfile.read()
+                  self.wfile.write(message)
+
+          if len(argv) !=3D 2:
+              print __doc__ % argv[0]
+          else:
+              UDPServer(('',int(argv[1])), EchoHandler).serve_forever()
+            </PRE>
+<P>The various specialized <CODE>SocketServer</CODE> classes all require =
+you to=20
+provide an appropriate <CODE>.handle()</CODE> method. But in the case of =
+
+<CODE>DatagramRequestHandler</CODE> , you get convenient pseudo-files=20
+<CODE>self.rfile</CODE> and <CODE>self.wfile</CODE> to read and write,=20
+respectively, from the connecting client. </P>
+<H3>A Python UDP echo client</H3>
+<P>Writing a Python client generally involves starting with the basic=20
+<CODE>socket</CODE> module. Fortunately, it is so easy to write the =
+client that=20
+there would hardly be any purpose in using a higher-level starting =
+point. Note,=20
+however, that frameworks like Twisted include base classes for these =
+sorts of=20
+tasks, almost as a passing thought. Let us look at a <CODE>socket</CODE> =
+based=20
+UDP echo client: </P><PRE>=20
+          #!/usr/bin/env python
+          "USAGE: %s &lt;server&gt; &lt;word&gt; &lt;port&gt;"
+          from socket import *    # import *, but we'll avoid name =
+conflict
+          from sys import argv, exit
+          if len(argv) !=3D 4:
+              print __doc__ % argv[0]
+              exit(0)
+          sock =3D socket(AF_INET, SOCK_DGRAM)
+          messout =3D argv[2]
+          sock.sendto(messout, (argv[1], int(argv[3])))
+          messin, server =3D sock.recvfrom(255)
+          if messin !=3D messout:
+              print "Failed to receive identical message"
+          print "Received:", messin
+          sock.close()
+            </PRE>
+<P>If you happen to recall the TCP echo client from the first part, you =
+will=20
+notice a few differences here. The socket created in this case is of =
+type=20
+<CODE>SOCK_DGRAM</CODE> rather than <CODE>SOCK_STREAM</CODE> . But more=20
+interesting is the connectionless nature of UDP. Rather than make a =
+connection=20
+and call the <CODE>.send()</CODE> and <CODE>.recv()</CODE> method =
+repeatedly=20
+until the transmission is complete, for UDP we use just one=20
+<CODE>.sendto()</CODE> and one <CODE>.recvfrom()</CODE> to send and =
+fetch a=20
+message (a datagram). </P>
+<P>Since there is no connection involved, you need to pass the =
+destination=20
+address as part of the <CODE>.sendto()</CODE> call. In Python, the =
+socket object=20
+keeps track of the temporary socket number over which the message =
+actually=20
+passes. We will see later that in C you will need to use this number =
+from a=20
+variable returned by <CODE>sendto()</CODE> </P>
+<H3>The client and server in action</H3>
+<P>Running the server and the client are straightforward. The server is =
+launched=20
+with a port number: </P><PRE>=20
+          $ ./UDPechoserver.py 7 &amp;
+          [1] 23369
+            </PRE>
+<P>The client gets three arguments: server address, string to echo, and =
+the=20
+port. Being that Python wraps up more in its standard modules than do =
+roughly=20
+equivalent C libraries, you can specify a named address just as well as =
+an IP=20
+address. In C you would need to perform a lookup yourself, perhaps first =
+testing=20
+whether the argument looked like a dotted quad or a domain name: =
+</P><PRE>=20
+          $ ./UDPechoclient.py
+          USAGE: ./UDPechoclient.py &lt;server&gt; &lt;word&gt; =
+&lt;port&gt;
+          $ ./UDPechoclient.py 127.0.0.1 foobar 7
+          Client connected: ('127.0.0.1', 51776)
+          Received: foobar
+          $ ./UDPechoclient.py localhost foobar 7
+          Client connected: ('127.0.0.1', 51777)
+          Received: foobar
+            </PRE>
+<P>There is something else interesting to notice in this client session. =
+Of=20
+course, since I launched the server and client in the same terminal, the =
+output=20
+of both are interspersed. But more interesting is the=20
+<CODE>client_address</CODE> that is echo'd. Each new connection =
+establishes a=20
+new socket number (they could be reused, but the point is you do not =
+know in=20
+advance). Port 7 is merely used to recognize the request to send a =
+message, a=20
+new <I>ad hoc</I> socket is used for the actual data. </P>
+<H3>A lower level Python server</H3>
+<P>It does not take any more lines of code to write a Python UDP server =
+using=20
+the <CODE>socket</CODE> module than it did with =
+<CODE>SocketServer</CODE> , but=20
+the coding style is much more imperative (and C-like, actually): =
+</P><PRE>=20
+          #!/usr/bin/env python
+          "USAGE: %s &lt;server&gt; &lt;word&gt; &lt;port&gt;"
+          from socket import *    # import *, but we'll avoid name =
+conflict
+          from sys import argv
+
+          if len(argv) !=3D 2:
+              print __doc__ % argv[0]
+          else:
+              sock =3D socket(AF_INET, SOCK_DGRAM)
+              sock.bind(('',int(argv[1])))
+              while 1:    # Run until cancelled
+                 message, client =3D sock.recvfrom(256) # &lt;=3D256 =
+byte datagram
+                 print "Client connected:", client
+                 sock.sendto(message, client)
+            </PRE>
+<P>Usage and behavior is exactly the same as the prior=20
+<CODE>UDPechoserver.py</CODE> , but we manage the loop and the client=20
+connections ourselves rather than having a class take care of it for us. =
+As=20
+before <I>ad hoc</I> ports are used to transmit the actual message--the=20
+<CODE>client</CODE> returned from <CODE>sock.recvfrom()</CODE> contains =
+the=20
+temporary port number: </P><PRE>=20
+          $ ./UDPechoserver2.py 8 &amp;
+          [2] 23428
+          $ ./UDPechoclient.py localhost foobar 8
+          Client connected: ('127.0.0.1', 51779)
+          Received: foobar
+            </PRE>
+<HR>
+
+<H2 align=3Dcenter>A UDP echo client in C</H2>
+<HR>
+
+<H3>Client setup</H3>
+<P>The first few lines of our UDP client are identical to those for the =
+TCP=20
+client. Mostly we just use some includes for socket functions, or other =
+basic=20
+I/O functions. </P><PRE>=20
+          #include &lt;stdio.h&gt;
+          #include &lt;sys/socket.h&gt;
+          #include &lt;arpa/inet.h&gt;
+          #include &lt;stdlib.h&gt;
+          #include &lt;string.h&gt;
+          #include &lt;unistd.h&gt;
+          #include &lt;netinet/in.h&gt;
+
+          #define BUFFSIZE 255
+          void Die(char *mess) { perror(mess); exit(1); }
+           </PRE>
+<P>There is not too much to the setup. It is worth noticing that the =
+buffer size=20
+we allocate is much larger than it was in the TCP version (but still =
+finite in=20
+size). TCP can loop through the pending data, sending a bit more over an =
+open=20
+socket on each loop. For this UDP version, we want a buffer that is =
+large enough=20
+to hold the entire message, which we send in a single datagram (it can =
+be=20
+smaller than 255, but not any larger). A small error function is also =
+defined.=20
+</P>
+<H3>Declarations and usage message</H3>
+<P>At the very start of the <CODE>main()</CODE> function we allocate two =
+
+<CODE>sockaddr_in</CODE> structures, a few integers to hold string =
+sizes,=20
+another int for the socket handle, and a buffer to hold the returned =
+string.=20
+After that, we check that the command-line arguments look mostly =
+correct. </P><PRE>=20
+          int main(int argc, char *argv[]) {
+            int sock;
+            struct sockaddr_in echoserver;
+            struct sockaddr_in echoclient;
+            char buffer[BUFFSIZE];
+            unsigned int echolen, clientlen;
+            int received =3D 0;
+
+            if (argc !=3D 4) {
+              fprintf(stderr, "USAGE: %s &lt;server_ip&gt; &lt;word&gt; =
+&lt;port&gt;\n", argv[0]);
+              exit(1);
+            }
+           </PRE>
+<P>A contrast with the Python code comes up already here. For this C =
+client, you=20
+<I>must</I> use a dotted-quad IP address. In Python, all the =
+<CODE>socket</CODE>=20
+module functions handle name resolution behind the scenes. If you wanted =
+to do a=20
+lookup in the C client, you would need to program a DNS function--such =
+as the=20
+one presented in the first part of this tutorial. </P>
+<P>In fact, it would not be a terrible idea to check that the IP address =
+passed=20
+in as the server IP address really looks like a dotted-quad address. If =
+you=20
+forgetfully pass in a named address, you will probably receive the =
+somewhat=20
+misleading error: "Mismatch in number of sent bytes: No route to host" =
+(see=20
+below for where this message is produced). Any named address amounts to =
+the same=20
+thing as an unused or reserved IP address (which a simple pattern check =
+could=20
+not rule out, of course). </P>
+<H3>Create the socket and configure the server structure</H3>
+<P>The arguments to the <CODE>socket()</CODE> call decide the type of =
+socket:=20
+<CODE>PF_INET</CODE> just means it uses IP (which you always will);=20
+<CODE>SOCK_DGRAM</CODE> and <CODE>IPPROTO_UDP</CODE> go together for a =
+UDP=20
+socket. In preparation for sending the message to echo, we populate the =
+intended=20
+server's structure, using the command-line arguments. </P><PRE>=20
+            /* Create the UDP socket */
+            if ((sock =3D socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) &lt; =
+0) {
+              Die("Failed to create socket");
+            }
+            /* Construct the server sockaddr_in structure */
+            memset(&amp;echoserver, 0, sizeof(echoserver));       /* =
+Clear struct */
+            echoserver.sin_family =3D AF_INET;                  /* =
+Internet/IP */
+            echoserver.sin_addr.s_addr =3D inet_addr(argv[1]);  /* IP =
+address */
+            echoserver.sin_port =3D htons(atoi(argv[3]));       /* =
+server port */
+            </PRE>
+<P>The value returned in the call to <CODE>socket()</CODE> is a socket =
+handle is=20
+similar to a file handle; specifically, if the socket creation fails, it =
+will=20
+return -1 rather than a positive numbered handle. Support functions=20
+<CODE>inet_addr()</CODE> and <CODE>htons()</CODE> (and =
+<CODE>atoi()</CODE> ) are=20
+used to convert the string arguments into appropriate data structures. =
+</P>
+<H3>Send the message to the server</H3>
+<P>For what it does, this UDP client is a bit simpler than was the =
+similar TCP=20
+echo client presented in the first part of this tutorial series. As we =
+saw with=20
+the Python versions, sending a message is not based on first =
+establishing a=20
+connection. You simply send it to a specified address using=20
+<CODE>sendto()</CODE> , rather than with <CODE>send()</CODE> on an =
+established=20
+connection. Of course, this requires an extra couple arguments to =
+indicate the=20
+intended server address. </P><PRE>=20
+            /* Send the word to the server */
+            echolen =3D strlen(argv[2]);
+            if (sendto(sock, argv[2], echolen, 0,
+                       (struct sockaddr *) &amp;echoserver,
+                       sizeof(echoserver)) !=3D echolen) {
+              Die("Mismatch in number of sent bytes");
+            }
+            </PRE>
+<P>The error checking in this call usually establishes that a route to =
+the=20
+server exists. This is the message raised if a named address is used by =
+mistake,=20
+but it also occurs for valid-looking but unreachable IP addresses. </P>
+<H3>Receive the message back from the server</H3>
+<P>Receiving the data back works pretty much the same way as it did in =
+the TCP=20
+echo client. The only real change is a substitute a call to=20
+<CODE>recvfrom()</CODE> for the TCP call to <CODE>recv()</CODE> =
+</P><PRE>=20
+            /* Receive the word back from the server */
+            fprintf(stdout, "Received: ");
+            clientlen =3D sizeof(echoclient);
+            if ((received =3D recvfrom(sock, buffer, BUFFSIZE, 0,
+                                     (struct sockaddr *) =
+&amp;echoclient,
+                                     &amp;clientlen)) !=3D echolen) {
+              Die("Mismatch in number of received bytes");
+            }
+            /* Check that client and server are using same socket */
+            if (echoserver.sin_addr.s_addr !=3D =
+echoclient.sin_addr.s_addr) {
+              Die("Received a packet from an unexpected server");
+            }
+            buffer[received] =3D '\0';        /* Assure null terminated =
+string */
+            fprintf(stdout, buffer);
+            fprintf(stdout, "\n");
+            close(sock);
+            exit(0);
+          }
+            </PRE>
+<P>The structure <CODE>echoserver</CODE> had been configured with an =
+<I>ad=20
+hoc</I> port during the call to <CODE>sendto()</CODE> ; in turn, the=20
+<CODE>echoclient</CODE> structure gets similarly filled in with the call =
+to=20
+<CODE>recvfrom()</CODE> . This lets us compare the two addresses--if =
+some other=20
+server or port sends a datagram while we are waiting to receive the =
+echo. We=20
+guard at least minimally against stray datagrams that do not interest us =
+(we=20
+might have checked the <CODE>.sin_port</CODE> members also, to be =
+completely=20
+certain). </P>
+<P>At the end of the process, we print out the datagram that came back, =
+and=20
+close the socket. </P>
+<HR>
+
+<H2 align=3Dcenter>A UDP echo server in C</H2>
+<HR>
+
+<H3>Server setup</H3>
+<P>Even more than with TCP applications, UDP clients and servers are =
+quite=20
+similar to each other. In essence, either one consists mainly of some=20
+<CODE>sendto()</CODE> and <CODE>recvfrom()</CODE> calls mixed together. =
+The main=20
+difference for a server is simply that it usually puts its main body in =
+an=20
+indefinite loop to keep serving. </P>
+<P>Let us start out with the usual includes and error function: =
+</P><PRE>=20
+          #include &lt;stdio.h&gt;
+          #include &lt;sys/socket.h&gt;
+          #include &lt;arpa/inet.h&gt;
+          #include &lt;stdlib.h&gt;
+          #include &lt;string.h&gt;
+          #include &lt;unistd.h&gt;
+          #include &lt;netinet/in.h&gt;
+
+          #define BUFFSIZE 255
+          void Die(char *mess) { perror(mess); exit(1); }
+           </PRE>
+<H3>Declarations and usage message</H3>
+<P>Again, not much is new in the UDP echo server's declarations and =
+usage=20
+message. We need a socket structure for the server and client, and a few =
+
+variables that will be used to verify transmission sizes; and, of =
+course, the=20
+buffer to read and write the message. </P><PRE>=20
+          int main(int argc, char *argv[]) {
+            int sock;
+            struct sockaddr_in echoserver;
+            struct sockaddr_in echoclient;
+            char buffer[BUFFSIZE];
+            unsigned int echolen, clientlen, serverlen;
+            int received =3D 0;
+
+            if (argc !=3D 2) {
+              fprintf(stderr, "USAGE: %s &lt;port&gt;\n", argv[0]);
+              exit(1);
+            }
+           </PRE>
+<H3>Create, configure, and bind the server socket</H3>
+<P>The first real difference between UDP client and server comes in the =
+need to=20
+bind the socket on the server side. We saw this already with the Python =
+example,=20
+and the situation is the same here. The server socket is not the actual =
+socket=20
+the message is transmitted over; rather, it acts as a factory for an =
+<I>ad=20
+hoc</I> socket which is configured in the <CODE>recvfrom()</CODE> call =
+we will=20
+see soon. </P><PRE>=20
+          /* Create the UDP socket */
+          if ((sock =3D socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) &lt; =
+0) {
+            Die("Failed to create socket");
+          }
+          /* Construct the server sockaddr_in structure */
+          memset(&amp;echoserver, 0, sizeof(echoserver));       /* Clear =
+struct */
+          echoserver.sin_family =3D AF_INET;                  /* =
+Internet/IP */
+          echoserver.sin_addr.s_addr =3D htonl(INADDR_ANY);   /* Any IP =
+address */
+          echoserver.sin_port =3D htons(atoi(argv[1]));       /* server =
+port */
+
+          /* Bind the socket */
+          serverlen =3D sizeof(echoserver);
+          if (bind(sock, (struct sockaddr *) &amp;echoserver, serverlen) =
+&lt; 0) {
+            Die("Failed to bind server socket");
+          }
+           </PRE>
+<P>Readers will also notice that the <CODE>echoserver</CODE> structure =
+is=20
+configured a bit differently. In order to allow connection on any IP =
+address the=20
+server hosts, we use the special constant <CODE>INADDR_ANY</CODE> for =
+the member=20
+<CODE>.s_addr</CODE> . </P>
+<H3>The receive/send loop</H3>
+<P>The heavy lifting--such as it is--in the UDP sever is its main loop.=20
+Basically, we perpetually wait to receive a message in a =
+<CODE>recvfrom()</CODE>=20
+call. When this happens, the <CODE>echoclient</CODE> structure is =
+populated with=20
+relevant members for the connecting socket. We then use that structure =
+in the=20
+subsequent <CODE>sendto()</CODE> call. </P><PRE>=20
+            /* Run until cancelled */
+            while (1) {
+              /* Receive a message from the client */
+              clientlen =3D sizeof(echoclient);
+              if ((received =3D recvfrom(sock, buffer, BUFFSIZE, 0,
+                                       (struct sockaddr *) =
+&amp;echoclient,
+                                       &amp;clientlen)) &lt; 0) {
+                Die("Failed to receive message");
+              }
+              fprintf(stderr,
+                      "Client connected: %s\n", =
+inet_ntoa(echoclient.sin_addr));
+              /* Send the message back to client */
+              if (sendto(sock, buffer, received, 0,
+                         (struct sockaddr *) &amp;echoclient,
+                         sizeof(echoclient)) !=3D received) {
+                Die("Mismatch in number of echo'd bytes");
+              }
+            }
+          }
+           </PRE>
+<P>And that's it! We can receive and send messages forever, reporting=20
+connections to the console as we go along. Of course, as we will see in =
+the next=20
+section, this arrangement does only one thing at a time, which might be =
+a=20
+problem for a server handling many clients (probably not for this simple =
+echo=20
+server, but something more complicated might introduce poor latencies). =
+</P>
+<HR>
+
+<H2 align=3Dcenter>Servers that scale</H2>
+<HR>
+
+<H3>Complexity in the server's job</H3>
+<P>The servers we have looked at--that do nothing but echo a =
+message--can handle=20
+each client request extremely quickly. But more generally, we might =
+expect=20
+servers to perform potentially lengthy actions like database lookups, =
+accessing=20
+remote resources, or complex computations in order to determine the =
+response for=20
+a client. Our "one thing at a time" model does not scale well to =
+multiple=20
+clients. </P>
+<P>To demonstrate the point, let us look at a slightly modified Python=20
+server--one that takes some time to do its job (just to make the point =
+that it=20
+is processing the request, we (trivially) modify the message string =
+along the=20
+way too: </P><PRE>=20
+          #!/usr/bin/env python
+          from socket import *
+          from sys import argv
+
+          def lengthy_action(sock, message, client_addr):
+              from time import sleep
+              print "Client connected:", client_addr
+              sleep(5)
+              sock.sendto(message.upper(), client_addr)
+
+          sock =3D socket(AF_INET, SOCK_DGRAM)
+          sock.bind(('',int(argv[1])))
+          while 1:    # Run until cancelled
+             message, client_addr =3D sock.recvfrom(256)
+             lengthy_action(sock, message, client_addr)
+           </PRE>
+<H3>Stressing the server (I)</H3>
+<P>In order to give the server some work to do, we can modify the client =
+to make=20
+multiple requests (one per thread) that would like to be serviced as =
+quickly as=20
+possible: </P><PRE>=20
+          #!/usr/bin/env python
+          from socket import *
+          import sys, time
+          from thread import start_new_thread, get_ident
+
+          start =3D time.time()
+          threads =3D {}
+          sock =3D socket(AF_INET, SOCK_DGRAM)
+
+          def request(n):
+              sock.sendto("%s [%d]" % (sys.argv[2],n),
+                          (sys.argv[1], int(sys.argv[3])))
+              messin, server =3D sock.recvfrom(255)
+              print "Received:", messin
+              del threads[get_ident()]
+
+          for n in range(20):
+              id =3D start_new_thread(request, (n,))
+              threads[id] =3D None
+              #print id,
+          while threads: time.sleep(.1)
+          sock.close()
+          print "%.2f seconds" % (time.time()-start)
+           </PRE>
+<H3>Stressing the server (II)</H3>
+<P>Run against our new "lengthy action" server, the threaded client gets =
+
+something like the following (abridged) output; note the time it takes, =
+in=20
+particular: </P><PRE>=20
+          $ ./UDPechoclient2.py localhost "Hello world" 7
+          Received: HELLO WORLD [7]
+          Received: HELLO WORLD [0]
+          ...
+          Received: HELLO WORLD [18]
+          Received: HELLO WORLD [2]
+          103.96 seconds
+           </PRE>
+<P>Against one of the earlier servers, this client will run in a few =
+seconds=20
+(but will not capitalize the returned string, of course); a version =
+without the=20
+threading overhead will be even faster against the earlier servers. =
+Assuming our=20
+hypothetical server process is not purely CPU-bound, we should be able =
+to be=20
+much more responsive than 100+ seconds. Notice also that the threads are =
+not=20
+generally serviced in the same order they are created in. </P>
+<H3>A threading server</H3>
+<P>The way we have set up the "lengthy action" server, we guarantee that =
+it=20
+takes at least five seconds to service any given client request. But =
+there is no=20
+reason that multiple threads cannot be running during those same five =
+seconds.=20
+Again, clearly a CPU bound process is not going to be faster through =
+threading,=20
+but more often in a real server, those five seconds are spent doing =
+something=20
+like a database query against another machine. In other words, we should =
+be able=20
+to parallelize serving the several client threads. </P>
+<P>An obvious approach here is to thread the server, just as the client =
+is=20
+threaded: </P><PRE>=20
+          #!/usr/bin/env python
+          from socket import *
+          from sys import argv
+          from thread import start_new_thread
+          # ...definition of 'lenthy_action()' unchanged...
+          sock =3D socket(AF_INET, SOCK_DGRAM)
+          sock.bind(('',int(argv[1])))
+          while 1:    # Run until cancelled
+              message, client_addr =3D sock.recvfrom(256)
+              start_new_thread(lengthy_action, (sock, message, =
+client_addr))
+           </PRE>
+<P>On my test system (using localhost, as before), this brings the =
+client=20
+runtime down to about 9 seconds--five of those spent in the call to=20
+<CODE>sleep()</CODE> , the rest with threading and connection overhead=20
+(roughly). </P>
+<H3>A forking server</H3>
+<P>On Unix-like systems, forking is even easier than threading. While =
+processes=20
+are nominally "heavier" than threads; on popular Posix systems like =
+Linux,=20
+FreeBSD, and Darwin, process creation is still quite efficient. </P>
+<P>In Python, a forking version of our "lengthy action" server can be as =
+simple=20
+as: </P><PRE>=20
+          #!/usr/bin/env python
+          from socket import *
+          from sys import argv, exit
+          from os import fork
+
+          def lengthy_action(sock, message, client_addr):
+              from time import sleep
+              print "Client connected:", client_addr
+              sleep(5)
+              sock.sendto(message.upper(), client_addr)
+              exit()
+
+          sock =3D socket(AF_INET, SOCK_DGRAM)
+          sock.bind(('',int(argv[1])))
+          while 1:    # Run until cancelled
+              message, client_addr =3D sock.recvfrom(256)
+              if fork():
+                  lengthy_action(sock, message, client_addr)
+           </PRE>
+<P>On my Mac OSX test system, I actually found this forking version a =
+couple=20
+seconds <I>faster</I> than the threaded server; to my mild surprise. As =
+a slight=20
+difference in behavior, after servicing a collection of client threads, =
+the main=20
+process in the <CODE>while</CODE> loop winds up as a background process, =
+even if=20
+the server was launched in the foreground. In the usual case where you =
+launch=20
+the server in the background, the difference is irrelevant though. </P>
+<H3>An asynchronous server</H3>
+<P>Another technique called <I>asynchronous</I> or <I>non-blocking</I> =
+sockets=20
+is potentially even more efficient than are threading or forking =
+approaches. The=20
+concept behind asynchronous programming is to keep execution within a =
+single=20
+thread, but poll each open socket to see if it has more data waiting to =
+be read=20
+or written. However, non-blocking sockets are really only useful for I/O =
+bound=20
+processes--the simulation of a CPU-bound server that we created using=20
+<CODE>sleep()</CODE> sort of misses the point. Moreover, non-blocking =
+sockets=20
+make a bit more sense for TCP connections than for UDP ones, since the =
+former=20
+retain an open connection than may still have pending data. </P>
+<P>In overview, the structure of an asynchronous peer (client <I>or</I> =
+server)=20
+is a polling loop--usually using the function <CODE>select()</CODE> or =
+some=20
+higher-level wrapper to it such as Python's <CODE>asyncore</CODE> . At =
+each pass=20
+through the loop, you check all the open sockets to see which ones are =
+currently=20
+readable and which ones currently writeable. This is quick to check, and =
+you can=20
+simply ignore any sockets that are not currently ready for I/O actions. =
+This=20
+style of socket programming avoids any overhead associated with threads =
+or=20
+processes. </P>
+<H3>A client with slow socket connections (I)</H3>
+<P>To simulate a low bandwidth connection, we can create a client that=20
+introduces artificial delays in sending data, and dribbles out its =
+message byte=20
+by byte. To simulate many such connections, we thread multiple =
+connections (each=20
+slow). Generally, this client is similar to the =
+<CODE>UDPechoclient2.py</CODE>=20
+we saw above, but in a TCP version: </P><PRE>=20
+          #!/usr/bin/env python
+          from socket import *
+          import sys, time
+          from thread import start_new_thread, get_ident
+
+          threads =3D {}
+          start =3D time.time()
+
+          def request(n, mess):
+              sock =3D socket(AF_INET, SOCK_STREAM)
+              sock.connect((sys.argv[1], int(sys.argv[3])))
+              messlen, received =3D len(mess), 0
+              for c in mess:
+                  sock.send(c)
+                  time.sleep(.1)
+              data =3D ""
+              while received &lt; messlen:
+                  data +=3D sock.recv(1)
+                  time.sleep(.1)
+                  received +=3D 1
+              sock.close()
+              print "Received:", data
+              del threads[get_ident()]
+
+          for n in range(20):
+              message =3D "%s [%d]" % (sys.argv[2], n)
+              id =3D start_new_thread(request, (n, message))
+              threads[id] =3D None
+          while threads:
+              time.sleep(.2)
+          print "%.2f seconds" % (time.time()-start)
+           </PRE>
+<H3>A client with slow socket connections (II)</H3>
+<P>We need a "traditional" TCP server to test our slow client against. =
+In=20
+essence, the below is identical to the second (low-level) Python server=20
+presented in the first part of this tutorial. The only real difference =
+is that=20
+the maximum connections are increased to twenty. </P><PRE>=20
+          #!/usr/bin/env python
+          from socket import *
+          import sys
+
+          def handleClient(sock):
+              data =3D sock.recv(32)
+              while data:
+                  sock.sendall(data)
+                  data =3D sock.recv(32)
+              newsock.close()
+
+          if __name__=3D=3D'__main__':
+              sock =3D socket(AF_INET, SOCK_STREAM)
+              sock.bind(('',int(sys.argv[1])))
+              sock.listen(20)
+              while 1:    # Run until cancelled
+                  newsock, client_addr =3D sock.accept()
+                  print "Client connected:", client_addr
+                  handleClient(newsock)
+           </PRE>
+<H3>A client with slow socket connections (III)</H3>
+<P>Let us try running the "slow connection" client against the "one =
+thing at a=20
+time" server (abridged output, as before): </P><PRE>=20
+          $ ./echoclient2.py localhost "Hello world" 7
+          Received: Hello world [0]
+          Received: Hello world [1]
+          Received: Hello world [5]
+          ...
+          Received: Hello world [16]
+          37.07 seconds
+           </PRE>
+<P>As with the UDP stress-test client, the threads do not necessarily =
+connect in=20
+the order they are launched. Most significantly, however, is to notice =
+that the=20
+time it takes to serve all twenty threads is basically the same as the =
+sum of=20
+all the introduced delays in writing bytes over the sockets. Nothing is=20
+parallelized here, since we need to wait for each individual socket =
+connection=20
+to complete. </P>
+<H3>Using select() to multiplex sockets</H3>
+<P>Now we are ready to see how the function <CODE>select()</CODE> can be =
+used to=20
+bypass I/O delays of the sort we just introduced (or of the kind that =
+arises "in=20
+the wild" because of genuinely slow connections). A few panels ago, the =
+general=20
+concept was discussed; let us look at the specific code: </P><PRE>=20
+          #!/usr/bin/env python
+          from socket import *
+          import sys, time
+          from select import select
+
+          if __name__=3D=3D'__main__':
+              while 1:
+                  sock =3D socket(AF_INET, SOCK_STREAM)
+                  sock.bind(('',int(sys.argv[1])))
+                  print "Ready..."
+                  data =3D {}
+                  sock.listen(20)
+                  for _ in range(20):
+                      newsock, client_addr =3D sock.accept()
+                      print "Client connected:", client_addr
+                      data[newsock] =3D ""
+                  last_activity =3D time.time()
+                  while 1:
+                      read, write, err =3D select(data.keys(), =
+data.keys(), [])
+                      if time.time() - last_activity &gt; 5:
+                          for s in read: s.shutdown(2)
+                          break
+                      for s in read:
+                          data[s] =3D s.recv(32)
+                      for s in write:
+                          if data[s]:
+                              last_activity =3D time.time()
+                              s.send(data[s])
+                              data[s] =3D ""
+           </PRE>
+<P>This server is fragile in that it always waits for exactly 20 client=20
+connections before <CODE>select()</CODE> 's among them. But we still =
+demonstrate=20
+the basic concept of using a tight polling loop, and reading/writing =
+only when=20
+data is available on a particular socket. The return values of=20
+<CODE>select()</CODE> is a tuple of lists of sockets that are readable,=20
+writeable, and in error, respectively. Each of these types are handled =
+within=20
+the loop, as needed. </P>
+<P>Using this asynchronous server, by the way, lets the "slow =
+connection" client=20
+complete all 20 connections in about 6 seconds, rather than 37 seconds =
+(at least=20
+on my test system). </P>
+<H3>Scaleable servers in C</H3>
+<P>The examples presented for more scaleable servers have all used =
+Python. In=20
+truth, the quality of Python's libraries mean that these will not be=20
+significantly slower than analogous servers written in C. And for this =
+tutorial,=20
+relative brevity of presentation is important. </P>
+<P>In presenting the above Python servers, I have stuck to relatively =
+low-level=20
+facilities within Python. Some of the higher-level modules like=20
+<CODE>asyncore</CODE> or <CODE>SocketServer</CODE> --or even=20
+<CODE>threading</CODE> rather than <CODE>thread</CODE> --might provide =
+more=20
+"Pythonic" techniques. These low-level facilities I utilized, however, =
+remain=20
+quite close in structure to the ways you would program the same things =
+in C.=20
+Python's dynamic typing and concise syntax still save quite a few lines, =
+but a C=20
+programmer should be able to use my examples as outlines for similar C =
+servers.=20
+</P>
+<HR>
+
+<H2 align=3Dcenter>Summary and resources</H2>
+<HR>
+
+<H3>Summary</H3>
+<P>The server and client presented in this tutorial are simple, but they =
+show=20
+everything essential to writing UDP sockets applications in C and in =
+Python. A=20
+more sophisticated client or server is, at heart, just one that =
+transmits more=20
+interesting data back and forth; the sockets-level code is not much =
+different=20
+for these. </P>
+<P>The general outlines of performing threading, forking, and =
+asynchronous=20
+socket handling are similarly applicable to more advanced servers. Your =
+servers=20
+and clients themselves are likely to do more, but your strategies =
+towards=20
+scalability will always be one of these three approaches (or a =
+combination of=20
+them). </P>
+<H3>Resources</H3>
+<P>A good introduction to sockets programming in C, is Michael J. =
+Donahoo and=20
+Kenneth L. Calvert, <I>TCP/IP Sockets in C</I> , Morgan-Kaufmann, 2001; =
+ISBN:=20
+1-55860-826-5. </P>
+<P>The sockets discussed in these tutorials have been unicast sockets, =
+which are=20
+certainly more widely used in common internet protocols. However, there =
+is also=20
+such a thing as <I>multicast</I> sockets--which connect one transmission =
+to many=20
+recipients. Brad Huntting and I have written a series of articles =
+describing=20
+issues and technologies around IP multicast </P>
+<H3>Feedback</H3>
+<P>Please let us know whether this tutorial was helpful to you and how =
+we could=20
+make it better. We'd also like to hear about other tutorial topics you'd =
+like to=20
+see covered. </P>
+<P>For questions about the content of this tutorial, contact the author, =
+David=20
+Mertz, at <A>mertz@gnosis.cx</A> . </P></BODY></HTML>
+
+------=_NextPart_000_0002_01CA4F1D.786FA8F0
+Content-Type: image/png
+Content-Transfer-Encoding: base64
+Content-Location: http://gnosis.cx/publish/programming/network-layers.png
+
+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
+
+------=_NextPart_000_0002_01CA4F1D.786FA8F0--

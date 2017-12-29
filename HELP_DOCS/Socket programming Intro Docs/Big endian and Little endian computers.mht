@@ -1,0 +1,63 @@
+From: <Saved by Microsoft Internet Explorer 5>
+Subject: Big endian and Little endian computers
+Date: Mon, 18 Dec 2006 13:06:05 -0000
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.cs.rpi.edu/courses/sysprog/sockets/byteorder.html
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2962
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Big endian and Little endian computers</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Diso-8859-1">
+<META content=3D"MSHTML 6.00.2900.2963" name=3DGENERATOR></HEAD>
+<BODY>
+<H2>Big endian and Little endian computers</H2>
+<P>Virtually all computer architectures are byte addressable. If an int =
+is four=20
+bytes, there are two different ways to store this. Suppose the address =
+of the=20
+int is A. In a so-called big endian computer, the highest order byte is =
+stored=20
+at A, and the lowest order byte is stored at address A+3. In a so-called =
+little=20
+endian computer, address A stores the least significant byte and the =
+most=20
+significant byte is at address A+3.=20
+<P>Big endian computer architectures include the IBM 370, the Motorola =
+68000 and=20
+Sun Sparc. Little endian computers include the intel series (80486, =
+pentium etc)=20
+and VAX.=20
+<P>Consider the decimal integer 91,329. This is 00 01 64 C1 in =
+hexidecimal. If=20
+this were to be stored at address A in a big endian computer, 00 would =
+be at=20
+address A, 01 at address A+1 64 at address A+2, and C1 at address A+3. =
+On a=20
+little endian computer, C1 would be the value at address A, 64 at =
+address A+1,=20
+01 at address A+2, and 00 at address A+3.=20
+<P>Computer networks are big endian. This means that when little endian=20
+computers are going to pass integers over the network (IP addresses for=20
+example), they need to convert them to network byte order. Likewise, =
+when the=20
+receive integer values over the network, they need to convert them back =
+to their=20
+own native representation.=20
+<P>There are four functions that do this.=20
+<P><PRE>unsigned long htonl(unsigned long)
+   host to network conversion for long ints (4 bytes)
+unsigned short htons(unsigned short)
+   host to network conversion for short ints (2 bytes)
+unsigned long ntohl(unsigned long)
+   network to host conversion for long ints=20
+unsigned short ntohs(short)
+   network to host conversion for short ints
+</PRE>On big endian computers these functions simply return their =
+arguments.=20
+<P>The terms big endian and little endian are borrowed from Gulliver's =
+Travels.=20
+</P></BODY></HTML>

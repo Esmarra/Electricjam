@@ -1,0 +1,1204 @@
+From: <Saved by Microsoft Internet Explorer 5>
+Subject: A Crash Course in UNIX TCP/IP Socket Programming
+Date: Tue, 22 Aug 2006 10:55:30 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01C6C5D9.7BDF1370"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2962
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01C6C5D9.7BDF1370
+Content-Type: text/html;
+	charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.fortunecity.com/skyscraper/arpanet/6/cc.htm
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>A Crash Course in UNIX TCP/IP Socket =
+Programming</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dwindows-1252">
+<META content=3D"MSHTML 6.00.2900.2963" name=3DGENERATOR></HEAD>
+<BODY onunload=3Dspawntopfivewindow();>
+<CENTER>
+<SCRIPT language=3DJavascript>=0A=
+<!--=0A=
+=0A=
+function FCGetWindowSize() {=0A=
+=0A=
+	FCWindowWidth =3D document.images.FCimg11bnr.width * 100;=0A=
+=0A=
+	if(document.images.FCimg12bnr.height <=3D 2) {FCWindowWidth =3D 1;}		// =
+too small vertically=0A=
+}=0A=
+=0A=
+document.write('<font size=3D-3><img =
+src=3D"http://www.fortunecity.com/banners/track1.gif" height=3D1 =
+width=3D1% border=3D"0" name=3D"FCimg11bnr" hspace=3D0 vspace=3D0>');=0A=
+document.write('<img src=3D"http://www.fortunecity.com/banners/foo.gif" =
+height=3D1% width=3D1 border=3D"0" name=3D"FCimg12bnr" hspace=3D0 =
+vspace=3D0><br clear=3Dall></font>');=0A=
+=0A=
+FCGetWindowSize();=0A=
+=0A=
+var fcadunit =3D 'misc';		// default=0A=
+=0A=
+=0A=
+// -->=0A=
+</SCRIPT>
+
+<SCRIPT language=3DJavascript=20
+src=3D"http://www.fortunecity.com/js/adscript.global.js">=0A=
+</SCRIPT>
+
+<TABLE id=3Dfcnavbartable style=3D"VISIBILITY: hidden" cellSpacing=3D0 =
+cellPadding=3D0=20
+width=3D730 border=3D0>
+  <TBODY>
+  <TR id=3Dfcnavbartablerow align=3Dmiddle>
+    <TD>
+      <TABLE cellSpacing=3D0 cellPadding=3D0 width=3D"100%" border=3D0>
+        <TBODY>
+        <TR align=3Dmiddle>
+          <TD width=3D"3%"><A id=3Dfcnavlogo =
+href=3D"http://www.fortunecity.com/"=20
+            target=3D_new><IMG height=3D15=20
+            alt=3D"web hosting, domain name, free web site, email =
+address"=20
+            =
+src=3D"http://www.fortunecity.com/images/fclogo_inline_new.gif"=20
+            width=3D120 border=3D0></A></TD>
+          <TD id=3Dfctdhosting width=3D"22%"><A id=3Dfcnavhosting=20
+            style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-FAMILY: =
+Verdana,sans-serif"=20
+            href=3D"http://www.fortunecity.com/" target=3D_new>web =
+hosting</A></TD>
+          <TD id=3Dfctddomains width=3D"24%"><A id=3Dfcnavdomains=20
+            style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-FAMILY: =
+Verdana,sans-serif"=20
+            href=3D"http://www.fortunecity.com/" target=3D_new>domain =
+names</A></TD>
+          <TD id=3Dfctdemail width=3D"26%"><A id=3Dfcnavmpa=20
+            style=3D"FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-FAMILY: =
+Verdana,sans-serif"=20
+            href=3D"http://www.myphotoalbum.com/" target=3D_new>photo =
+sharing</A></TD>
+          <TD id=3Dfcnavsrchsub width=3D"2%"><IMG height=3D15 alt=3D""=20
+            src=3D"http://www.fortunecity.com/images/nb_top_right.gif" =
+width=3D30=20
+            =
+border=3D0></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<SCRIPT language=3DJavascript>=0A=
+<!--=0A=
+=0A=
+DisplayFCAdBanner();=0A=
+=0A=
+document.getElementById('fcnavhosting').search =3D '?sid=3Dfcnavhosting';=0A=
+document.getElementById('fcnavdomains').search =3D '?sid=3Dfcnavdomains';=0A=
+document.getElementById('fcnavmpa').search =3D '?sid=3Dfcnavmpa';=0A=
+=0A=
+// -->=0A=
+</SCRIPT>
+<BR>
+<SCRIPT language=3DJavascript>=0A=
+<!-- =0A=
+=0A=
+DisplayFCAdButtons();=0A=
+=0A=
+// -->=0A=
+</SCRIPT>
+</CENTER><B><FONT face=3DArial size=3D4>
+<P>A Crash Course in UNIX TCP/IP Socket Programming</P></B></FONT><FONT =
+size=3D2>
+<P>John Selbie</P>
+<P>CEN 4500</P>
+<P>Spring 1997</P>
+<P>&nbsp;</P><B>
+<P>Introduction</P></B>
+<P>A "socket" is a loose term used to describe "an end point for =
+communication."=20
+The traditional Berkley Socket API is a set of C function calls used to =
+support=20
+network communication. The Sockets API is not specific to TCP/IP. =
+Therefore,=20
+developing TCP/IP network applications requires slightly more overhead =
+of=20
+programming and understanding to account for the generic parameters of =
+the=20
+library's function calls. Once understood, Socket programming is as easy =
+as=20
+reading and writing to disk files.</P>
+<P>&nbsp;</P>
+<P>The material presented here is somewhat specific to C, UNIX, and =
+TCP/IP.=20
+However the general format for the Socket API has been ported to such =
+languages=20
+as Java and Perl. In addition some UNIX vendors support other protocols =
+such as=20
+IPX, SNA, and DEC-NET with their socket libraries. The Microsoft Windows =
+version=20
+of the Socket API ("WinSock") is also very similar. It's believed that =
+once a=20
+software developer gains a good understanding of UNIX/C Sockets, he or =
+she can=20
+quickly understand implementations for other languages and operating=20
+systems.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P><B>
+<P>Include Files</P></B>
+<P>When writing C or C++ programs that use the socket library go ahead =
+and=20
+include all these header files:</P>
+<P>&nbsp;</P>
+<P>UNIX:</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>#include &lt;sys/types.h&gt;</P>
+<P>#include &lt;sys/socket.h&gt;</P>
+<P>#include &lt;netinet/in.h&gt;</P>
+<P>#include &lt;arpa/inet.h&gt;</P>
+<P>#include &lt;netdb.h&gt;</P>
+<P>#include &lt;unistd.h&gt;</P>
+<P>#include &lt;signal.h&gt;</P>
+<P>#include &lt;stdio.h&gt;</P>
+<P>#include &lt;fcntl.h&gt;</P>
+<P>#include &lt;errno.h&gt;</P>
+<P>#include &lt;sys/time.h&gt;</P>
+<P>#include &lt;stdlib.h&gt;</P>
+<P>#include &lt;memory.h&gt;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT><B><FONT size=3D2>
+<P>Compiling and Linking</P></B>
+<P>Under most versions of UNIX (Linux, BSD, SunOS, IRIX) compiling is =
+done as=20
+usual:</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>gcc my_socket_program.c -o my_socket_program</P></FONT><FONT =
+size=3D2>
+<P>&nbsp;</P>
+<P>However, Solaris requires the developer to explicitly link the socket =
+and=20
+network services library with the program:</P></FONT><FONT =
+face=3D"Courier New"=20
+size=3D2>
+<P>cc my_socket_program -o my_socket_program <B>-lsocket=20
+-lnsl</P></B></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>The Solaris C compiler that is usually located in /opt/SUNWspro/bin, =
+is=20
+recommended over gcc.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P><B>
+<P>Applications and TCP/IP</P></B>
+<P>Programs written by a software developer may use either TCP or UDP =
+for=20
+communicating with remote hosts on the Internet. Both are services that =
+work on=20
+top of the IP network protocol. TCP is a reliable "streams" service that =
+
+requires a connection establishment phase between a host making an =
+active=20
+connection to a remote server host making a passive one. UDP is an =
+unreliable=20
+datagram service and does not require any connection establishment =
+before=20
+sending.</P>
+<P>&nbsp;</P>
+<P>The general order of library calls for a UDP communication session is =
+as=20
+follows:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>socket()</P>
+<P>bind()</P>
+<P>sendto() and/or recvfrom()</P>
+<P>close()</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>For TCP clients, the order of library calls is as =
+follows:</P></FONT><FONT=20
+face=3D"Courier New" size=3D2>
+<P>socket()</P>
+<P>bind()</P>
+<P>connect()</P>
+<P>send() and/or recv()</P>
+<P>close()</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>For TCP server programs, the order of library calls is as=20
+follows:</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>socket()</P>
+<P>bind()</P>
+<P>listen()</P>
+<P>accept()</P>
+<P>send() and/or recv()</P>
+<P>close()</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>&nbsp;</P><B>
+<P>Socket Address Structures</P></B>
+<P>From an application programming point of view, the only differences =
+between=20
+network protocols are the address schemes used. Otherwise, operations =
+such as=20
+<I>connect</I>, <I>send</I>, <I>receive</I>, and <I>disconnect</I> are =
+probably=20
+the only things a developer has to think about when designing a network=20
+application. For TCP/IP, an ideal API would be one that understood IP =
+addresses=20
+and port numbers. Since the socket library is designed to be used for =
+multiple=20
+protocols, addresses are referenced by a generic structure as =
+follows:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>struct sockaddr {</P>
+<P>unsigned short sa_family;</P>
+<P>char sa_data[14];</P>
+<P>};</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>The <I>sa_family</I> field specifies the type of protocol. For =
+TCP/IP, this=20
+field is always set to AF_INET. The remaining 14 bytes (<I>sa_data</I>) =
+of this=20
+structure are always protocol dependent. For TCP/IP, IP addresses and =
+port=20
+numbers are placed in this field. To facilitate operating with these =
+fields, a=20
+specific type of socket address structure is used instead of the one =
+above.</P>
+<P>&nbsp;</P>
+<DIR>
+<DIR></FONT><FONT face=3D"Courier New" size=3D2>
+<P>struct sockaddr_in{</P>
+<P>short sin_family;</P>
+<P>unsigned short sin_port;</P>
+<P>struct in_addr sin_addr;</P>
+<P>char sin_zero[8];</P>
+<P>};</P>
+<P>&nbsp;</P></DIR></DIR></FONT><FONT size=3D2>
+<P>If it's not already apparent, these structures are compatible with =
+each=20
+other. They both are 16 bytes in size. It is also readily seen that the =
+first=20
+two bytes of each structure are the family field. Thus, a <I>struct=20
+sockaddr_in</I> can always be cast to a <I>struct sockaddr</I>.</P>
+<P>&nbsp;</P>
+<P>A sockaddr_in structure contains an in_addr structure as a member =
+field. It=20
+has the following form</P>
+<P>&nbsp;</P>
+<DIR>
+<DIR></FONT><FONT face=3D"Courier New" size=3D2>
+<P>struct in_addr {</P>
+<P>unsigned long s_addr;</P>
+<P>};</P></FONT><FONT size=3D2>
+<P>&nbsp;</P></DIR></DIR>
+<P>Browsing the header file reveals that this really isn't the form of =
+the=20
+structure. It's really a very complicated union designed to hold an IP =
+address=20
+in a variety of ways. Regardless, the in_addr struct is exactly 4 bytes =
+long,=20
+which is the same size as an IP address. In the <I>sockaddr_in</I> =
+structure,=20
+the <I>sin_port</I> field is a 16-bit unsigned value used to represent a =
+port=20
+number. It's important to remember that these fields always need to be =
+set and=20
+interpreted in network byte order. For example:</P>
+<P>&nbsp;</P>
+<DIR>
+<DIR></FONT><FONT face=3D"Courier New" size=3D2>
+<P>struct sockaddr_in sin;</P>
+<P>sin.sin_family =3D AF_INET;</P>
+<P>sin.sin_port =3D htons(9999)</P>
+<P>sin.sin_addr.s_addr =3D inet_addr("128.227.224.3");</P></FONT><FONT =
+size=3D2>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR></DIR>
+<P>In the above code example, the structure sin, holds the IP address,=20
+128.227.224.3, and references the port number 9999. Two utility =
+functions are=20
+used to set these values. The function <I>htons</I> returns the integer =
+argument=20
+passed into it in network byte order. The function <I>inet_addr</I> =
+converts the=20
+string argument from a dotted-quad into a 32-bit integer. Its return =
+value is=20
+also in network byte order.</P>
+<P>&nbsp;</P>
+<P>The structure above could be used to reference a host and application =
+in=20
+which a datagram is to be delivered. The uses of the <I>sockaddr_in</I>=20
+structure will be covered in more detail below.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P><B>
+<P>socket</P></B>
+<P>The socket library call has the following prototype:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>int socket(int family, int type, int protocol);</P>
+<P>&nbsp;</P></FONT><FONT size=3D2>
+<P>In short, this function creates "an end point for communication". The =
+return=20
+value from this function is a handle to a socket. This number is passed =
+as a=20
+parameter to almost all of the other library calls.</P>
+<P>&nbsp;</P>
+<P>Since the focus of this document is on TCP/IP based sockets, the=20
+<I>family</I> parameter should be set to AF_INET. The type parameter can =
+be=20
+either SOCK_STREAM (for TCP), or SOCK_DGRAM (for UDP). The protocol =
+field is=20
+intended for specifying a specific protocol in case the network model =
+support=20
+different types of stream and datagram models. However, TCP/IP only has =
+one=20
+protocol for each, so this field should always be set to 0.</P>
+<P>&nbsp;</P>
+<P>Examples: </P>
+<P>To create a UDP socket:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>int s;</P>
+<P>s =3D socket(AF_INET, SOCK_DGRAM, 0);</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>To create a TCP socket:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>int s;</P>
+<P>s =3D socket(AF_INET, SOCK_STREAM, 0);</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>&nbsp;</P><B>
+<P>bind</P></B>
+<P>Before sending and receiving data with a socket, it must first be =
+associated=20
+with a local source port and a network interface address. The mapping of =
+a=20
+socket to a TCP/UDP source port and IP address is called a =
+"binding".</P>
+<P>&nbsp;</P>
+<P>It may be the case where the socket is being used as a server, and =
+thus must=20
+be able to listen for client requests on a specific port. It can also be =
+the=20
+case that a client program doesn't need a specific source port, since =
+all it's=20
+concerned about doing is sending and receiving messages with a specific =
+port on=20
+the remote host.</P>
+<P>&nbsp;</P>
+<P>Further complications arise when there are more than one network =
+devices on=20
+the host running the program. So the question of sending through "which =
+network"=20
+must be answered as well. The <I>bind</I> function call is used to =
+declare the=20
+mapping between the socket, the TCP/UDP source port, and the network =
+interface=20
+device.</P>
+<P>&nbsp;</P>
+<P>The prototype for bind is as follows:</P></FONT><FONT face=3D"Courier =
+New"=20
+size=3D2>
+<P>bind(int socket, struct sockaddr *address, int=20
+address_length);</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>The first argument is a socket handle (the number returned from the=20
+<I>socket</I> function call). The second argument is a socket address =
+structure.=20
+With TCP/IP, this is really a sockaddr_in structure. The sin_port field =
+of the=20
+address argument is the local source port number associated with this =
+socket.=20
+That is, for every "send" operation with this socket, the source port =
+field in=20
+the TCP/UDP header gets set with this value. If specifying an exact =
+source port=20
+is not required, setting this value to INADDR_ANY (0) allows the =
+operating=20
+system to pick any available port number. The <I>sin_addr</I> field =
+specifies=20
+which network interface device to use. Since most hosts only have one =
+network=20
+interface and only one IP address, this field should be set with the =
+host's own=20
+IP address. However, the socket library provides no immediate way of for =
+a host=20
+to determine it's own IP address! However, specifying the value of =
+INADDR_ANY=20
+(0) in this field tells the operating system to pick any available =
+interface and=20
+address.</P>
+<P>&nbsp;</P>
+<P>The address of the <I>sockaddr_in</I> structure is passed into the=20
+<I>bind</I> call, so that the socket will now be ready to communicate =
+with=20
+remote hosts. The third parameter passed to <I>bind</I> is the length of =
+the=20
+<I>sockaddr_in</I> structure.</P>
+<P>&nbsp;</P>
+<P>Example:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>struct sockaddr_in sin;</P>
+<P>int s;</P>
+<P>&nbsp;</P>
+<P>s =3D socket(AF_INET, SOCK_DGRAM, 0);</P>
+<P>sin.sin_family =3D AF_INET;</P>
+<P>sin.sin_port =3D htons(9999);</P>
+<P>sin.sin_addr.s_addr =3D INADDR_ANY;</P>
+<P>&nbsp;</P>
+<P>bind(s, (struct sockaddr *)&amp;sin, sizeof(sin));</P>
+<P>&nbsp;</P>
+<P>/* s is now a usable UDP socket. Source port is 9999 */</P>
+<P>&nbsp;</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>It is recommended that the return from <I>bind</I> be checked. =
+<I>Bind</I>=20
+will fail by returning -1 if the port that is being requested for use is =
+already=20
+taken. When bind is called on a UDP socket, the socket is now ready to =
+send and=20
+receive datagrams. For TCP sockets, the socket is now ready for the=20
+<I>connect</I> or <I>accept</I> calls.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P><B>
+<P>UDP Sockets</P></B>
+<P>Once a UDP socket has been created and bound to a local source port, =
+it is=20
+now capable of being used for sending and receiving datagrams. The =
+functions for=20
+sending and receiving datagrams are <I>sendto</I> and <I>recvfom</I>.=20
+<I>Sendto</I> has the following prototype:</P>
+<P>&nbsp;</P>
+<DIR>
+<DIR>
+<DIR>
+<DIR></FONT><FONT face=3D"Courier New" size=3D2>
+<P>int sendto(int socket, char *buffer, int length, int flags, struct =
+sockaddr=20
+*destination_address, int address_size);</P></FONT><FONT size=3D2>
+<P>&nbsp;</P></DIR></DIR></DIR></DIR>
+<P>Where <I>socket</I> is a UDP socket that has been created and bound =
+to a=20
+source port. <I>buffer</I> is a pointer to an array of bytes that are to =
+be sent=20
+over the network. The <I>length</I> field specifies how long this array =
+is. The=20
+<I>flags</I> field is normally 0. </P>
+<P>&nbsp;</P>
+<P>The destination address is also a sockaddr structure. A =
+<I>sockaddr_in</I>=20
+structure can be casted into this field. Use the <I>sin_addr</I> field =
+to=20
+specify the destination IP address and <I>sin_port</I> for the =
+destination=20
+port.</P>
+<P>&nbsp;</P>
+<P>For example:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>struct sockaddr_in sin;</P>
+<P>sin.sin_family =3D AF_INET;</P>
+<P>sin.sin_port =3D htons(12345); // htons for network byte order</P>
+<P>sin.sin_addr.s_addr =3D inet_addr("128.227.22.43");</P>
+<P>char *msg =3D "Hello, World";</P>
+<P>&nbsp;</P>
+<P>sendto(s, msg, strlen(msg)+1, 0, (struct sockaddr *)sin,=20
+sizeof(sin));</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>In the above example, <I>s</I> is assumed to be a created UDP socket =
+that has=20
+already bound to a local port. When <I>sendto</I> is called, a UDP =
+datagram is=20
+sent to the host at 128.227.22.43. It's assumed there is a process with =
+a socket=20
+bound to port 12345 waiting on a <I>recvfrom</I> call to receive the =
+contents of=20
+the message being sent. The <I>sendto</I> function returns the number of =
+bytes=20
+sent, or -1 if an error occurred. With UDP sockets, it's not usually =
+necessary=20
+to check to see how many bytes were sent because this information is =
+specified=20
+in the <I>length</I> field.</P><I>
+<P>Recvfrom</I> has the following prototype:</P>
+<P>&nbsp;</P>
+<DIR>
+<DIR>
+<DIR>
+<DIR></FONT><FONT face=3D"Courier New" size=3D2>
+<P>int recvfrom(int socket, char *buffer, int length, int flags, struct =
+sockaddr=20
+*sender_address, int *address_size);</P></FONT><FONT size=3D2>
+<P>&nbsp;</P></DIR></DIR></DIR></DIR><I>
+<P>Recvfrom</I> is similar to <I>sendto</I>. <I>Buffer</I> is a pointer =
+to a=20
+byte array that is to be filled with the contents of the datagram. The=20
+<I>length</I> argument specifies the maximum length to copy into buffer. =
+This is=20
+to prevent buffer over-run errors in case the datagram is larger than =
+expected.=20
+The <I>flags</I> field is normally 0. The <I>sender_address</I> argument =
+is a=20
+pointer to a socket address structure that gets filled with a copy of =
+the=20
+sender's IP address and source port. The <I>address_size</I> parameter =
+must be=20
+initialized to the size of the sockaddr structure being used. On return =
+it will=20
+hold the number of bytes that were copied into the <I>sender_address</I> =
+
+structure.</P>
+<P>&nbsp;</P><I>
+<P>Recvfrom</I> returns the number of bytes copied into the byte array =
+pointed=20
+to by buffer. If the buffer space specified in <I>length</I> is less =
+than that=20
+of the original datagram, only <I>length</I> bytes will be copied into =
+buffer,=20
+and the rest will be lost.</P>
+<P>&nbsp;</P>
+<P>For example:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>struct sockaddr_in sin;</P>
+<P>char msg[10000];</P>
+<P>int ret;</P>
+<P>int sin_length;</P>
+<P>&nbsp;</P>
+<P>sin_length =3D sizeof(sin);</P>
+<P>ret =3D recvfrom(s, msg, 10000, 0, (struct sockaddr *)sin,=20
+&amp;sin_length);</P>
+<P>&nbsp;</P>
+<P>printf("%d bytes received from %s (port %d)\n",</P>
+<P>ret, inet_ntoa(sin.sin_addr), sin.sin_port);</P></FONT><FONT =
+size=3D2>
+<P>&nbsp;</P>
+<P>In the above example, <I>recvfrom</I> will wait until it receives a =
+datagram=20
+on the local port associated with the socket <I>s</I>. The <I>printf</I> =
+
+statement will list information regarding the size, source IP address, =
+and=20
+source port of the datagram received.</P>
+<P>&nbsp;</P>
+<P>For any open socket that has been successfully binded to a port, the=20
+application may call <I>sendto</I> and <I>recvfrom</I> using that socket =
+as many=20
+times as it needs to.</P>
+<P>&nbsp;</P>
+<P>Fragmentation is completely transparent to the applications that are =
+sending=20
+and receiving datagrams.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P><B>
+<P>TCP Sockets</P>
+<P>&nbsp;</P>
+<P>&lt;TO BE ADDED SOMETIME LATER&gt;</P>
+<P>connect()</P>
+<P>listen() / accept()</P>
+<P>send()</P>
+<P>recv()</P>
+<P>&nbsp;</P></B>
+<P>&nbsp;</P><B>
+<P>close</P></B>
+<P>When the data transfer session is over, simply call close on the =
+socket as=20
+you would a file:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>close(s); // s is a created socket</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>For UDP sockets, this will release the ownership on the local port =
+that is=20
+bound to this socket. For TCP, this will initiate a two-way shutdown =
+between=20
+both hosts before giving up port ownership.</P>
+<P>&nbsp;</P>
+<P>If a TCP socket calls <I>close</I>, any pending or subsequent =
+<I>recv</I>=20
+calls by the remote host will result in <I>recv</I> returning 0 to =
+indicate a=20
+connection shutdown on the other end has occurred. Attempting to call=20
+<I>send</I> on a socket that is connected to a host that has called =
+close will=20
+result in <I>send</I> returning -1. Unless it's known a priori that the =
+remote=20
+host has only called <I>shutdown</I>, it is recommended that the =
+application=20
+call close on it's socket so that the TCP connection will be properly =
+terminated=20
+on both sides.</P>
+<P>&nbsp;</P><B>
+<P>shutdown</P></B>
+<P>TCP sockets can also engage in a half-close operation using the =
+shutdown=20
+function call. It's prototype is as follows:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>shutdown(int socket, int how);</P>
+<P>&nbsp;</P></FONT><FONT size=3D2>
+<P>If the <I>how</I> field is 0, this will disallow further reading=20
+(<I>recv</I>) from the socket. If the <I>how</I> field is 1, subsequent =
+writes=20
+(send) will be disallowed. The socket will still need to be passed to=20
+<I>close</I>.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P><B>
+<P>Relationship Between Sockets and File Descriptors </P></B>
+<P>Socket handles are integer values. In UNIX, socket handles can be =
+passed to=20
+most of the low-level POSIX I/O functions. For example:</P>
+<P>&nbsp;</P></FONT><FONT face=3D"Courier New" size=3D2>
+<P>read(s, buffer, buffer_len);</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>In the above example, s could be either a socket or file handle. =
+Calling=20
+<I>read</I> on an open socket is equivalent to <I>recv</I> and =
+<I>recvfrom</I>.=20
+However, if the socket is UDP, then information about the sender of the =
+datagram=20
+will not be returned. Similarly the <I>write</I> function call is =
+equivalent to=20
+<I>send</I> and <I>sendto</I>. UDP sockets may call <I>connect</I> to =
+use=20
+<I>send</I> and <I>write</I>. It's always recommended that the socket =
+library=20
+functions be used instead of the file I/O equivalents.</P>
+<P>&nbsp;</P><B>
+<P>&nbsp;</P>
+<P>Utility Functions</P></B>
+<P>There are several library calls that are not actually part of the =
+socket=20
+library family, but are nevertheless used in socket programming. Below =
+is a=20
+brief description of each.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT><B><FONT face=3D"Courier New" size=3D2>
+<P>unsigned int inet_addr(char *str);</P></B></FONT><FONT size=3D2>
+<P>If the string contained in <I>str</I> represents an IP address it =
+dotted-quad=20
+notation, <I>inet_addr</I> will return it's equivalent 32-bit value in =
+network=20
+byte order. This value can be passed into the <I>sin_addr.s_addr</I> =
+field of a=20
+<I>socketaddr_in</I> structure. If the string can not be interpreted as =
+a=20
+dotted-quad, -1 is returned (casted as an unsigned integer).</P>
+<P>&nbsp;</P></FONT><B><FONT face=3D"Courier New" size=3D2>
+<P>char *inet_ntoa(struct in_addr ip);</P></B></FONT><FONT size=3D2>
+<P>Converts the 32-bit value which is assumed to be in network byte =
+order and=20
+contained in <I>ip</I> to a string. The pointer returned by =
+<I>inet_ntoa</I>=20
+contains this string. However, subsequent calls to <I>inet_ntoa</I> will =
+always=20
+return the same pointer, so copying the string to another buffer is =
+recommended=20
+before calling again.</P>
+<P>&nbsp;</P></FONT><B><FONT face=3D"Courier New" size=3D2>
+<P>int gethostname(char *name, int length);</P></B></FONT><FONT =
+size=3D2>
+<P>Copies the name (up to <I>length</I> bytes) of the hostname of the =
+local=20
+computer into the character array pointed to by <I>name</I>.</P>
+<P>&nbsp;</P></FONT><B><FONT face=3D"Courier New" size=3D2>
+<P>struct hostent *gethostbyname(char *strHost);</P></B></FONT><FONT =
+size=3D2>
+<P>If the string contained in <I>strHost</I> represents a host name =
+(such as=20
+"rain" or "rain.cise.ufl.edu"), <I>gethostbyname</I> will return a =
+pointer to a=20
+hostent structure containing additional information about the host =
+including=20
+additional names and IP addresses associate with that host. =
+<I>Gethostbyname</I>=20
+will does all the work of looking up address entries in local database =
+files as=20
+well as making DNS queries. NULL is returned if the host name is =
+unknown.</P>
+<P>&nbsp;</P>
+<P>The format for the hostent structure is as follows:</P>
+<P>&nbsp;</P>
+<DIR>
+<DIR></FONT><FONT face=3D"Courier New" size=3D2>
+<P>struct hostent {</P>
+<P>char * h_name; /* official name of host */</P>
+<P>char ** h_aliases; /* alias list */</P>
+<P>short h_addrtype; /* host address type */</P>
+<P>short h_length; /* length of address */</P>
+<P>char ** h_addr_list; /* list of addresses */</P>
+<P>#define h_addr h_addr_list[0] /* address, for backward compat */</P>
+<P>};</P>
+<P>&nbsp;</P></DIR></DIR></FONT><FONT size=3D2>
+<P>In short, the first IP address is contained within the first 4 bytes =
+of the=20
+first entry in h_addr_list. h_addr can be used to reference this value. =
+Using=20
+<I>gethostbyname</I> and <I>inet_addr</I>, a very good resolver function =
+can be=20
+written to convert strings the user types as Internet addresses into =
+equivalent=20
+32-bit numbers for socket calls. </P>
+<P>&nbsp;</P>
+<DIR>
+<DIR></FONT><FONT face=3D"Courier New" size=3D2>
+<P>unsigned int resolve(char *ip_addr)</P>
+<P>{</P>
+<P>struct hostent *hp;</P>
+<P>unsigned int ip;</P>
+<P>&nbsp;</P>
+<P>hp =3D gethostbyname(ip_addr);</P>
+<P>if (!hp)</P>
+<P>{</P>
+<P>ip =3D inet_addr(ip_addr);</P>
+<P>if ((int)ip =3D=3D -1)</P>
+<P>return -1;</P>
+<P>else return ip;</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>// hp-&gt;h_length should equal to 4</P>
+<P>memcpy(&amp;ip, hp-&gt;h_addr, 4);</P>
+<P>return ip;</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR></DIR><B>
+<P>unsigned long htonl(unsigned long ul);</P>
+<P>unsigned long ntohl(unsigned long ul);</P>
+<P>unsigned short ntohs(unsigned short us);</P>
+<P>unsigned short htons(unsigned short us);</P></B></FONT><FONT =
+size=3D2>
+<P>These functions are very useful for converting integer values to and =
+from=20
+network byte order. On big-endian machines such as Sun Sparcs and =
+Motorola=20
+processors, these functions simply return the value passed as an =
+argument. On=20
+little endian machines such as the Intel x86 and any system running =
+Windows NT,=20
+these calls will perform byte swapping operations. On most machines,=20
+<I>htons</I> is equivalent to <I>ntohs</I>. This may not be true for =
+future=20
+64-bit systems or other architectures.</P>
+<P>&nbsp;</P></FONT><B><FONT face=3D"Courier New" size=3D2>
+<P>int select (int nfds, fd_set *readfds, fd_set *writefds, fd_set=20
+*exceptfds,</P>
+<DIR>
+<DIR>
+<P>const struct timeval *timeout);</FONT><FONT face=3D"Courier New">=20
+</P></DIR></DIR></B></FONT><FONT size=3D2>
+<P>When an application calls <I>recv</I> or <I>recvfrom</I> it is =
+blocked until=20
+data arrives for that socket. An application could be doing other useful =
+
+processing while the incoming data stream is empty. Another potential =
+problem=20
+situation is when an application receives data from multiple sockets. =
+Calling=20
+<I>recv</I> or <I>recvfrom</I> on a socket that has no data in it's =
+input queue=20
+prevents immediate reception of data from other sockets. The =
+<I>select</I>=20
+function call solves this problem by allowing the program to poll all =
+the socket=20
+handles to see if they are available for non-blocking reading and =
+writing=20
+operations.</P>
+<P>&nbsp;</P>
+<P>A description of the arguments in <I>select</I> is as follows:</P><I>
+<P>nfds</I> - Some socket implementations ignore this argument. It's =
+value=20
+should be equal to 1 + (the socket handle with the highest value.)</P>
+<P>&nbsp;</P><I>
+<P>readfds</I> - A pointer to a set of file and socket descriptors that =
+are to=20
+be polled for non-blocking reading and writing operations. Can be NULL =
+to=20
+indicate an empty set.</P>
+<P>&nbsp;</P><I>
+<P>writefds</I>, <I>exceptfds</I> - Same as <I>readfds</I>, except these =
+sets=20
+contain the file/socket handles to poll for non-blocking writing =
+operations and=20
+error detection. Can be NULL to indicate an empty set.</P>
+<P>&nbsp;</P><I>
+<P>timeout</I> - A pointer to a timeval struct that specifies how long =
+the=20
+<I>select</I> call should poll the descriptors for an available I/O =
+operation.=20
+If the timeout value is 0, then <I>select</I> will return immediately. =
+If the=20
+<I>timeout</I> argument is NULL, then select will block until at least =
+one=20
+file/socket handle is ready for an available I/O operation. Otherwise=20
+<I>select</I> will return after the amount of time in the timeout has =
+elapsed OR=20
+when at least one file/socket descriptor is ready for an I/O =
+operation.</P>
+<P>&nbsp;</P>
+<P>The return value from <I>select</I> is the number of handles =
+specified in the=20
+file descriptor sets that are ready for I/O. If the time limit specified =
+by the=20
+timeout field is reached, <I>select</I> return 0. The following macros =
+exist for=20
+manipulating a file descriptor set:</P>
+<P>&nbsp;</P>
+<DIR>
+<DIR></FONT><FONT face=3D"Courier New" size=3D2>
+<P>FD_CLR(s, *set)</FONT><FONT face=3D"Courier New"> </FONT><FONT=20
+face=3D"Courier New" size=3D2>Removes the descriptor s from set.</P>
+<P>FD_ISSET(s, *set)</FONT><FONT face=3D"Courier New"> </FONT><FONT=20
+face=3D"Courier New" size=3D2>Nonzero if s is a member of the set, zero=20
+otherwise.</P>
+<P>FD_SET(s, *set)</FONT><FONT face=3D"Courier New"> </FONT><FONT=20
+face=3D"Courier New" size=3D2>Adds descriptor s to set.</P>
+<P>FD_ZERO(*set)</FONT><FONT face=3D"Courier New"> </FONT><FONT =
+face=3D"Courier New"=20
+size=3D2>Initializes the set to the NULL set.</P>
+<P>&nbsp;</P></DIR></DIR>
+<P>Example:</P>
+<P>fd_set fds;</P>
+<P>struct timeval tv;</P>
+<P>// sock is an intialized socket handle</P>
+<P>&nbsp;</P>
+<P>tv.tv_sec =3D 2;</P>
+<P>tv.tv_usec =3D 500000;</P>
+<P>// tv now represents 2.5 seconds</P>
+<P>&nbsp;</P>
+<P>FD_ZERO(&amp;fds);</P>
+<P>FD_SET(sock, &amp;fds); // adds sock to the file descriptor set</P>
+<P>&nbsp;</P>
+<P>/* wait 2.5 seconds for any data to be read from any single socket =
+*/</P>
+<P>select(sock+1, &amp;fds, NULL, NULL, &amp;tv);</P>
+<P>&nbsp;</P>
+<P>if (FD_ISSET(sock, &amp;fds))</P>
+<P>recvfrom(s, buffer, buffer_len, 0, &amp;sa, &amp;sa_len);</P>
+<P>else </P>
+<P>/* do something else */</P></FONT><FONT size=3D2>
+<P>&nbsp;</P>
+<P>&nbsp;</P><B>
+<P>Conclusions</P></B>
+<P>Developers who use the function calls described in this document =
+should=20
+always check the return value for each. Consulting the UNIX on-line =
+manual pages=20
+("man") for a complete description of each function call is recommended =
+as=20
+well.</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT<SCRIPT language=3DJavascript><!--=0A=
+=0A=
+setonclickmethods();=0A=
+=0A=
+// --></SCRIPT>
+<CENTER>
+<DIV id=3Dfclinkback style=3D"VISIBILITY: hidden">
+<P><FONT face=3D"Verdana, Helvetica, Arial, sans-serif" size=3D1><A =
+id=3Dfcfootergif=20
+href=3D"http://www.fortunecity.com/" target=3D_new><IMG=20
+src=3D"http://www.fortunecity.com/images/fc_logo_white122x30.gif"=20
+border=3D0></A><BR><A id=3Dfcfooterhosting =
+href=3D"http://www.fortunecity.com/"=20
+target=3D_new>web hosting</A> =95 <A id=3Dfcfooterdomains=20
+href=3D"http://www.fortunecity.com/" target=3D_new>domain names</A> =95 =
+<A=20
+id=3Dfcfootervideo =
+href=3D"http://www.myphotoalbum.com/video-sharing.shtml"=20
+target=3D_new>video sharing</A><BR><A href=3D"http://www.hotgames.com/"=20
+target=3D_new>online games</A> =95 <A id=3Dfcfootermpa=20
+href=3D"http://www.myphotoalbum.com/" target=3D_new>photo =
+sharing</A><BR><A=20
+id=3Dfcfooterblog href=3D"http://www.myblogsite.com/" target=3D_new>free =
+blog</A> =95 <A=20
+href=3D"http://www.ampiramedia.com/" target=3D_new>advertising=20
+online</A><BR></FONT></P></DIV>
+<SCRIPT language=3DJavascript>=0A=
+<!--=0A=
+=0A=
+if(FCWindowWidth > 400) {                                                =
+       =0A=
+=0A=
+        document.getElementById('fclinkback').style.visibility =3D =
+"visible";  =0A=
+        document.getElementById('fcfootergif').search =3D =
+'?sid=3Dfcfootergif';=0A=
+        document.getElementById('fcfooterhosting').search =3D =
+'?sid=3Dfcfooterhosting';=0A=
+        document.getElementById('fcfooterdomains').search =3D =
+'?sid=3Dfcfooterdomains';=0A=
+        document.getElementById('fcfootervideo').search =3D =
+'?sid=3Dfcfootervideo';=0A=
+	document.getElementById('fcfootermpa').search =3D '?sid=3Dfcfootermpa';=0A=
+	document.getElementById('fcfooterblog').search =3D =
+'?sid=3Dfcfooterblog';=0A=
+=0A=
+	SetAdSenseParams();=0A=
+=0A=
+	document.write('<center><script type=3D"text/javascript" =
+src=3D"http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>=
+</center>');=0A=
+}=0A=
+=0A=
+// -->=0A=
+</SCRIPT>
+</CENTER></FONT></BODY></HTML>
+
+------=_NextPart_000_0000_01C6C5D9.7BDF1370
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.fortunecity.com/images/fclogo_inline_new.gif
+
+R0lGODlheAAPANU/AAgICDExMRgYGCEhIUxMTHJycltbWxEREWNjYz4+PqKion9/fygoKN7e3sXF
+xRgCAPDw8OLi4tHR0Z2dnbKyspSUlP9mALy8vAkCAPf394WFhcvLy6urq+zs7P39/ejo6CsWAMHB
+wYqKilRUVE0sAHw1AOfn53t7e/n5+dra2kZGRrm5uc7OzmlpaaamptmCALa2tv8AAN4AAOVeAPOU
+AMR2ALNHAHlJANbW1o4DAO2OAN5ZAP+ZAP///wAAAP///yH5BAEAAD8ALAAAAAB4AA8AAAb/wJ9w
++PMZj8ikcslsOp/QqNRHrBKnRsGowoI4GNiweCy1VsOIUAc3QQQA0MGAnAUnAW8m6MXj6W50R2ZC
+YRUQJgYBWAoTAmMABSESBT4DCQc+CRIJSIpGNX19OiCBRmZiDT0GTgMLCgsJcD4bHJgAsk63RgU9
+EBETAAMEmAQoigRvDkc0oX0kGCCkdGdiFB4FBAUKJ5kTGooiLAsODQhGGwu7MAcHYAQIIqsCIjAw
+F9gQFwkBYCoFjggaOOJyIMIRPqFokLBhYQaJQEPIrOiRIYOECxoMpPLggoCEEAhS9BiBYEOGCA4I
+KOjhAwGHARE+nOTnYcWCAgEMcTrCwUEC/xcyNyho0eNEiiMlmtkoYaHpDgwQ6WzwwCHRgAApPiCo
+0MGAAggdemgAwOCElwIDKoyUMCEARQQtFrhtwIGADwcUkDBoICEAgQsZMh74+gEJiRovbgBg2nQG
+hgelyKhxZMRt3gsbDvCSgIKSDwEdFsAx0KsHvx4ogrXtcaHFCAM40h0hAIHCQBNzPn+Q0ATEjoYl
+csh4AFVMETIUGuht4AElGAQmCBhIQQnACrs+AIwTkd2Fgs8GBjRAgfFEA9kDVCDoIQKONkxGJkxw
+8oAEiAcxYgwvPoWQZBNJBDCBAp4IkIAjC1AAhgC4AMCgEewYAUcACQxgYAR5ERCBBCoQkGDbAZQZ
+oQB2TjwmQww5QIZFRGR8YNAd8N3xIBkAqNWBBw6ogIsSAFywI30PqNgfi2P0kFdkUwygQVUhMlHA
+ClNgwF8ZV5AxgidISqHLEwNsoEGWS1gB5pilBBAemYJYEQQAOw==
+
+------=_NextPart_000_0000_01C6C5D9.7BDF1370
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.fortunecity.com/images/nb_top_right.gif
+
+R0lGODlhHgAPAPcAAAAAAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAEALAAAAAAeAA8A
+AAhEAAMIHBgAgMGDCBMSXLgwoUOHDBk+nIgw4kCKGA1azMhRIseOFz9+FCiyJMmSIwuizBhy5USC
+Ll/CjKmwIc2DEW8aDAgAOw==
+
+------=_NextPart_000_0000_01C6C5D9.7BDF1370
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.fortunecity.com/images/fc_logo_white122x30.gif
+
+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
+SVoSJwEBADs=
+
+------=_NextPart_000_0000_01C6C5D9.7BDF1370
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.fortunecity.com/js/adscript.global.js
+
+=0A=
+my_date =3D new Date();=0A=
+my_ord =3D my_date.getTime() % 1000000;=0A=
+=0A=
+// function IsFCMember: check whether user is a member; use to suppress =
+annoying popups etc.=0A=
+=0A=
+function IsFCMember() {=0A=
+=0A=
+        var is_member =3D 0;=0A=
+=0A=
+        if (document.cookie.indexOf('fcmember') !=3D -1) {=0A=
+=0A=
+                is_member =3D 1;=0A=
+        }=0A=
+=0A=
+        return is_member;=0A=
+}=0A=
+=0A=
+=0A=
+function DisplayFCAdBanner() {=0A=
+=0A=
+        if(FCWindowWidth > 400) {=0A=
+=0A=
+		document.getElementById('fcnavbartable').style.visibility =3D =
+"visible";=0A=
+=0A=
+		if(FCWindowWidth >=3D 730) {=0A=
+=0A=
+			document.write('<script language=3D"Javascript" =
+src=3D"http://oascentral.fortunecity.com/RealMedia/ads/adstream_jx.ads/FC=
+/' + fcadunit + '@Top2!Top2"></script>');=0A=
+=0A=
+		}=0A=
+=0A=
+		else {=0A=
+			document.getElementById('fcnavbartable').width =3D 468;=0A=
+=0A=
+			document.write('<script language=3D"Javascript" =
+src=3D"http://oascentral.fortunecity.com/RealMedia/ads/adstream_jx.ads/FC=
+/' + fcadunit + '@Top!Top"></script>');=0A=
+=0A=
+			document.getElementById('fcnavbartable').width =3D 468;=0A=
+		}=0A=
+=0A=
+		if (IsFCMember() =3D=3D 0 && document.URL.indexOf('/blog/') =3D=3D -1) =
+{=0A=
+=0A=
+			// document.write('<script language=3D"Javascript" =
+src=3D"http://oascentral.fortunecity.com/RealMedia/ads/adstream_jx.ads/FC=
+/' + fcadunit + '@x27!x27"></script>');=0A=
+=0A=
+		}=0A=
+        }=0A=
+}=0A=
+=0A=
+function SetAdSenseParams() {=0A=
+=0A=
+        // set global AdSense parameters=0A=
+=0A=
+        google_ad_client =3D "pub-1479578193153787";=0A=
+        google_ad_type =3D "text_image";=0A=
+        google_ad_channel =3D"9195133493";=0A=
+        //google_color_border =3D ["000000","009999","FFFFFF","336699"];=0A=
+        //google_color_bg =3D ["FFFFFF","CCFFFF","FFFFFF","FFFFFF"];=0A=
+        //google_color_link =3D ["0000FF","0033CC","0000FF","0000FF"];=0A=
+        //google_color_url =3D ["008000","FF0000","008000","008000"];=0A=
+        //google_color_text =3D ["000000","3366FF","000000","000000"];=0A=
+}=0A=
+=0A=
+=0A=
+function DisplayFCAdButtons() {=0A=
+=0A=
+if(FCWindowWidth > 700) {=0A=
+=0A=
+        document.write('<iframe width=3D"728" height=3D"25" =
+src=3D"http://www.fortunecity.com/banners/fcnavbuttons728.html?' + =
+escape('bgcolor=3D' + document.bgColor) +'" frameborder=3D"no" =
+border=3D"0" marginwidth=3D"0" marginheight=3D"0" =
+scrolling=3D"no"></iframe>');=0A=
+=0A=
+	google_ad_width =3D 728;=0A=
+	google_ad_height =3D 90;=0A=
+	google_ad_format =3D "728x90_as";=0A=
+}=0A=
+=0A=
+else if(FCWindowWidth > 400) {=0A=
+=0A=
+        document.write('<iframe width=3D"468" height=3D"25" =
+src=3D"http://www.fortunecity.com/banners/fcnavbuttons468.html?' + =
+escape('bgcolor=3D' + document.bgColor) +'" frameborder=3D"no" =
+border=3D"0" marginwidth=3D"0" marginheight=3D"0" =
+scrolling=3D"no"></iframe>');=0A=
+=0A=
+	google_ad_width =3D 468;=0A=
+	google_ad_height =3D 60;=0A=
+	google_ad_format =3D "468x60_as";=0A=
+=0A=
+	}=0A=
+=0A=
+}=0A=
+=0A=
+=0A=
+// now let's handle the exit popup=0A=
+=0A=
+var showpopup =3D 0;=0A=
+=0A=
+if (document.referrer.indexOf('.fortunecity.') =3D=3D -1 && =
+(!(document.referrer =3D=3D null))){=0A=
+=0A=
+        showpopup =3D 1;=0A=
+}=0A=
+=0A=
+if (document.referrer =3D=3D '') {showpopup =3D 0;}  // weird kludge for =
+'view' from File Manager=0A=
+=0A=
+=0A=
+if (navigator.appVersion.indexOf('MSIE') !=3D -1 && =
+navigator.appVersion.indexOf('Macintosh') !=3D -1) {=0A=
+=0A=
+                showpopup =3D 0;         // damn crappy IE/Mac=0A=
+}=0A=
+=0A=
+=0A=
+function MyExtendOnClick() {=0A=
+=0A=
+        if (this.host.indexOf('.fortunecity.') !=3D -1) {=0A=
+=0A=
+                showpopup =3D 0;=0A=
+        }               =0A=
+=0A=
+        else {=0A=
+=0A=
+                showpopup =3D 1;=0A=
+        }=0A=
+=0A=
+=0A=
+        if (this.my_onclick !=3D null) {=0A=
+=0A=
+                this.my_onclick();=0A=
+        }=0A=
+}=0A=
+=0A=
+=0A=
+function setonclickmethods() {=0A=
+=0A=
+        if (navigator.appVersion.indexOf('MSIE') !=3D -1 && =
+navigator.appVersion.indexOf('Macintosh') !=3D -1) {=0A=
+=0A=
+                return;         // totally sucky=0A=
+        }=0A=
+=0A=
+        for(i =3D 0; i < document.links.length; i++) {=0A=
+=0A=
+                document.links[i].my_onclick =3D =
+document.links[i].onclick;=0A=
+        =0A=
+                document.links[i].onclick =3D MyExtendOnClick;=0A=
+        }=0A=
+}=0A=
+=0A=
+=0A=
+function spawntopfivewindow() {=0A=
+=0A=
+	if (showpopup =3D=3D 1 && FCWindowWidth > 400 && IsFCMember() =3D=3D 0) =
+{=0A=
+=0A=
+		exit_popup =3D 'http://www.fortunecity.com/marketplace/';=0A=
+		=0A=
+		=
+window.open(exit_popup,'top5popup','toolbar=3D0,location=3D0,directories=3D=
+0,status=3D0,menubar=3D0,scrollbars=3D1,resizable=3D1,width=3D750,height=3D=
+400,left=3D0,top=3D0,screenX=3D0,screenY=3D0');=0A=
+=0A=
+	}=0A=
+}=0A=
+=0A=
+
+------=_NextPart_000_0000_01C6C5D9.7BDF1370--
