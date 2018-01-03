@@ -1,14 +1,16 @@
 #define _GNU_SOURCE
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-//REDES EXTRA
+#include <stdlib.h> // strcat
+#include <string.h> // str
+//==== DEFAULT SOCKETS ====//
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+//========================//
 #define MAX_CAR 100
 #define MAX_EVENT_NUM 20
+
 // NOTE CHANGE system("cls") to system("clear") for linux
 int iexit;
 char c_exit;
@@ -30,14 +32,17 @@ struct Events{
 
 int main(void){
   struct Events event;
+  event.num_event=0;
+
   iexit=0; // Forces Enter Menu
   menu_choice=6;
   char yes;
+
   //==== Menu SET VAR ====//
   int port_num; // Port Number
   int ev_reg_num;
   //======================//
-  event.num_event=0;
+
   //==== READ .TXT FILE ====// Guarda todos Eventos para uma estrutura (fazer isto no server side?)
   FILE *ficheiro1;
   ficheiro1 = fopen(read_file_name,"rt"); // Inicializa ficheiro de leitura

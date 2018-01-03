@@ -5,10 +5,12 @@
 // changed by Paulo Coimbra, 11.10.25, 2013-10-21
 //===================================================================
 #include <stdio.h>
+#include <stdlib.h> // strcat
+#include <string.h> // add
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <netdb.h> 
+#include <netdb.h>
 //===================================================================
 // error messages: print message and terminate program
 void error(char *msg) {
@@ -30,45 +32,48 @@ int main(int argc, char *argv[]) {
        fprintf(stderr,"usage %s hostname port\n", argv[0]);
        exit(0);
     }
+    while(1){ // Infinite loop
+      //---creates tcp socket (stream)...
+      portno = atoi(argv[2]);
+      sockfd = socket(AF_INET, SOCK_STREAM, 0);
+      if (sockfd < 0) error("ERROR opening socket");
+      server = gethostbyname(argv[1]);  //uses DNS to know IP address
+      if (server == NULL) {
+          fprintf(stderr,"ERROR, no such host\n");
+          exit(0);
+      }
+      bzero((char *) &serv_addr, sizeof(serv_addr)); //clears serv_addr
+      serv_addr.sin_family = AF_INET;
+      bcopy((char *)server->h_addr,
+           (char *)&serv_addr.sin_addr.s_addr,
+           server->h_length);
+      serv_addr.sin_port = htons(portno); //portno must be in network format
 
-    //---creates tcp socket (stream)...
-    portno = atoi(argv[2]);
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd < 0) error("ERROR opening socket");
-    server = gethostbyname(argv[1]);  //uses DNS to know IP address
-    if (server == NULL) {
-        fprintf(stderr,"ERROR, no such host\n");
-        exit(0);
+      //---connect (to server)
+      if (connect(sockfd,&serv_addr,sizeof(serv_addr)) < 0)
+          error("ERROR connecting");
+
+      //---ask for message to send...
+      printf("Sending the message: ");
+      bzero(buffer,256);
+      //fgets(buffer,255,stdin);
+
+      char send_srt[256];
+      strcpy(send_srt, "these "); // Right Practice
+      strcat(buffer,send_srt); // Send to Server
+
+      //---sends message to server...
+      n = write(sockfd,buffer,strlen(buffer));
+      if (n < 0) error("ERROR writing to socket");
+
+      //---reads and prints message from server...
+      bzero(buffer,256);
+      n = read(sockfd,buffer,255);
+      if (n < 0) error("ERROR reading from socket");
+      printf("%s\n",buffer);
     }
-    bzero((char *) &serv_addr, sizeof(serv_addr)); //clears serv_addr
-    serv_addr.sin_family = AF_INET; 
-    bcopy((char *)server->h_addr, 
-         (char *)&serv_addr.sin_addr.s_addr,
-         server->h_length);
-    serv_addr.sin_port = htons(portno); //portno must be in network format
-
-    //---connect (to server)
-    if (connect(sockfd,&serv_addr,sizeof(serv_addr)) < 0) 
-        error("ERROR connecting");
-
-    //---ask for message to send...
-    printf("Please enter the message: ");
-    bzero(buffer,256);
-    fgets(buffer,255,stdin);
-
-    //---sends message to server...
-    n = write(sockfd,buffer,strlen(buffer));
-    if (n < 0) error("ERROR writing to socket");
-
-    //---reads and prints message from server...
-    bzero(buffer,256);
-    n = read(sockfd,buffer,255);
-    if (n < 0) error("ERROR reading from socket");
-    printf("%s\n",buffer);
-
      //---ends program
-    return 0;
+    //return 0;
 }
 //===================================================================
 //===================================================================
-
