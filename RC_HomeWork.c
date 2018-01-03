@@ -23,36 +23,34 @@ char read_file_name[]="sauce/Events_List.txt";   // File to read
 char write_file_nameE[]="cloudpoint3exit_qsortE.txt";
 
 struct Events{
-    char name[MAX_EVENT_NUM][MAX_CAR];
-    int num_event;// Number of Events in List
+  char name[MAX_EVENT_NUM][MAX_CAR];
+  int num_event;// Number of Events in List
 };
 
 
 int main(void){
-    struct Events event;
-    iexit=0; // Forces Enter Menu
-    menu_choice=6;
-    char yes;
-    //==== Menu SET VAR ====//
-    int port_num; // Port Number
-    int ev_reg_num;
-    //======================//
-    
-    event.num_event=0;
-    //==== READ .TXT FILE ====// Guarda todos Eventos para uma estrutura (fazer isto no server side?)
-    FILE *ficheiro1;
-    ficheiro1 = fopen(read_file_name,"rt"); // Inicializa ficheiro de leitura
+  struct Events event;
+  iexit=0; // Forces Enter Menu
+  menu_choice=6;
+  char yes;
+  //==== Menu SET VAR ====//
+  int port_num; // Port Number
+  int ev_reg_num;
+  //======================//
+  event.num_event=0;
+  //==== READ .TXT FILE ====// Guarda todos Eventos para uma estrutura (fazer isto no server side?)
+  FILE *ficheiro1;
+  ficheiro1 = fopen(read_file_name,"rt"); // Inicializa ficheiro de leitura
+  while (fgets(event.name[event.num_event], MAX_CAR, ficheiro1) != NULL){ // Le ficheir linha a linha
+    //printf("Event Num:%d | Name: %s", event.num_event,event.name);
+    event.num_event++; // Incrementa o numero de enventos
+  }
+  event.num_event-=1; // Last is <null>
+  fclose(ficheiro1);// Close file
+	//=======================//
 
-    while (fgets(event.name[event.num_event], MAX_CAR, ficheiro1) != NULL){ // Le ficheir linha a linha
-	//printf("Event Num:%d | Name: %s", event.num_event,event.name);
-	event.num_event++; // Incrementa o numero de enventos
-    }
-    event.num_event-=1; // Last is <null>
-    fclose(ficheiro1);// Close file
-    //=======================//
-
-    system("clear");
-    while(iexit!=1){
+	system("clear");
+	while(iexit!=1){
 	system("clear"); //Clear Window
 	//==== Head Display ====//
 	printf("\n -----------------------------------------------\n");
@@ -74,7 +72,7 @@ int main(void){
 	//===============//
 	printf(" Choice: ");
 	scanf("%d",&menu_choice); // Read Input
-	    
+
 	switch(menu_choice){
 	    case 0:
 		system("clear");
@@ -91,10 +89,10 @@ int main(void){
 		printf("==== Client_Server ====\n");
 		printf(" Set destination IP adress: ");
 		scanf("%s",server_ip);
-		
+
 		//editStud();
 	    break;
-	
+
 	    case 2:
 		system("clear");
 		printf("==== Set_Ports ====\n");
@@ -103,11 +101,11 @@ int main(void){
 		    printf(" Set Port(49152-65535): ");
 		    scanf("%d",&port_num);
 		    current_port=port_num;
-		    
+
 		}
 		//delStud();
 	    break;
-	
+
 	    case 3:
 		system("clear");
 		printf("==== Get_Event_List ====\n");
@@ -122,22 +120,22 @@ int main(void){
 		printf("\nReturn to Menu(y/n):");
 		scanf("%s",&yes); // DEBUG
 	    break;
-	
+
 	    case 4:
 		system("clear");
 		printf("==== Make_Registration ====\n");
 		ev_reg_num=0;
 		printf("Whats the Event Number you whould like to enter(0-%d)",event.num_event);
 		scanf("%d",&ev_reg_num); // Input event number
-		
-		
-		
-	    break; 
-	    
+
+
+
+	    break;
+
 	    case 5:
 		system("clear");
-		
-	    break; 
+
+	    break;
 	    menu_choice=6; // Reset Menu Coice
 	}
     }
