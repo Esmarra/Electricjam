@@ -18,6 +18,17 @@ Special Thanks:
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+//========================//
+#define MAX_CAR 100
+#define MAX_EVENT_NUM 20
+
+char read_file_name[]="sauce/Events_List.txt";   // Read event file located at /sauce/
+
+struct Events{ // Stores Events in struct (Used on Server & Client Side)
+  char name[MAX_EVENT_NUM][MAX_CAR];
+  int num_event;// Number of Events in List
+};
+
 
 //==== Functions ====//
 void dostuff(int);
@@ -25,7 +36,23 @@ void error(char *msg);
 //===================//
 
 int main(int argc, char *argv[]) { // Call ./server2_tcp 50000
-	// Add stuff
+	//==== Add Code ====//
+	printf("\n Modded File\n");
+	struct Events event; // Start struct
+	event.num_event=0; // Init zeros
+
+	//==== READ .TXT FILE ====// Guarda todos Eventos para uma estrutura (fazer isto no server side?)
+	FILE *ficheiro1;
+	ficheiro1 = fopen(read_file_name,"rt"); // Inicializa ficheiro de leitura
+	while (fgets(event.name[event.num_event], MAX_CAR, ficheiro1) != NULL){ // Le ficheir linha a linha
+		//printf("Event Num:%d | Name: %s", event.num_event,event.name);
+		event.num_event++; // Incrementa o numero de enventos
+	}
+	event.num_event-=1; // Last is <null>
+	fclose(ficheiro1);// Close file
+	//=======================//
+
+	//==================//
 	int sockfd, newsockfd, portno, clilen, pid;
 	struct sockaddr_in serv_addr, cli_addr;  // server addresses data
 	//---presentation msg...
@@ -38,7 +65,7 @@ int main(int argc, char *argv[]) { // Call ./server2_tcp 50000
 	//==== Start Socket ===//
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if(sockfd < 0)error("ERROR opening socket");
-	bzero((char *) &serv_addr, sizeof(serv_addr));
+	bzero((char *) &serv_addr, sizeof(serv_addr)); // erases the data in the n bytes of the memory
 	portno = atoi(argv[1]);
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_addr.s_addr = INADDR_ANY;
@@ -69,7 +96,7 @@ void dostuff (int sock) {
 	int n;
 	char buffer[256];
 	//---reads and prints message from client..
-	bzero(buffer,256);
+	bzero(buffer,256); // erases the data in the 256 bytes of the memory
 	n = read(sock,buffer,255);
 
 	//---reads and prints message from client...
