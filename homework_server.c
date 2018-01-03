@@ -25,6 +25,7 @@ void error(char *msg);
 //===================//
 
 int main(int argc, char *argv[]) { // Call ./server2_tcp 50000
+	// Add stuff
 	int sockfd, newsockfd, portno, clilen, pid;
 	struct sockaddr_in serv_addr, cli_addr;  // server addresses data
 	//---presentation msg...
@@ -70,7 +71,7 @@ void dostuff (int sock) {
 	//---reads and prints message from client..
 	bzero(buffer,256);
 	n = read(sock,buffer,255);
-	
+
 	//---reads and prints message from client...
 	if (n < 0) error("ERROR reading from socket");
 	printf("Here is the message: %s\n",buffer);
