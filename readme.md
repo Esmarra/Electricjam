@@ -1,4 +1,4 @@
-# SetEvent Computer Networks Assignment
+# SetEvent Computer Networks Assignment 2017/2018
 
 The aim of this work is to develop (in C / C++) a client-server computer program (SetEvent) that
 informs clients of a list of events and allow them to choose and register in one of those events.
@@ -9,7 +9,7 @@ accepted and are not acknowledged.
 
 ## Getting Started
 * [Github commands](https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html) - Basic comands
-* [Report]() - Google Docs Report
+* [Report](https://docs.google.com/document/d/1pLOnSbAHsPzHAUf_mqFTXgFESYQLVHjClPxKTPlP-Y8/edit?usp=sharing) - Google Docs Report
 ### Compiling
 
 You can use make or terminal comands
