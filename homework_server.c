@@ -88,7 +88,8 @@ int main(int argc, char *argv[]) { // Call ./server2_tcp 50000
 			dostuff(newsockfd);
       //==== Add a user logger? ====//
       printf("IP:%s\n",inet_ntoa(cli_addr.sin_addr)); // Display Client IP
-      //==== 
+      printf("Port is: %d\n", (int) ntohs(cli_addr.sin_port)); // Display Client Port
+      //====
 			exit(0);
 		} else{ // parent (old) process that keeps wainting for clients
 			close(newsockfd); // newsockfd belongs to child process
