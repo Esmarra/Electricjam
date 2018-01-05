@@ -40,3 +40,7 @@ This project is licensed under the GNU General Public License
 ## Acknowledgments
 
 * Paulo Coimbra for c sockets 
+
+<p align="center">
+	<img src="https://www.newstatesman.com/sites/default/files/styles/nodeimage/public/blogs_2017/02/fine.jpg?itok=WF82Xsi2">
+</p>
