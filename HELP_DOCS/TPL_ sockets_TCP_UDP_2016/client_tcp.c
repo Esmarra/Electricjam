@@ -56,11 +56,11 @@ int main(int argc, char *argv[]) {
       //---ask for message to send...
       printf("Sending the message: ");
       bzero(buffer,256);
-      //fgets(buffer,255,stdin);
+      fgets(buffer,255,stdin);
 
-      char send_srt[256];
-      strcpy(send_srt, "these "); // Right Practice
-      strcat(buffer,send_srt); // Send to Server
+      //char send_srt[256];
+      //strcpy(send_srt, "these "); // Right Practice
+      //strcat(buffer,send_srt); // Send to Server
 
       //---sends message to server...
       n = write(sockfd,buffer,strlen(buffer));

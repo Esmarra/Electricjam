@@ -18,6 +18,7 @@ Special Thanks:
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h> // Read ip ( inet_ntoa )
 //========================//
 #define MAX_CAR 100
 #define MAX_EVENT_NUM 20
@@ -77,12 +78,17 @@ int main(int argc, char *argv[]) { // Call ./server2_tcp 50000
 	//==== Clients Loop ===//
 	while(1){
 		newsockfd = accept(sockfd,(struct sockaddr *) & cli_addr, &clilen); // Acept new clients
-		if (newsockfd < 0) error("ERROR on accept");
+
+    // Changed
+    if (newsockfd < 0) error("ERROR on accept");
 		pid = fork();
 		if (pid < 0) error("ERROR on fork");
 		if (pid == 0) {  // child (new) process to attend client
 			close(sockfd); // sockfd belongs to father process
 			dostuff(newsockfd);
+      //==== Add a user logger? ====//
+      printf("IP:%s\n",inet_ntoa(cli_addr.sin_addr)); // Display Client IP
+      //==== 
 			exit(0);
 		} else{ // parent (old) process that keeps wainting for clients
 			close(newsockfd); // newsockfd belongs to child process
@@ -95,6 +101,8 @@ int main(int argc, char *argv[]) { // Call ./server2_tcp 50000
 void dostuff (int sock) {
 	int n;
 	char buffer[256];
+
+
 	//---reads and prints message from client..
 	bzero(buffer,256); // erases the data in the 256 bytes of the memory
 	n = read(sock,buffer,255);
