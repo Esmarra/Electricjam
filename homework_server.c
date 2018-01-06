@@ -13,7 +13,7 @@ Special Thanks:
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> // strcmp
 //==== DEFAULT SOCKETS ====//
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) { // Call ./server2_tcp 50000
 			dostuff(newsockfd);
       //==== Add a user logger? ====//
       printf("IP:%s\n",inet_ntoa(cli_addr.sin_addr)); // Display Client IP
-      printf("Port is: %d\n", (int) ntohs(cli_addr.sin_port)); // Display Client Port
+      printf("Port is: %d\n", (int) ntohs(cli_addr.sin_port)); // Display Client Port (BUGGED)
       //====
 			exit(0);
 		} else{ // parent (old) process that keeps wainting for clients
@@ -107,12 +107,21 @@ void dostuff (int sock) {
 	//---reads and prints message from client..
 	bzero(buffer,256); // erases the data in the 256 bytes of the memory
 	n = read(sock,buffer,255);
-
 	//---reads and prints message from client...
 	if (n < 0) error("ERROR reading from socket");
 	printf("Here is the message: %s\n",buffer);
-
-	//---sends message to client...
+  //==== Message Processing ====//
+  //if(strcmp(buffer,"register")==0)printf("Resister Mode:\n");
+  printf("str_size=%d\n",sizeof(buffer) );
+  //printf("str is:%s:\n",buffer );
+  // IMPLEMENTAR BIG ENDIAN E LITTLE INDIAN
+  int i;
+  i=0;
+  i=ntohl(buffer);
+  if(i==1){
+    printf("Recived 1\n");
+  }
+  //---sends message to client...
 	n = write(sock,"I got your message",18);
 	if (n < 0) error("ERROR writing to socket");
 }
