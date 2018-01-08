@@ -38,10 +38,7 @@ int main(int argc, char *argv[])
      printf("Please enter your message: ");
      bzero(buffer,256);
      fgets(buffer,255,stdin);
-     int i;
-     i=0;
-     i=htonl(atoi(buffer));
-     printf("i=%d\n",i );
+     
      //envia mensagem (datagrama) inicial
      n=sendto(sock,buffer,strlen(buffer),0,&server,length);
      if (n < 0) error("Error in sendto");
