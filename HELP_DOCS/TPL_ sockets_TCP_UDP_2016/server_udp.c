@@ -1,5 +1,5 @@
-/* Creates a datagram server (uses UDP).  
-   The port number is passed as an argument.  
+/* Creates a datagram server (uses UDP).
+   The port number is passed as an argument.
    This server runs forever */
 // changed by Paulo Coimbra, 08.10.27, 2014-10-25
 //---------------------------------------------------------
@@ -36,8 +36,7 @@ int main(int argc, char *argv[]) {
    server.sin_family=AF_INET;
    server.sin_addr.s_addr=INADDR_ANY;
    server.sin_port=htons(atoi(argv[1]));
-   if (bind(sock,(struct sockaddr *)&server,length)<0) 
-       error("Error in binding");
+   if (bind(sock,(struct sockaddr *)&server,length)<0) error("Error in binding");
    fromlen = sizeof(struct sockaddr_in);
 
    //forever cicle for clients
@@ -57,5 +56,3 @@ int main(int argc, char *argv[]) {
  }
 //---------------------------------------------------------
 //---------------------------------------------------------
-
-

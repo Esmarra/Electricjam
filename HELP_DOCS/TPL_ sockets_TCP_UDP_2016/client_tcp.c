@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h> // strcat
 #include <string.h> // add
+//==== DEFAULT SOCKETS ====//
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
