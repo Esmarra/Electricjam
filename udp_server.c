@@ -41,11 +41,10 @@ struct Events{ // Stores Events in struct (Used on Server & Client Side)
 };
 
 struct Users{ //Stores Users in struct (Used on Server & Client Side)
-  char username[MAX_EVENT_NUM][MAX_CAR];//Max users is 20
+  char username[MAX_CAR];//Max users is 20
   int regist_arr[MAX_EVENT_NUM];
-  int user_num;//Total Users
 };
-
+int user_num;//Total Users
 //==== Functions ====//
 void error(char *msg);
 //===================//
@@ -69,8 +68,8 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
   printf("\n Modded File\n");
   struct Events event; //Start Events struct
   event.num_event=0; //Init zero
-  struct Users user; //Start Users struct
-  user.user_num=0; //Init zero
+  struct Users user[MAX_CAR]; //Start Users struct
+  user_num=0; //Init zero
   int ev_reg_num;
   int current_reg_user; //Thre current user that is regestring
   int bool_user;// 0 New User, 1 if the user is already stored on server
@@ -132,12 +131,12 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       printf("\n Waiting for username\n");
       bzero(buf,256);
       n = recvfrom(sock,buf,256,0,(struct sockaddr *)&from,&fromlen); //Get Username from client
-      strcpy(user.username[user.user_num],buf);
-      printf(" User=%s\n",user.username[user.user_num]); //[DEBUG]
+      strcpy(user[user_num].username,buf);
+      printf(" User=%s\n",user[user_num].username); //[DEBUG]
       bool_user=0;//Enables new user
       int i;
-      for(i=0;i<user.user_num;i++){
-        if(strcmp(user.username[i],user.username[user.user_num])==0){
+      for(i=0;i<user_num;i++){
+        if(strcmp(user[i].username,user[user_num].username)==0){
           //Send user_num to Client
           length=sizeof(struct sockaddr_in);
           char temp[]=""; //Create a temp Char (Sends user_num=i) aka Numero ja registado
@@ -151,10 +150,10 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         //Send user_num to Client
         length=sizeof(struct sockaddr_in);
         char temp[]=""; //Create a temp Char (Sends user_num)
-        sprintf(temp,"%d",user.user_num); //Convert (int) to (char)
+        sprintf(temp,"%d",user_num); //Convert (int) to (char)
         n = sendto(sock,temp,strlen(temp),0,(struct sockaddr *)&from,fromlen); //Send (char)
         if (n < 0) error("Error sending user_num to Client");
-        user.user_num++;//Incrementa o nº users
+        user_num++;//Incrementa o nº users
       }
     }
 
@@ -187,8 +186,8 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       //if()
       bool_reg=0;
       int i;
-      for(i=0;i<(sizeof(user.regist_arr)/sizeof(int));i++){
-        if(user.regist_arr[i]==ev_reg_num){//Evento ja esta no array
+      for(i=0;i<(sizeof(user[current_reg_user].regist_arr)/sizeof(int));i++){
+        if(user[current_reg_user].regist_arr[i]==ev_reg_num){//Evento ja esta no array
           //Enviar nao registo
           length=sizeof(struct sockaddr_in);
           n = sendto(sock,"not_reg",7,0,(struct sockaddr *)&from,fromlen);
@@ -200,16 +199,16 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       if(bool_reg==0){ //Valid Reg
         length=sizeof(struct sockaddr_in);
         n = sendto(sock,"yes_reg",7,0,(struct sockaddr *)&from,fromlen);
-        if (n < 0) error("Error sending not_reg to Client");
-        user.regist_arr[reg_count]=ev_reg_num;
+        if (n < 0) error("Error sending yes_reg to Client");
+        user[current_reg_user].regist_arr[reg_count]=ev_reg_num;
         reg_count++;
         FILE *outfile;
         outfile = fopen(reg_file[ev_reg_num],"a"); // Will append to current file
         //char user[]="Brian Johnson"; //Temporary username
         mytime = time(NULL);
-        fprintf(outfile,"User %s is going. %s",user.username[current_reg_user],ctime(&mytime)); //Write to file
+        fprintf(outfile,"User %s is going. %s",user[current_reg_user].username,ctime(&mytime)); //Write to file
         fclose(outfile); //Close wirite file
-        printf(" Client %s has Registered",user.username[current_reg_user]);
+        printf(" Client %s has Registered",user[current_reg_user].username);
       }
     }
 
