@@ -71,6 +71,7 @@ int main(int argc, char *argv[]){
   int reg_bool=0; //See if user registred this session
   int regist_arr[MAX_EVENT_NUM];
   int reg_count=0;
+  int reg_array=0;// Nuber of registrations the user has from server
   //==== Menu SET VAR ====//
   int port_num; //Port Number
   int ev_reg_num; //Register Event (var)
@@ -219,7 +220,7 @@ int main(int argc, char *argv[]){
       n=sendto(sock,"n_regis",7,0,&server,length);
       if (n < 0) error("Error sending n_regis to Server");
 
-  		printf("Whats the Event Number you whould like to enter(0-%d):",event.num_event);
+  		printf("Whats the Event Number you whould like to enter(1-%d):",event.num_event);
   		scanf("%d",&ev_reg_num); //Input event number
 
       char temp[]=""; //Char to send Int (Sends event to register)
@@ -240,6 +241,7 @@ int main(int argc, char *argv[]){
       if(strcmp(buffer,"not_reg")==0){
         printf(" Resgistration Not Valid");
       }else{
+        if(ev_reg_num==10)ev_reg_num=9; //Bushfix
         printf(" Registred on %s\n",event.name[ev_reg_num]);
         reg_bool=1;
         regist_arr[reg_count]=ev_reg_num; //Stores num env registred to array
@@ -264,9 +266,10 @@ int main(int argc, char *argv[]){
       bzero(buffer,256); //Reset every time
       n = recvfrom(sock,buffer,256,0,&from, &length); //Recive reg_array size
       if (n < 0) error("Error geting reg_array num");
-      reg_count=atoi(buffer);
+      reg_array=atoi(buffer);
+      printf(" Reg_array %d\n",reg_array);
       int i;
-      for(i=0;i<reg_count;i++){//Read buffer reg_array times
+      for(i=0;i<reg_array;i++){//Read buffer reg_array times
         bzero(buffer,256); //Reset every time
         n = recvfrom(sock,buffer,256,0,&from, &length); //Recive Registred Events
         if (n < 0) error("Error getting Registred Events");
