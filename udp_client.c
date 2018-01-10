@@ -274,19 +274,4 @@ void error(char *msg) {
     perror(msg);
     exit(0);
 }
-
 //===============//
-
-//==== Might Be Usefull Later On ====//
-/*
-length=sizeof(struct sockaddr_in); // Fixes Error(no idea why tho)
-bzero(buffer,256);
-n=sendto(sock,"n_teste",7,0,&server,length);
-if (n < 0) error("Error sending test to Server");
-
-bzero(buffer,256); //Reset
-n = recvfrom(sock,buffer,256,0,&from, &length); //Revice Events
-if (n < 0) error("Error getting Events");
-printf("S:%s",buffer); // Print
-*/
-//==========================//
