@@ -251,13 +251,35 @@ int main(int argc, char *argv[]){
 
       case 5:// Show all user registration or registrations done on this session?
       system("clear");
-      printf("==== View_Registrations_Current_Session ====\n");
+      printf("==== View_Registrations ====\n");
+      length=sizeof(struct sockaddr_in); //Fixes Error(no idea why tho)
+      n=sendto(sock,"get_reg",7,0,&server,length);
+      if (n < 0) error("Error sending get_reg to Server");
+
+      char temm[]=""; //Create a temp Char (Sends user_num)
+      sprintf(temm,"%d",user.user_num); //Convert (int) to (char)
+      n = sendto(sock,temm,strlen(temm),0,&server,length);//Send to server what event to register
+      if (n < 0) error("Error sending user_num");
+
+      bzero(buffer,256); //Reset every time
+      n = recvfrom(sock,buffer,256,0,&from, &length); //Recive reg_array size
+      if (n < 0) error("Error geting reg_array num");
+      reg_count=atoi(buffer);
+      int i;
+      for(i=0;i<reg_count;i++){//Read buffer reg_array times
+        bzero(buffer,256); //Reset every time
+        n = recvfrom(sock,buffer,256,0,&from, &length); //Recive Registred Events
+        if (n < 0) error("Error getting Registred Events");
+        printf("  Registred: %s",buffer); //Print Events
+      }
+      /*
       if(reg_bool==1){// If there was a registration
         int i;
         for(i=0;i<reg_count;i++){
           printf("\n  You have sucesefully registred in %s",event.name[regist_arr[i]]); //Print all registrations
         }
       }
+      */
       printf("\n Return to Menu(y/n):");
   		scanf("%s",&yes); //Exit Case
       break;

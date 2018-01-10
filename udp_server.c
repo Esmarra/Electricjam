@@ -181,7 +181,7 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       n = recvfrom(sock,buf,256,0,(struct sockaddr *)&from,&fromlen);
       if (n < 0) error("Error reciving user_num from client");
       current_reg_user=atoi(buf);
-      printf(" Usr_num from client: %d", current_reg_user); //[DEBUG]
+      printf(" Usr_num from client: %d\n", current_reg_user); //[DEBUG]
       //Do Client Validation Here (Array?) Qsort?
       //if()
       bool_reg=0;
@@ -208,8 +208,34 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         mytime = time(NULL);
         fprintf(outfile,"User %s is going. %s",user[current_reg_user].username,ctime(&mytime)); //Write to file
         fclose(outfile); //Close wirite file
-        printf(" Client %s has Registered",user[current_reg_user].username);
+        printf(" Client %s has Registered\n",user[current_reg_user].username);
       }
+    }
+
+    if(strcmp(buf,"get_reg")==0){
+      printf("\n Waiting for user Request\n" );
+      bzero(buf,256);
+      n = recvfrom(sock,buf,256,0,(struct sockaddr *)&from,&fromlen);
+      if (n < 0) error("Error reciving user_num from client");
+      current_reg_user=atoi(buf);
+      printf(" Usr_num from client: %d\n", current_reg_user); //[DEBUG]
+
+      length=sizeof(struct sockaddr_in);
+      char temp[]=""; //Create a temp Char (Sends user_num)
+      sprintf(temp,"%d",(sizeof(user[current_reg_user].regist_arr)/sizeof(int))); //Convert (int) to (char)
+      n = sendto(sock,temp,sizeof(temp),0,(struct sockaddr *)&from,fromlen);
+      if (n < 0) error("Error sending sizeof reg_array events");
+
+
+      printf(" Sending User:%s Regitrations\n",user[current_reg_user].username);
+      int i;
+      for(i=0;i<(sizeof(user[current_reg_user].regist_arr)/sizeof(int));i++){
+        if(user[current_reg_user].regist_arr[i]!=0){
+          printf("  User %s going to Event: %s",user[current_reg_user].username,event.name[user[current_reg_user].regist_arr[i]]);
+          n = sendto(sock,event.name[user[current_reg_user].regist_arr[i]],sizeof(event.name[user[current_reg_user].regist_arr[i]]),0,(struct sockaddr *)&from,fromlen);
+          if (n < 0) error("Error sending registred events");
+        }
+		  }
     }
 
     if(strcmp(buf,"n_teste")==0){ //Test
