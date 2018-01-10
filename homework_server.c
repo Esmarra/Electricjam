@@ -12,7 +12,7 @@ Special Thanks:
 =========================================*/
 #define _GNU_SOURCE
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> // strcat
 #include <string.h> // strcmp
 //==== DEFAULT SOCKETS ====//
 #include <sys/types.h>
@@ -24,6 +24,7 @@ Special Thanks:
 #define MAX_EVENT_NUM 20
 
 char read_file_name[]="sauce/Events_List.txt";   // Read event file located at /sauce/
+char *client_ip;
 
 struct Events{ // Stores Events in struct (Used on Server & Client Side)
   char name[MAX_EVENT_NUM][MAX_CAR];
@@ -78,17 +79,17 @@ int main(int argc, char *argv[]) { // Call ./server2_tcp 50000
 	//==== Clients Loop ===//
 	while(1){
 		newsockfd = accept(sockfd,(struct sockaddr *) & cli_addr, &clilen); // Acept new clients
-
-    // Changed
-    if (newsockfd < 0) error("ERROR on accept");
+    if (newsockfd < 0) error("ERROR on accept");//Checksum
 		pid = fork();
 		if (pid < 0) error("ERROR on fork");
 		if (pid == 0) {  // child (new) process to attend client
 			close(sockfd); // sockfd belongs to father process
 			dostuff(newsockfd);
       //==== Add a user logger? ====//
-      printf("IP:%s\n",inet_ntoa(cli_addr.sin_addr)); // Display Client IP
-      printf("Port is: %d\n", (int) ntohs(cli_addr.sin_port)); // Display Client Port (BUGGED)
+      //printf("IP:%s\n",inet_ntoa(cli_addr.sin_addr)); // Display Client IP [DEBUG]
+      strcpy(&client_ip, inet_ntoa(cli_addr.sin_addr)); // Stores Client IP Right Practice
+      //printf("C_ip:%s",&client_ip); // [DEBUG]
+      //printf("Port is: %d\n", (int) ntohs(cli_addr.sin_port)); // Display Client Port (BUGGED)
       //====
 			exit(0);
 		} else{ // parent (old) process that keeps wainting for clients
@@ -112,7 +113,7 @@ void dostuff (int sock) {
 	printf("Here is the message: %s\n",buffer);
   //==== Message Processing ====//
   //if(strcmp(buffer,"register")==0)printf("Resister Mode:\n");
-  printf("str_size=%d\n",sizeof(buffer) );
+  //printf("str_size=%d\n",sizeof(buffer));
   //printf("str is:%s:\n",buffer );
   // IMPLEMENTAR BIG ENDIAN E LITTLE INDIAN
   int i;
@@ -122,8 +123,12 @@ void dostuff (int sock) {
     printf("Recived 1\n");
   }
   //---sends message to client...
+  n = sendto(sock, &i, sizeof(i),0, (struct sockaddr *)&from, fromlen);
+  if (n < 0) error("Error in sendto");
+/*
 	n = write(sock,"I got your message",18);
 	if (n < 0) error("ERROR writing to socket");
+*/
 }
 //==== ERROR ====//
 void error(char *msg) { // error messages: print message and terminate program

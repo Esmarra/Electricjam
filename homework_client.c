@@ -1,11 +1,12 @@
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h> // strcat
-#include <string.h> // str
+#include <string.h> // strcmp
 //==== DEFAULT SOCKETS ====//
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h> // Read ip ( inet_ntoa )
 #include <netdb.h>
 //========================//
 #define MAX_CAR 100
@@ -20,9 +21,6 @@ int menu_choice;
 char server_ip[]="192.168.1.254";
 int current_port=5000;
 //======================//
-
-char read_file_name[]="sauce/Events_List.txt";   // File to read
-char write_file_nameE[]="cloudpoint3exit_qsortE.txt";
 
 struct Events{
   char name[MAX_EVENT_NUM][MAX_CAR];
@@ -54,18 +52,8 @@ int main(int argc, char *argv[]){
      fprintf(stderr,"usage %s hostname port\n", argv[0]);
      exit(0);
   }
+  current_port=argv[2];
   //=============================//
-
-  //==== READ .TXT FILE ====// Guarda todos Eventos para uma estrutura (fazer isto no server side?)
-  FILE *ficheiro1;
-  ficheiro1 = fopen(read_file_name,"rt"); // Inicializa ficheiro de leitura
-  while (fgets(event.name[event.num_event], MAX_CAR, ficheiro1) != NULL){ // Le ficheir linha a linha
-    //printf("Event Num:%d | Name: %s", event.num_event,event.name);
-    event.num_event++; // Incrementa o numero de enventos
-  }
-  event.num_event-=1; // Last is <null>
-  fclose(ficheiro1);// Close file
-	//=======================//
 
 	system("clear");
 	while(iexit!=1){
@@ -92,39 +80,35 @@ int main(int argc, char *argv[]){
 	scanf("%d",&menu_choice); // Read Input
 
 	switch(menu_choice){
-	    case 0:
-		system("clear");
+    case 0:
+    system("clear");
 		printf(" Are you sure you want to exit?(y/n): ");
 		scanf("%s",&c_exit);
 		if(c_exit=='y'){ // Confirm_exit
 		    printf(" Terminating Program...\n");
 		    iexit=1; // Exits Menu, and ends Program
 		}
-	    break;
+    break;
 
-	    case 1:
-		system("clear");
+    case 1:
+    system("clear");
 		printf("==== Client_Server ====\n");
 		printf(" Set destination IP adress: ");
 		scanf("%s",server_ip);
+    break;
 
-		//editStud();
-	    break;
-
-	    case 2:
-		system("clear");
+    case 2:
+    system("clear");
 		printf("==== Set_Ports ====\n");
-		port_num =0;
+		port_num=0;
 		while(port_num<49152 || port_num>65535){
 		    printf(" Set Port(49152-65535): ");
 		    scanf("%d",&port_num);
 		    current_port=port_num;
-
 		}
-		//delStud();
-	    break;
+    break;
 
-	    case 3:
+    case 3:
 		system("clear");
 		printf("==== Get_Event_List ====\n");
 		printf("\nThere are %d Events Up. Show Event List?(y/n):",event.num_event);
@@ -132,29 +116,27 @@ int main(int argc, char *argv[]){
 		if(strcmp(&yes,"y")==0){ // Display events
 		    int i;
 		    for(i=1;i<event.num_event+1;i++){
-			printf("No%d, Event: %s",i,event.name[i]);
+    			printf("No%d, Event: %s",i,event.name[i]);
 		    }
 		}
 		printf("\nReturn to Menu(y/n):");
 		scanf("%s",&yes); // DEBUG
-	    break;
+    break;
 
-	    case 4:
+    case 4:
 		system("clear");
 		printf("==== Make_Registration ====\n");
 		ev_reg_num=0;
 		printf("Whats the Event Number you whould like to enter(0-%d)",event.num_event);
 		scanf("%d",&ev_reg_num); // Input event number
+    break;
 
-
-
-	    break;
-
-	    case 5:
+    case 5:
+    // Show all user registration or registrations done on this session?
 		system("clear");
 
-	    break;
-	    menu_choice=6; // Reset Menu Coice
+    break;
+    menu_choice=6; // Reset Menu Coice
 	}
     }
     //=============//
