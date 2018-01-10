@@ -1,13 +1,17 @@
 /*=========================================
-Program Name :	 rc_server
-Base Language:	 Mixed English
+Program Name :	 udp_server
+Base Language:	 English
 Created by   :	 Esmarra
 Creation Date:	 03/01/2018
 Rework date entries:
+* 05/01/2018
+* 06/01/2018
+* 09/01/2018
+* 10/01/2018
 Program Objectives:
 Observations:
 * Based on: server2_tcp by Paulo Coimbra, 2014-10-25
-*
+* Git Repo: https://github.com/Esmarra/Electricjam
 Special Thanks:
 =========================================*/
 #define _GNU_SOURCE
@@ -24,12 +28,12 @@ Special Thanks:
 //========================//
 #define MAX_CAR 100 // Max strlen event name can have (REMOVE FOR CLIENT?)
 #define MAX_EVENT_NUM 20 // Max Number of Events
+#define MAX_USERNAME 20 //Max size of username
 
 char read_file_name[]="sauce/Events_List.txt";   // Read event file located at /sauce/
 char *client_ip; // Stores Client IP - Create client structure?
-
 char *reg_file[10]; //Name if the Reg file for each event
-
+char username[MAX_USERNAME]; //Username
 
 struct Events{ // Stores Events in struct (Used on Server & Client Side)
   char name[MAX_EVENT_NUM][MAX_CAR]; // Stores envent name
@@ -41,7 +45,8 @@ void error(char *msg);
 //===================//
 
 int main(int argc, char *argv[]) { // Call ./udp_server 50000
-  time_t mytime;
+  time_t mytime; //Log time on files
+  //==== Resitration Per Event File ====//
   reg_file[0] = "sauce/Reg_List_Evt1.txt";
   reg_file[1] = "sauce/Reg_List_Evt2.txt";
   reg_file[2] = "sauce/Reg_List_Evt3.txt";
@@ -52,6 +57,8 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
   reg_file[7] = "sauce/Reg_List_Evt8.txt";
   reg_file[8] = "sauce/Reg_List_Evt9.txt";
   reg_file[9] = "sauce/Reg_List_Evt10.txt";
+  //====================================//
+
   //==== Add Code ====//
   printf("\n Modded File\n");
   struct Events event; // Start struct
@@ -101,13 +108,21 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       strtok(buf, "\n"); // Removes \n from string (NOT Optimal, but it works)
       printf("\n Server Buffer>%s<",buf ); //Display whats in the buffer [DEBUG]
 
-      if(strcmp(buf,"n_event")==0){ // Repplys Number of envents
+      if(strcmp(buf,"n_event")==0){ //Repplys Number of envents
         printf("\nnum event:%d\n",event.num_event );
         // I Can't use little endian, so
         char temp[]=""; // Char to send Int
         sprintf(temp,"%d",event.num_event); // Int to str
         n = sendto(sock,temp,strlen(temp),0,(struct sockaddr *)&from,fromlen);
         if (n < 0) error("Error sending num_event");
+      }
+
+      if(strcmp(buf,"n_usere")==0){//Enter User Validation Mode
+        printf("\n Waiting for username");
+        bzero(buf,256);
+        n = recvfrom(sock,buf,256,0,(struct sockaddr *)&from,&fromlen);//Get Username from client
+        strcpy(username,buf);
+        printf("UserName=%s\n",username); //[DEBUG]
       }
 
       if(strcmp(buf,"d_event")==0){
@@ -129,17 +144,16 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         printf("\nN_reg from client %d\n", ev_reg_num); //[DEBUG]
         FILE *outfile;
         outfile = fopen(reg_file[ev_reg_num],"a"); // Will append to current file
-        char user[]="Brian Johnson";
+        //char user[]="Brian Johnson"; //Temporary username
         mytime = time(NULL);
-        fprintf(outfile,"User %s is going. %s\n",user,ctime(&mytime)); //Write to file
+        fprintf(outfile,"User %s is going. %s",username,ctime(&mytime)); //Write to file
         fclose(outfile); //Close wirite file
-        printf("\n Client %s has Registered",user);
+        printf("\n Client %s has Registered",username);
       }
 
       if(strcmp(buf,"n_teste")==0){
         printf("\n Testing:\n");
         length=sizeof(struct sockaddr_in);
-        //bzero(buffer,256);
         n = sendto(sock,"ping",4,0,(struct sockaddr *)&from,fromlen);
         if (n < 0) error("Error sending ping to Client");
       }
