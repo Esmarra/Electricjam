@@ -36,9 +36,15 @@ char server_ip[12]=""; //Selected Server Ip
 int current_port; //Current Used Port
 //======================//
 
-struct Events{ // Stores Events in struct (Used on Server & Client Side)
-  char name[MAX_EVENT_NUM][MAX_CAR]; // Stores Event name
-  int num_event;// Number of Events in List
+struct Events{ //Stores Events in struct (Used on Server & Client Side)
+  char name[MAX_EVENT_NUM][MAX_CAR]; //Stores Event name
+  int num_event;//Number of Events in List
+};
+
+struct Users{ //Stores Users in struct (Used on Server & Client Side)
+  char username[MAX_EVENT_NUM][MAX_CAR];//Max users is 20
+  int regist_arr[MAX_EVENT_NUM];
+  int user_num;//Total Users
 };
 
 //==== Functions ====//
@@ -53,8 +59,10 @@ int main(int argc, char *argv[]){
   char buffer[256]; //Data (bytes) to be sent to server
   //===================//
 
-  struct Events event; // tart struct
+  struct Events event; //Start struct
 	event.num_event=0; //Init zeros
+  struct Users user; //Start Users struct
+  user.user_num=0; //Init zero
   iexit=0; //Forces Enter Menu
   menu_choice=6;
   char yes;
@@ -152,7 +160,7 @@ int main(int argc, char *argv[]){
       event.num_event=atoi(buffer); // Convert char to int
       //printf("\nN_evnt from server %d\n", event.num_event); //[DEBUG]
       printf("Please Type Username:");
-      scanf("%s",&username);
+      scanf("%s",&user.username[0]);//Store in ZERO
 
       length=sizeof(struct sockaddr_in); // Fixes Error(no idea why tho)
       bzero(buffer,256);
@@ -161,8 +169,16 @@ int main(int argc, char *argv[]){
 
       length=sizeof(struct sockaddr_in); // Fixes Error(no idea why tho)
       bzero(buffer,256);
-      n=sendto(sock,username,strlen(username),0,&server,length); //Send Username
+      n=sendto(sock,user.username[0],strlen(user.username[0]),0,&server,length); //Send Username[0] aka this client
       if (n < 0) error("Error sending Username to Server");
+      //Server Sends user_num, Client syncs with server (For better Registration)
+      bzero(buffer,256);
+      n = recvfrom(sock,buffer,256,0,&from, &length);//Gets user_num from server
+      if (n < 0) error("Error getting user_num from Server");
+      user.user_num=atoi(buffer);
+      printf(" User_num(form server):%d\n",user.user_num); //[DEBUG]
+      strcpy(user.username[user.user_num],user.username[0]);//Copy URS[0] to the user thats in server
+
 
   		printf(" There are %d Events Up. Show Event List?(y/n):",event.num_event);
   		scanf("%s",&yes);
@@ -198,18 +214,25 @@ int main(int argc, char *argv[]){
   		system("clear");
   		printf("==== Make_Registration ====\n");
   		ev_reg_num=0;
-      length=sizeof(struct sockaddr_in); // Fixes Error(no idea why tho)
+      length=sizeof(struct sockaddr_in); //Fixes Error(no idea why tho)
       bzero(buffer,256);
       n=sendto(sock,"n_regis",7,0,&server,length);
       if (n < 0) error("Error sending n_regis to Server");
 
   		printf("Whats the Event Number you whould like to enter(0-%d):",event.num_event);
-  		scanf("%d",&ev_reg_num); // Input event number
-      char temp[]=""; // Char to send Int
-      sprintf(temp,"%d",ev_reg_num); // Int to str
+  		scanf("%d",&ev_reg_num); //Input event number
+      char temp[]=""; //Char to send Int (Sends event to register)
+      sprintf(temp,"%d",ev_reg_num); //Int to str
       n = sendto(sock,temp,strlen(temp),0,&server,length);//Send to server what event to register
       if (n < 0) error("Error sending ev_reg_num");
+
+      char tem[]=""; //Create a temp Char (Sends user_num)
+      sprintf(tem,"%d",user.user_num); //Convert (int) to (char)
+      n = sendto(sock,tem,strlen(tem),0,&server,length);//Send to server what event to register
+      if (n < 0) error("Error sending user_num");
+
       //ASK USER FOR NUMBER OF SEATS???
+      //Do Server Validation Here
       printf("Sucesefully registred on %s\n",event.name[ev_reg_num]);
       reg_bool=1;
       regist_arr[reg_count]=ev_reg_num; //Stores num env registred to array
