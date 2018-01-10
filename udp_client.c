@@ -221,6 +221,7 @@ int main(int argc, char *argv[]){
 
   		printf("Whats the Event Number you whould like to enter(0-%d):",event.num_event);
   		scanf("%d",&ev_reg_num); //Input event number
+
       char temp[]=""; //Char to send Int (Sends event to register)
       sprintf(temp,"%d",ev_reg_num); //Int to str
       n = sendto(sock,temp,strlen(temp),0,&server,length);//Send to server what event to register
@@ -230,14 +231,20 @@ int main(int argc, char *argv[]){
       sprintf(tem,"%d",user.user_num); //Convert (int) to (char)
       n = sendto(sock,tem,strlen(tem),0,&server,length);//Send to server what event to register
       if (n < 0) error("Error sending user_num");
-
       //ASK USER FOR NUMBER OF SEATS???
       //Do Server Validation Here
-      printf("Sucesefully registred on %s\n",event.name[ev_reg_num]);
-      reg_bool=1;
-      regist_arr[reg_count]=ev_reg_num; //Stores num env registred to array
-      reg_count++;
+      bzero(buffer,256); //Reset every time
+      n = recvfrom(sock,buffer,256,0,&from, &length); //Recive Reg Validation
+      if (n < 0) error("Error geting Validation");
 
+      if(strcmp(buffer,"not_reg")==0){
+        printf(" Resgistration Not Valid");
+      }else{
+        printf(" Registred on %s\n",event.name[ev_reg_num]);
+        reg_bool=1;
+        regist_arr[reg_count]=ev_reg_num; //Stores num env registred to array
+        reg_count++;
+      }
       printf("\n Return to Menu(y/n):");
   		scanf("%s",&yes); //Exit Case
       break;

@@ -74,6 +74,8 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
   int ev_reg_num;
   int current_reg_user; //Thre current user that is regestring
   int bool_user;// 0 New User, 1 if the user is already stored on server
+  int bool_reg;// 0 No Registers from user 1 User has registred event
+  int reg_count;
   //==== READ .TXT FILE ====// Guarda todos Eventos para uma estrutura (fazer isto no server side?)
   FILE *ficheiro1;
   ficheiro1 = fopen(read_file_name,"rt"); // Inicializa ficheiro de leitura
@@ -185,15 +187,33 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         printf(" Usr_num from client: %d", current_reg_user); //[DEBUG]
         //Do Client Validation Here (Array?) Qsort?
         //if()
-        //user.username[i]
-        FILE *outfile;
-        outfile = fopen(reg_file[ev_reg_num],"a"); // Will append to current file
-        //char user[]="Brian Johnson"; //Temporary username
-        mytime = time(NULL);
-        fprintf(outfile,"User %s is going. %s",user.username[current_reg_user],ctime(&mytime)); //Write to file
-        fclose(outfile); //Close wirite file
-        printf(" Client %s has Registered",user.username[current_reg_user]);
+        bool_reg=0;
+        int i;
+        for(i=0;i<(sizeof(user.regist_arr)/sizeof(int));i++){
+          if(user.regist_arr[i]==ev_reg_num){//Evento ja esta no array
+            //Enviar nao registo
+            length=sizeof(struct sockaddr_in);
+            n = sendto(sock,"not_reg",7,0,(struct sockaddr *)&from,fromlen);
+            if (n < 0) error("Error sending not_reg to Client");
+            bool_reg=1; //Register not valid
+          }
 
+        }
+        //user.username[i]
+        if(bool_reg==0){ //Valid Reg
+          length=sizeof(struct sockaddr_in);
+          n = sendto(sock,"yes_reg",7,0,(struct sockaddr *)&from,fromlen);
+          if (n < 0) error("Error sending not_reg to Client");
+          user.regist_arr[reg_count]=ev_reg_num;
+          reg_count++;
+          FILE *outfile;
+          outfile = fopen(reg_file[ev_reg_num],"a"); // Will append to current file
+          //char user[]="Brian Johnson"; //Temporary username
+          mytime = time(NULL);
+          fprintf(outfile,"User %s is going. %s",user.username[current_reg_user],ctime(&mytime)); //Write to file
+          fclose(outfile); //Close wirite file
+          printf(" Client %s has Registered",user.username[current_reg_user]);
+        }
       }
 
       if(strcmp(buf,"n_teste")==0){
