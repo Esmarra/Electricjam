@@ -1,6 +1,4 @@
-User Brian Johnson is going. Tue Jan  9 20:12:14 2018
-
-User Brian Johnson is going. Wed Jan 10 00:53:46 2018
-
-User Brian Johnson is going. Wed Jan 10 01:23:10 2018
-
+User  is going. Thu Jan 11 18:38:55 2018
+User Working is going. Thu Jan 11 18:41:06 2018
+User asdasd is going. Thu Jan 11 18:43:27 2018
+User  is going. Thu Jan 11 18:48:38 2018

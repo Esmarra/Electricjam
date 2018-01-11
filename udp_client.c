@@ -184,7 +184,7 @@ int main(int argc, char *argv[]){
   		printf(" There are %d Events Up. Show Event List?(y/n):",event.num_event);
   		scanf("%s",&yes);
   		if(strcmp(&yes,"y")==0){ // Display events
-        //Send d_event to server
+        //==== Send d_event (flag) to server ====
         length=sizeof(struct sockaddr_in); // Fixes Error(no idea why tho)
         bzero(buffer,256);
         n=sendto(sock,"d_event",7,0,&server,length);
@@ -196,7 +196,7 @@ int main(int argc, char *argv[]){
           n = recvfrom(sock,buffer,256,0,&from, &length); //Recive Events
           if (n < 0) error("Error getting Events");
           printf("  No %d,Event: %s",i,buffer); //Print Events
-          strcpy(event.name[i-1], buffer); //Copy Values to Structure
+          strcpy(event.name[i], buffer); //Copy Values to Structure
         }
         //================================//
   		}
@@ -220,8 +220,10 @@ int main(int argc, char *argv[]){
       n=sendto(sock,"n_regis",7,0,&server,length);
       if (n < 0) error("Error sending n_regis to Server");
 
-  		printf("Whats the Event Number you whould like to enter(1-%d):",event.num_event);
-  		scanf("%d",&ev_reg_num); //Input event number
+      while(ev_reg_num<1 || port_num>event.num_event){ //Force Valid Input
+  		    printf(" Whats the Event Number you whould like to enter(1-%d):",event.num_event);
+  		      scanf("%d",&ev_reg_num); //Input event number
+      }
 
       char temp[]=""; //Char to send Int (Sends event to register)
       sprintf(temp,"%d",ev_reg_num); //Int to str
@@ -241,7 +243,6 @@ int main(int argc, char *argv[]){
       if(strcmp(buffer,"not_reg")==0){
         printf(" Resgistration Not Valid");
       }else{
-        if(ev_reg_num==10)ev_reg_num=9; //Bushfix
         printf(" Registred on %s\n",event.name[ev_reg_num]);
         reg_bool=1;
         regist_arr[reg_count]=ev_reg_num; //Stores num env registred to array

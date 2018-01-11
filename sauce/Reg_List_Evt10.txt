@@ -1,4 +1,2 @@
-User Pedro is going. Wed Jan 10 22:35:09 2018
-User Esmarra is going. Wed Jan 10 23:11:26 2018
-User asd is going. Wed Jan 10 23:39:46 2018
-User asdasd is going. Wed Jan 10 23:42:27 2018
+User Working is going. Thu Jan 11 18:41:19 2018
+User asdasd is going. Thu Jan 11 18:43:35 2018

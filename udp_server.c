@@ -52,16 +52,16 @@ void error(char *msg);
 int main(int argc, char *argv[]) { // Call ./udp_server 50000
   time_t mytime; //Log time on files
   //==== Resitration Per Event File ====//
-  reg_file[0] = "sauce/Reg_List_Evt1.txt";
-  reg_file[1] = "sauce/Reg_List_Evt2.txt";
-  reg_file[2] = "sauce/Reg_List_Evt3.txt";
-  reg_file[3] = "sauce/Reg_List_Evt4.txt";
-  reg_file[4] = "sauce/Reg_List_Evt5.txt";
-  reg_file[5] = "sauce/Reg_List_Evt6.txt";
-  reg_file[6] = "sauce/Reg_List_Evt7.txt";
-  reg_file[7] = "sauce/Reg_List_Evt8.txt";
-  reg_file[8] = "sauce/Reg_List_Evt9.txt";
-  reg_file[9] = "sauce/Reg_List_Evt10.txt";
+  reg_file[1] = "sauce/Reg_List_Evt1.txt";
+  reg_file[2] = "sauce/Reg_List_Evt2.txt";
+  reg_file[3] = "sauce/Reg_List_Evt3.txt";
+  reg_file[4] = "sauce/Reg_List_Evt4.txt";
+  reg_file[5] = "sauce/Reg_List_Evt5.txt";
+  reg_file[6] = "sauce/Reg_List_Evt6.txt";
+  reg_file[7] = "sauce/Reg_List_Evt7.txt";
+  reg_file[8] = "sauce/Reg_List_Evt8.txt";
+  reg_file[9] = "sauce/Reg_List_Evt9.txt";
+  reg_file[10] = "sauce/Reg_List_Evt10.txt";
   //====================================//
 
   //==== Add Code ====//
@@ -130,7 +130,7 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
 
   	//==== Get UserName - Send User Number ====//
     if(strcmp(buf,"n_usere")==0){//Enter User Validation Mode flag
-      printf("\n Waiting for username\n");
+      printf("\n Waiting for username...\n");
       bzero(buf,256);
       n = recvfrom(sock,buf,256,0,(struct sockaddr *)&from,&fromlen); //Get Username from client
       strcpy(user[user_num].username,buf);
@@ -165,8 +165,8 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       printf("\n Displaying Events:\n");
       // send num event to server first
       int i;
-      for(i=0;i<event.num_event;i++){
-        printf("  No%d, Event: %s",i,event.name[i]);
+      for(i=1;i<event.num_event+1;i++){
+        printf("  No %d, Event: %s",i,event.name[i]);
         n = sendto(sock,event.name[i],sizeof(event.name[i]),0,(struct sockaddr *)&from,fromlen);
         if (n < 0) error("Error sending events name");
 		   }
@@ -181,7 +181,6 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       n = recvfrom(sock,buf,256,0,(struct sockaddr *)&from,&fromlen);
       if (n < 0) error("Error reciving ev_reg_num from client");
       ev_reg_num=atoi(buf);
-      if(ev_reg_num==10)ev_reg_num=9;//fixes over
       printf(" ev_reg from client %d\n", ev_reg_num); //[DEBUG]
 
       bzero(buf,256);
@@ -213,7 +212,7 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         mytime = time(NULL);
         fprintf(outfile,"User %s is going. %s",user[current_reg_user].username,ctime(&mytime)); //Write to file
         fclose(outfile); //Close wirite file
-        printf(" Client %s has Registered\n",user[current_reg_user].username); //[DEBUG]
+        printf(" Client %s has Registered on Event %s\n",user[current_reg_user].username,event.name[ev_reg_num]); //[DEBUG]
       }
     }
   	//===================================================//
@@ -230,19 +229,19 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       //CHEAT(Sorry deadline is in 30min no time to fix this)
       int count=0;
       int i;
-      for(i=0;i<(sizeof(user[current_reg_user].regist_arr)/sizeof(int));i++){
-        if(user[current_reg_user].regist_arr[i]!=0){
-          count++;//Array size
+      for(i=0;i<(sizeof(user[current_reg_user].regist_arr)/sizeof(int));i++){ //Scroll Array
+        if(user[current_reg_user].regist_arr[i]!=0){ //If theres a value
+          count++;//Increment Array size
         }
       }
       length=sizeof(struct sockaddr_in);
-      char temp[]=""; //Create a temp Char (Sends user_num)
+      char temp[]=""; //Create a temp Char (Sends reg_array_size)
       sprintf(temp,"%d",count); //Convert (int) to (char)
       n = sendto(sock,temp,sizeof(temp),0,(struct sockaddr *)&from,fromlen);
-      if (n < 0) error("Error sending sizeof reg_array events");
-      printf(" reg_array%d\n",count);
+      if (n < 0) error("Error sending reg_array_size");
+      printf(" reg_array_size=%d\n",count); //[DEBUG]
 
-      printf(" Sending User:%s Regitrations\n",user[current_reg_user].username);
+      printf(" Sending User\"%s\" his registred events\n",user[current_reg_user].username);
 
       for(i=0;i<(sizeof(user[current_reg_user].regist_arr)/sizeof(int));i++){//Cycle Reg_Array
         if(user[current_reg_user].regist_arr[i]!=0){ //Dif Zero
