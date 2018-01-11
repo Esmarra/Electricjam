@@ -251,7 +251,7 @@ int main(int argc, char *argv[]){
   		scanf("%s",&yes); //Exit Case
       break;
 
-      case 5:// Show all user registration or registrations done on this session?
+      case 5:// Show all user registration (get from server)
       system("clear");
       printf("==== View_Registrations ====\n");
       length=sizeof(struct sockaddr_in); //Fixes Error(no idea why tho)
@@ -276,7 +276,7 @@ int main(int argc, char *argv[]){
         printf("  Registred: %s",buffer); //Print Events
       }
       /*
-      if(reg_bool==1){// If there was a registration
+      if(reg_bool==1){// If there was a registration current session(not from server)
         int i;
         for(i=0;i<reg_count;i++){
           printf("\n  You have sucesefully registred in %s",event.name[regist_arr[i]]); //Print all registrations
@@ -296,7 +296,7 @@ int main(int argc, char *argv[]){
 
 //==== ERROR ====//
 void error(char *msg) {
-    perror(msg);
-    exit(0);
+  perror(msg);
+  exit(0);
 }
 //===============//

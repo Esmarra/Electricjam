@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
     strtok(buf, "\n"); // Removes \n from string (NOT Optimal, but it works)
     //printf("\n Server Buffer>%s<",buf ); //Display whats in the buffer [DEBUG]
 
-	//==== Send Event Number ====//
+  	//==== Send Event Number ====//
     if(strcmp(buf,"n_event")==0){ //Repplys Number of envents flag
       printf("\nnum event:%d\n",event.num_event );
       // I Can't use little endian, so i use this methd to send (int)
@@ -126,9 +126,9 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       n = sendto(sock,temp,strlen(temp),0,(struct sockaddr *)&from,fromlen); //Send (char)
       if (n < 0) error("Error sending num_event");
     }
-	//===========================//
-	
-	//==== Get UserName - Send User Number ====//
+  	//===========================//
+
+  	//==== Get UserName - Send User Number ====//
     if(strcmp(buf,"n_usere")==0){//Enter User Validation Mode flag
       printf("\n Waiting for username\n");
       bzero(buf,256);
@@ -158,9 +158,9 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         user_num++;//Incrementa o nº users
       }
     }
-	//=========================================//
-	
-	//==== Send Events to Client ====//
+  	//=========================================//
+
+  	//==== Send Events to Client ====//
     if(strcmp(buf,"d_event")==0){ //Send events to Client flag
       printf("\n Displaying Events:\n");
       // send num event to server first
@@ -171,9 +171,9 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         if (n < 0) error("Error sending events name");
 		   }
     }
-	//===============================//
-	
-	//==== Get Event_Register Number and User Number ====//
+	  //===============================//
+
+	  //==== Get Event_Register Number and User Number ====//
     if(strcmp(buf,"n_regis")==0){ //Start Registration flag
       printf("\n Waiting for client to Register: \n");
       //Revive ev_reg and urs_num at same time? use strtok to split string?
@@ -200,7 +200,7 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
           bool_reg=1; //Register not valid
         }
       }
-	
+
       if(bool_reg==0){ //If Registration is Valid
         length=sizeof(struct sockaddr_in);
         n = sendto(sock,"yes_reg",7,0,(struct sockaddr *)&from,fromlen); //Send ACK Yes
@@ -216,9 +216,9 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         printf(" Client %s has Registered\n",user[current_reg_user].username); //[DEBUG]
       }
     }
-	//===================================================//
-	
-	//==== Get User Number - Send Reg_Array size for current_user ====//
+  	//===================================================//
+
+  	//==== Get User Number - Send Reg_Array size for current_user ====//
     if(strcmp(buf,"get_reg")==0){
       printf("\n Waiting for user Request\n" );
       bzero(buf,256);
@@ -252,16 +252,16 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         }
 		  }
     }
-	//================================================================//
-	
-	//==== Test/Debug ====//
+  	//================================================================//
+
+  	//==== Test/Debug ====//
     if(strcmp(buf,"n_teste")==0){ //Test
       printf("\n Testing:\n");
       length=sizeof(struct sockaddr_in);
       n = sendto(sock,"ping",4,0,(struct sockaddr *)&from,fromlen);
       if (n < 0) error("Error sending ping to Client");
     }
-	//====================//
+  	//====================//
   }//while
   exit(0);
   return 0;
