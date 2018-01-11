@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
   struct sockaddr_in from;
   char buf[1024];
 
-  if (argc < 2) {
+  if (argc < 2) { //Valid Input's Check
      fprintf(stderr, "ERROR, no port provided\n");
      exit(0);
   }

@@ -77,7 +77,7 @@ int main(int argc, char *argv[]){
   int ev_reg_num; //Register Event (var)
   //======================//
 
-  if (argc < 3) { // Valid Input's Check
+  if (argc < 3) { //Valid Input's Check
      fprintf(stderr,"usage %s hostname port\n", argv[0]);
      exit(0);
   }
