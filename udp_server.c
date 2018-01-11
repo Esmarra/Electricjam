@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
      exit(0);
   }
 
-  //==== Start Socket Datagram (UDP) ===//
+  //==== Start Socket Datagram (UDP) ====//
   sock=socket(AF_INET, SOCK_DGRAM, 0);
   if (sock < 0) error("Error in opening socket");
   length = sizeof(server);
@@ -107,8 +107,7 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
   if (bind(sock,(struct sockaddr *)&server,length)<0) error("Error in binding");
   fromlen = sizeof(struct sockaddr_in);
 
-  //forever cicle for clients
-  while (1) {
+  while (1) { //forever cicle for clients
     write(1,"Waiting for a client...",23);
     //receives datagrama that identifies client
     n = recvfrom(sock,buf,1024,0,(struct sockaddr *)&from,&fromlen);
@@ -118,7 +117,8 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
     strtok(buf, "\n"); // Removes \n from string (NOT Optimal, but it works)
     //printf("\n Server Buffer>%s<",buf ); //Display whats in the buffer [DEBUG]
 
-    if(strcmp(buf,"n_event")==0){ //Repplys Number of envents
+	//==== Send Event Number ====//
+    if(strcmp(buf,"n_event")==0){ //Repplys Number of envents flag
       printf("\nnum event:%d\n",event.num_event );
       // I Can't use little endian, so i use this methd to send (int)
       char temp[]=""; //Create a temp Char (Sends num_event)
@@ -126,8 +126,10 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       n = sendto(sock,temp,strlen(temp),0,(struct sockaddr *)&from,fromlen); //Send (char)
       if (n < 0) error("Error sending num_event");
     }
-
-    if(strcmp(buf,"n_usere")==0){//Enter User Validation Mode
+	//===========================//
+	
+	//==== Get UserName - Send User Number ====//
+    if(strcmp(buf,"n_usere")==0){//Enter User Validation Mode flag
       printf("\n Waiting for username\n");
       bzero(buf,256);
       n = recvfrom(sock,buf,256,0,(struct sockaddr *)&from,&fromlen); //Get Username from client
@@ -156,8 +158,10 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         user_num++;//Incrementa o nº users
       }
     }
-
-    if(strcmp(buf,"d_event")==0){ //Send events to Client
+	//=========================================//
+	
+	//==== Send Events to Client ====//
+    if(strcmp(buf,"d_event")==0){ //Send events to Client flag
       printf("\n Displaying Events:\n");
       // send num event to server first
       int i;
@@ -167,8 +171,10 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         if (n < 0) error("Error sending events name");
 		   }
     }
-
-    if(strcmp(buf,"n_regis")==0){ //Start Registration
+	//===============================//
+	
+	//==== Get Event_Register Number and User Number ====//
+    if(strcmp(buf,"n_regis")==0){ //Start Registration flag
       printf("\n Waiting for client to Register: \n");
       //Revive ev_reg and urs_num at same time? use strtok to split string?
       bzero(buf,256);
@@ -184,24 +190,22 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
       current_reg_user=atoi(buf);
       printf(" Usr_num from client: %d\n", current_reg_user); //[DEBUG]
       //Do Client Validation Here (Array?) Qsort?
-      //if()
       bool_reg=0;
       int i;
       for(i=0;i<(sizeof(user[current_reg_user].regist_arr)/sizeof(int));i++){
-        if(user[current_reg_user].regist_arr[i]==ev_reg_num){//Evento ja esta no array
-          //Enviar nao registo
+        if(user[current_reg_user].regist_arr[i]==ev_reg_num){//Caso evento ja esta no array do current user
           length=sizeof(struct sockaddr_in);
-          n = sendto(sock,"not_reg",7,0,(struct sockaddr *)&from,fromlen);
+          n = sendto(sock,"not_reg",7,0,(struct sockaddr *)&from,fromlen);//Enviar Registo Invalido
           if (n < 0) error("Error sending not_reg to Client");
           bool_reg=1; //Register not valid
         }
       }
-      //user.username[i]
-      if(bool_reg==0){ //Valid Reg
+	
+      if(bool_reg==0){ //If Registration is Valid
         length=sizeof(struct sockaddr_in);
-        n = sendto(sock,"yes_reg",7,0,(struct sockaddr *)&from,fromlen);
+        n = sendto(sock,"yes_reg",7,0,(struct sockaddr *)&from,fromlen); //Send ACK Yes
         if (n < 0) error("Error sending yes_reg to Client");
-        user[current_reg_user].regist_arr[reg_count]=ev_reg_num;
+        user[current_reg_user].regist_arr[reg_count]=ev_reg_num; //Store Event Registration on current_user array
         reg_count++;
         FILE *outfile;
         outfile = fopen(reg_file[ev_reg_num],"a"); // Will append to current file
@@ -209,10 +213,12 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
         mytime = time(NULL);
         fprintf(outfile,"User %s is going. %s",user[current_reg_user].username,ctime(&mytime)); //Write to file
         fclose(outfile); //Close wirite file
-        printf(" Client %s has Registered\n",user[current_reg_user].username);
+        printf(" Client %s has Registered\n",user[current_reg_user].username); //[DEBUG]
       }
     }
-
+	//===================================================//
+	
+	//==== Get User Number - Send Reg_Array size for current_user ====//
     if(strcmp(buf,"get_reg")==0){
       printf("\n Waiting for user Request\n" );
       bzero(buf,256);
@@ -238,21 +244,24 @@ int main(int argc, char *argv[]) { // Call ./udp_server 50000
 
       printf(" Sending User:%s Regitrations\n",user[current_reg_user].username);
 
-      for(i=0;i<(sizeof(user[current_reg_user].regist_arr)/sizeof(int));i++){
-        if(user[current_reg_user].regist_arr[i]!=0){
+      for(i=0;i<(sizeof(user[current_reg_user].regist_arr)/sizeof(int));i++){//Cycle Reg_Array
+        if(user[current_reg_user].regist_arr[i]!=0){ //Dif Zero
           printf("  User %s going to Event: %s",user[current_reg_user].username,event.name[user[current_reg_user].regist_arr[i]]);
           n = sendto(sock,event.name[user[current_reg_user].regist_arr[i]],sizeof(event.name[user[current_reg_user].regist_arr[i]]),0,(struct sockaddr *)&from,fromlen);
           if (n < 0) error("Error sending registred events");
         }
 		  }
     }
-
+	//================================================================//
+	
+	//==== Test/Debug ====//
     if(strcmp(buf,"n_teste")==0){ //Test
       printf("\n Testing:\n");
       length=sizeof(struct sockaddr_in);
       n = sendto(sock,"ping",4,0,(struct sockaddr *)&from,fromlen);
       if (n < 0) error("Error sending ping to Client");
     }
+	//====================//
   }//while
   exit(0);
   return 0;
