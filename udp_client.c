@@ -88,7 +88,7 @@ int main(int argc, char *argv[]){
     //printf("INPUT:%s\n",server_ip); [DEBUG]
     //==== Head Display ====//
     printf("\n -----------------------------------------------\n");
-    printf("  SetEvent Client 2017\n");
+    printf("  SetEvent Client 2017/2018\n");
     printf("  by Miguel Maranha & Vitaliy Rudenko (DEEC-UC)\n");
     printf("  Current event server: %s\n",server_ip);
     printf("  Current port: %d",current_port);
